@@ -1,0 +1,594 @@
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.login1
+{
+position:absolute;
+top: 100;
+left: 35;
+
+height: 400;
+width: 700;
+}
+
+.login
+{
+position:absolute;
+top: 100;left: 75;
+
+height: 400;
+width: 300;
+}
+
+.student
+{
+position:absolute;
+top: 40;
+left: 450;
+
+height: 500;
+width: 350;	
+}
+
+.carousel 
+{
+position:absolute;
+top: 90;
+left: 900;
+border: 0px solid black;
+height: 500;
+width:1500;	
+
+}
+
+.image
+{
+ height: 800;
+ width: 100%;
+}
+.how
+{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: -1;
+	background: rgba(0,0,0,.8);
+	background-size: 100% 100%;
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+
+.how1
+{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 10;
+	background: rgba(0,0,0,.8);
+	background-size: 100% 100% ;
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+
+.how2
+{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 99;
+	background: white;
+	background-size: 100% 100% ;
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+
+.how3
+{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 100;
+	background: white;
+	background-size: 100% 100% ;
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+.how4
+{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 101;
+	background: white;
+	background-size: 100% 100% ;
+	height: 100%;
+	width: 100%;
+	border: 0px solid black;
+}
+
+
+
+.many 
+{
+	position:absolute;
+	left: 20%;
+	top: 20%;
+	color:white;
+	height:40%;
+	width: 60%;
+		z-index: 10;
+	border: 20px inset Blue;
+	opacity: .8;
+	padding: 0% 0% 20% 0%;
+	background-size: cover;
+	border-radius: 10px;
+	box-shadow: 1px 5px 10px 5px #000000;
+	text-align: center;
+	font-style: oblique;
+	font-family: AR berkley medium;	
+	font-size: 20;
+	 
+}
+
+
+.many1 
+{
+	position:absolute;
+	left: 25%;
+	top: 2px;
+	color:black;
+	width: 40%;
+		z-index: 100;
+	border: 2px inset Blue;
+	opacity: .8;
+
+	padding: 0% 0% 20% 0%;
+	background-size: cover;
+	border-radius: 10px;
+	box-shadow: 1px 5px 10px 5px #000000;
+	text-align: right;
+
+	font-family: AR berkley medium;	
+	font-size: 20;
+	 
+}
+
+
+.many2 
+{
+	position:absolute;
+	left: 25%;
+	top: 2px;
+	color:black;
+	width: 50%;
+		z-index: 101;
+	border: 10px inset Blue;
+	opacity: .8;
+
+	padding: 0% 0% 20% 0%;
+	background-size: cover;
+	border-radius: 10px;
+	box-shadow: 1px 5px 10px 5px #000000;
+	text-align: center;
+
+	font-family: arial medium;	
+	font-size: 20;
+	 
+}
+
+
+
+.view
+{
+	position:absolute;
+	left: 0%;
+	top: 0%;
+	border: 4px groove gray;
+	border-radius: 4px;
+	color:black;
+	height: 100%;
+	width: 100%;
+	overflow-y: scroll;	
+}
+
+
+
+.loginbutton
+	{
+		background-image: url(Design/Buttons/Loginbutton1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 0px;
+		height: 50;
+		width:110;
+		transition: background-image .5s;
+	}
+	
+	.loginbutton:active	
+	{
+		background-image: url(Design/Buttons/Loginbutton1.png);
+	}
+
+	.loginbutton:hover
+	{
+		background-image: url(Design/Buttons/Loginbutton3.png);
+	}
+	
+	.loginbutton:hover:after
+	{
+		background-image: url(Design/Buttons/Loginbutton2.png);
+	}
+
+
+.fsbbutton
+	{
+		background-image: url(Design/Buttons/FSB1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 10px;
+		height: 50;
+		width:110;
+		transition: background-image .5s;
+	}
+	
+	.fsbbutton:active	
+	{
+		background-image: url(Design/Buttons/FSB.png);
+	}
+
+	.fsbbutton:hover
+	{
+		background-image: url(Design/Buttons/FSB.png);
+	}
+	
+	.fsbbutton:hover:after
+	{
+		background-image: url(Design/Buttons/FSB2.png);
+	}
+
+.mglbutton
+	{
+		background-image: url(Design/Buttons/mgl1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 10px;
+		height: 50;
+		width:110;
+		transition: background-image .5s;
+	}
+	
+	.mglbutton:active	
+	{
+		background-image: url(Design/Buttons/mgl.png);
+	}
+
+	.mglbutton:hover
+	{
+		background-image: url(Design/Buttons/mgl.png);
+	}
+	
+	.mglbutton:hover:after
+	{
+		background-image: url(Design/Buttons/mgl2.png);
+	}
+
+
+.activatebutton
+	{
+		background-image: url(Design/Buttons/activate1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 0px;
+		height: 50;
+		width:110;
+		transition: background-image .5s;
+	}
+	
+	.activatebutton:active	
+	{
+		background-image: url(Design/Buttons/activate.png);
+	}
+
+	.activatebutton:hover
+	{
+		background-image: url(Design/Buttons/activate.png);
+	}
+	
+	.activatebutton:hover:after
+	{
+		background-image: url(Design/Buttons/activate1.png);
+	}
+
+
+.signupbutton
+	{
+		background-image: url(Design/Buttons/register.jpg);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 0px;
+		height: 50;
+		width:110;
+		transition: background-image .5s;
+	}
+	
+	.signupbutton:active	
+	{
+		background-image: url(Design/Buttons/register.jpg);
+	}
+
+	.signupbutton:hover
+	{
+		background-image: url(Design/Buttons/register2.jpg);
+	}
+	
+	.signupbutton:hover:after
+	{
+		background-image: url(Design/Buttons/register1.jpg);
+	}
+
+
+.addsbutton
+	{
+		background-image: url(Design/Buttons/Adds1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 0px;
+		height: 50;
+		width:110;
+transition: background-image 1s;
+	}
+	
+	.addsbutton:active	
+	{
+		background-image: url(Design/Buttons/Adds1.png);
+	}
+
+	.addsbutton:hover
+	{
+		background-image: url(Design/Buttons/Adds3.png);
+	}
+	
+	.addsbutton:hover:after
+	{
+		background-image: url(Design/Buttons/Adds2.png);
+	}
+
+.editsbutton
+	{
+		background-image: url(Design/Buttons/Edits1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 110px;
+		height: 50;
+		width:110;
+transition: background-image 1s;
+	}
+	
+	.editsbutton:active	
+	{
+		background-image: url(Design/Buttons/Edits1.png);
+	}
+
+	.editsbutton:hover
+	{
+		background-image: url(Design/Buttons/Edits3.png);
+	}
+	
+	.editsbutton:hover:after
+	{
+		background-image: url(Design/Buttons/Edits2.png);
+	}
+
+
+
+.Delsbutton
+	{
+		background-image: url(Design/Buttons/Dels1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 220px;
+		height: 50;
+		width:110;
+transition: background-image 1s;
+	}
+	
+	.Delsbutton:active	
+	{
+		background-image: url(Design/Buttons/Dels1.png);
+	}
+
+	.Delsbutton:hover
+	{
+		background-image: url(Design/Buttons/Dels3.png);
+	}
+	
+	.Delsbutton:hover:after
+	{
+		background-image: url(Design/Buttons/Dels2.png);
+	}
+
+
+.logoutbutton
+	{
+		background-image: url(Design/Buttons/logout1.png);
+		background-position:-9 -4;
+		background-repeat: no-repeat;
+		background-size: 117% 120%;
+		border-radius: 10px;
+		position:absolute;
+		left: 0px;
+		height: 50;
+		width:110;
+transition: background-image 1s;
+	}
+	
+	.logoutbutton:active	
+	{
+		background-image: url(Design/Buttons/logout1.png);
+	}
+
+	.logoutbutton:hover
+	{
+		background-image: url(Design/Buttons/logout.png);
+	}
+	
+	.logoutbutton:hover:after
+	{
+		background-image: url(Design/Buttons/logout2.png);
+	}
+
+
+}
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 16px;
+  padding: 15px;
+  width: 120px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+ 
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '»';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+
+
+.button1 {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.button1.disabled {
+  opacity: 0.65; 
+  cursor: not-allowed;
+}
+
+
+.button2 {
+  background-color: white; /* Green */
+  border: none;
+  color: black;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  
+  font-size: 12px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid white;
+}
+
+.button2:hover {
+  background-color: green;
+  color: white;
+}
+
+
+
+
+
+
+
+div.a {
+  text-transform: uppercase;
+}
+
+div.b {
+  text-transform: lowercase;
+}
+
+div.c {
+  text-transform: capitalize;
+}
+
+

@@ -1,0 +1,71 @@
+$id1 = $_POST['shadowE1x'];
+
+
+  $resultac=mysql_query("SELECT * FROM employees where appno='$id1'" );
+        while($rowac=mysql_fetch_array($resultac))
+                {
+                 
+                                  
+                 if ($rowac[33]=="SHORTLISTED")
+                        {
+
+                  if ($corow==1)
+                            {
+
+                         mysql_query("UPDATE employees
+                          SET
+                          
+                          actionpoint = ''
+                          WHERE
+                          appno = '$id1'
+                          ");
+                       
+                            $dtnow=date("m/d/Y");
+
+                            $resultchk = mysql_query("select * from shortlist_master WHERE shortlistnameto = '$data' and appnumto='$id1' ");
+                                  if (mysql_num_rows($resultchk) == 0) {
+                                  // kapag wala pang user name na kaparehas
+                                                  
+                                            $kekelpogi="Cannot locate applicant !";
+
+                                                    }
+                                                      else{
+                                                    
+                                       mysql_query("DELETE  from shortlist_master
+                                      WHERE
+                                      shortlistnameto = '$data' and appnumto='$id1'
+                                      ");
+
+
+                                                $kekelpogi = "1Applicant Deleted from Shortlist!";
+                                                    
+                                                          }
+                           }
+                         }   
+                      
+           else
+                       {
+                         $dtnow=date("m/d/Y");
+
+                            $resultchk1 = mysql_query("select * from shortlist_master WHERE shortlistnameto = '$data' and appnumto='$id1' ");
+                                  if (mysql_num_rows($resultchk1) == 0) {
+                                  // kapag wala pang user name na kaparehas
+                                                  
+                                            $kekelpogi="Cannot locate applicant !";
+
+                                                    }
+                                                      else{
+                                                    
+                                       mysql_query("DELETE  from shortlist_master
+                                      WHERE
+                                      shortlistnameto = '$data' and appnumto='$id1'
+                                      ");
+
+
+                                                $kekelpogi = "2Applicant Deleted from Shortlist!";
+                                                    
+                                                          }
+                       }                       
+
+
+   }
