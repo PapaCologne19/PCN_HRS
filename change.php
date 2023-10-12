@@ -3,7 +3,7 @@
 include("connect.php");
 
 
-mysql_query("UPDATE city
+mysqli_query($link, "UPDATE city
 					SET
 					
 					regDesc = '17'

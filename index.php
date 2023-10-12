@@ -27,7 +27,7 @@ if (isset($_POST['SubButton'])) {
 
   if (mysqli_num_rows($result) == 0) {
     // kapag wala pang user name na kaparehas
-    $kekel = "No Such User Here !";
+    // $kekel = "No Such User Here !";
     echo '<div class = "how1"><div class = "many"><br> 
     ' . $kekel . '<br>
     <form action = "" method = "POST"><br>
@@ -197,7 +197,7 @@ if (isset($_POST['SavenewUser1'])) {
 
 
   if (strlen($lastname) == 0 || strlen($firstname) == 0 || strlen($contactno) == 0 || $fms == "Select FMS Name" || strlen($uname) == 0 || strlen($pname) == 0) {
-    $kekelpogi = "All Fields is required. Try Again !";
+    $kekelpogi = "All Fields are required. Try Again !";
   } else {
 
     //check if username exist na

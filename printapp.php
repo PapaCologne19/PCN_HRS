@@ -83,7 +83,7 @@ if (isset($_POST['Back'])) {
       text-align: right;
     }
 
-    .form-control{
+    .form-control {
       border-top: none;
       border-left: none;
       border-right: none;
@@ -92,9 +92,10 @@ if (isset($_POST['Back'])) {
       margin-top: 1rem;
     }
 
-    .form-group{
+    .form-group {
       margin-top: 1rem !important;
     }
+
     .many1 {
       position: absolute;
       left: 0%;
@@ -112,11 +113,13 @@ if (isset($_POST['Back'])) {
       font-size: 12px;
     }
 
-    @media screen and (max-width: 840px){
-      .name .name{
+    @media screen and (max-width: 840px) {
+      .name .name {
         font-size: 20px;
       }
-      .name .address, .name .number{
+
+      .name .address,
+      .name .number {
         font-size: 12px;
       }
     }

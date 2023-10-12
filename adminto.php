@@ -1,7 +1,5 @@
-
-
-
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,20 +7,21 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <title>HRS</title>
 </head>
+
 <body>
   <header class="cd-main-header js-cd-main-header">
     <div class="cd-logo-wrapper">
       <a href="#0" class="cd-logo"><img src="assets/img/pcnlogo1.png" alt="Logo"></a>
     </div>
-    
-<!--    <div class="cd-search js-cd-search">
+
+    <!--    <div class="cd-search js-cd-search">
       <form>
         <input class="reset" type="search" placeholder="Search...">
       </form>
     </div>
- --> 
+ -->
     <button class="reset cd-nav-trigger js-cd-nav-trigger" aria-label="Toggle menu"><span></span></button>
-  
+
     <ul class="cd-nav__list js-cd-nav__list">
 
       <!--<li class="cd-nav__item"><a href="#0">Tour</a></li>
@@ -34,7 +33,7 @@
           <img src="assets/img/cd-avatar.svg" alt="avatar">
           <span>Account</span>
         </a>
-    
+
         <ul class="cd-nav__sub-list">
           <li class="cd-nav__sub-item"><a href="#0">My Account</a></li>
           <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>
@@ -44,7 +43,7 @@
     </ul>
 
   </header> <!-- .cd-main-header -->
-  
+
   <main class="cd-main-content">
     <nav class="cd-side-nav js-cd-side-nav">
       <ul class="cd-side__list js-cd-side__list">
@@ -80,21 +79,21 @@
         </li>
       </ul>
     -->
-      <ul class="cd-side__list js-cd-side__list">
-        <!--<li class="cd-side__label"><span>Recruitment Menu</span></li>-->
-        <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-          <a href="#0">Reports</a>
-          
-          <ul class="cd-side__sub-list">
-            <form action = "" method = "POST">
-            <li class="cd-side__sub-item"><a><BUTTON class="btn" name = "recruitmentr">Recruitment Repots</button></a></li>
-            <li class="cd-side__sub-item"><a><BUTTON class="btn" name = "shorlistr">Shortlisting Repots</button></a></li>
-            <li class="cd-side__sub-item"><a><BUTTON class="btn" name = "additionalr">Additional Repots</button></a></li>
-            </form>
-          </ul>
-        </li>
+        <ul class="cd-side__list js-cd-side__list">
+          <!--<li class="cd-side__label"><span>Recruitment Menu</span></li>-->
+          <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
+            <a href="#0">Reports</a>
 
-        <!--<li class="cd-side__item cd-side__item--has-children cd-side__item--images js-cd-item--has-children">
+            <ul class="cd-side__sub-list">
+              <form action="" method="POST">
+                <li class="cd-side__sub-item"><a><BUTTON class="btn" name="recruitmentr">Recruitment Repots</button></a></li>
+                <li class="cd-side__sub-item"><a><BUTTON class="btn" name="shorlistr">Shortlisting Repots</button></a></li>
+                <li class="cd-side__sub-item"><a><BUTTON class="btn" name="additionalr">Additional Repots</button></a></li>
+              </form>
+            </ul>
+          </li>
+
+          <!--<li class="cd-side__item cd-side__item--has-children cd-side__item--images js-cd-item--has-children">
           <a href="#0">Images</a>
           
           <ul class="cd-side__sub-list">
@@ -116,29 +115,28 @@
           </ul>
         </li>
         -->
-  
-      </ul>
-    
-      <ul class="cd-side__list js-cd-side__list">
-  
-        <form action = "" method = "POST">
-        <li class="cd-side__label"><span>Action</span></li>
-        <li class="cd-side__btn"><a><BUTTON class="btn" name = "addclient">+ Create New Client</button></li>
-        <li class="cd-side__btn"><a><BUTTON class="btn" name = "addproject">+ Create New Project</button></a></li>
-        </form>
 
-      </ul>
+        </ul>
+
+        <ul class="cd-side__list js-cd-side__list">
+
+          <form action="" method="POST">
+            <li class="cd-side__label"><span>Action</span></li>
+            <li class="cd-side__btn"><a><BUTTON class="btn" name="addclient">+ Create New Client</button></li>
+            <li class="cd-side__btn"><a><BUTTON class="btn" name="addproject">+ Create New Project</button></a></li>
+          </form>
+
+        </ul>
     </nav>
-  
 
 
 
 
 
-<?php
-if(isset($_POST['addclient']))
-   {
-      Echo '
+
+    <?php
+    if (isset($_POST['addclient'])) {
+      echo '
     <div class="cd-content-wrapper">
   
   <h1>Client</h1>
@@ -175,13 +173,12 @@ if(isset($_POST['addclient']))
       </div>
     </div> <!-- .content-wrapper -->
   ';
-  } 
+    }
 
 
 
-if(isset($_POST['addproject']))
-   {
-      Echo '
+    if (isset($_POST['addproject'])) {
+      echo '
     <div class="cd-content-wrapper">
 
 
@@ -238,13 +235,12 @@ if(isset($_POST['addproject']))
 
     </div> <!-- .content-wrapper -->
   ';
-  } 
+    }
 
 
 
-if(isset($_POST['recruitmentr']))
-   {
-      Echo '
+    if (isset($_POST['recruitmentr'])) {
+      echo '
     <div class="cd-content-wrapper">
       <div class="text-component text-center">
 
@@ -257,12 +253,11 @@ recruitmentr
       </div>
     </div> <!-- .content-wrapper -->
   ';
-  } 
+    }
 
 
-if(isset($_POST['shorlistr']))
-   {
-      Echo '
+    if (isset($_POST['shorlistr'])) {
+      echo '
     <div class="cd-content-wrapper">
       <div class="text-component text-center">
 shortlistr
@@ -275,11 +270,10 @@ shortlistr
       </div>
     </div> <!-- .content-wrapper -->
   ';
-  } 
+    }
 
-if(isset($_POST['additionalr']))
-   {
-      Echo '
+    if (isset($_POST['additionalr'])) {
+      echo '
     <div class="cd-content-wrapper">
       <div class="text-component text-center">
 additionalr
@@ -292,16 +286,15 @@ additionalr
       </div>
     </div> <!-- .content-wrapper -->
   ';
-  } 
+    }
 
 
-?>
+    ?>
 
   </main> <!-- .cd-main-content -->
   <script src="assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
   <script src="assets/js/menu-aim.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
+
 </html>
-
-

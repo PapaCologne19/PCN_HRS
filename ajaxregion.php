@@ -3,8 +3,8 @@
 include ("connect.php");
 
 
-    $resultrg =mysql_query("SELECT * FROM city where regDesc ='".$_POST['city_code']."' order by citymunDesc asc");
-          while($rowrg=mysql_fetch_array($resultrg))
+    $resultrg =mysqli_query($link, "SELECT * FROM city where regDesc ='".$_POST['city_code']."' order by citymunDesc asc");
+          while($rowrg=mysqli_fetch_array($resultrg))
          {
 
          $array[] = array("city_name" => $rowrg['2']);

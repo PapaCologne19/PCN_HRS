@@ -34,12 +34,12 @@ $output = '';
              </tr>   
   ';
 
-$resultx = mysql_query("SELECT * FROM deployment_history where appno_d='$empno2' order by emp_startdate_d DESC");
-while($rowx=mysql_fetch_row($resultx))
+$resultx = mysqli_query($link, "SELECT * FROM deployment_history where appno_d='$empno2' order by emp_startdate_d DESC");
+while($rowx=mysqli_fetch_row($resultx))
 {  
 
-  $resulteml = mysql_query("SELECT * FROM employees where appno=$rowx[5]");
-              while($roweml=mysql_fetch_row($resulteml))
+  $resulteml = mysqli_query($link, "SELECT * FROM employees where appno=$rowx[5]");
+              while($roweml=mysqli_fetch_row($resulteml))
               { 
 
 

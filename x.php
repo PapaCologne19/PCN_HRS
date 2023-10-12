@@ -11,4 +11,3 @@ $word->Documents[1]->SaveAs($new_file);
 //8. free the object
 $word->Quit();
 $word = null;
-?>

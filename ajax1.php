@@ -3,8 +3,8 @@
 include ("connect.php");
 
 
-    $resultrg1 =mysql_query("SELECT * FROM client_company where company_name ='".$_POST['city_code1']."' ");
-          while($rowrg1=mysql_fetch_array($resultrg1))
+    $resultrg1 =mysqli_query($link, "SELECT * FROM client_company where company_name ='".$_POST['city_code1']."' ");
+          while($rowrg1=mysqli_fetch_array($resultrg1))
          {
 
          $array[] = array("city_name1" => $rowrg1['5']);

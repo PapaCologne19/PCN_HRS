@@ -16,4 +16,3 @@
   // print_r($fileName);
           $_SESSION["photoko"]="upload/".$fileName;
                         header("location:recruitment.php");
-?>

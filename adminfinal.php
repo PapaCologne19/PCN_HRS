@@ -1,29 +1,27 @@
-<?php 
+<?php
 include("connect.php");
-    session_start();
+session_start();
 
-    
+
 
 
 
 
 date_default_timezone_set('Asia/Hong_Kong');
-$date = date('D : F d, Y'); 
+$date = date('D : F d, Y');
 
 
 
 
 
 
-if(isset($_POST['to_index']))
-   {
-      session_unset(); 
+if (isset($_POST['to_index'])) {
+  session_unset();
 
-// destroy the session 
-session_destroy(); 
+  // destroy the session 
+  session_destroy();
 
-       header("location:index.php");
-
+  header("location:index.php");
 }
 
 
@@ -36,79 +34,86 @@ session_destroy();
 
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-   
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
- 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
 
-<!--<script src="strap/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+
+  <!--<script src="strap/bootstrap.min.js"></script>
 <link rel="stylesheet" href="strap/bootstrap.min.css">-->
- <link rel="stylesheet" type="text/css" href="deo1.css">
+  <link rel="stylesheet" type="text/css" href="deo1.css">
 
 
-<!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!--<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>-->
 
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-<!--<script src="strap/jquery.min.js"></script>-->
-
-
-
- <!--for data table-->
-<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+  <!--<script src="strap/jquery.min.js"></script>-->
 
 
+
+  <!--for data table-->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
 
 
 
 
 
-<style type="text/css">
-        #results { padding:10px; border:1px solid; background:#ccc; }
 
-    .bs-example{
+
+  <style type="text/css">
+    #results {
+      padding: 10px;
+      border: 1px solid;
+      background: #ccc;
+    }
+
+    .bs-example {
       margin: 20px;
     }
 
-body {font-family: Arial;
-font-size: 20}
+    body {
+      font-family: Arial;
+      font-size: 20
+    }
 
-img {
-  border-radius: 8px;
-}
-
-</style>
-
-
-
+    img {
+      border-radius: 8px;
+    }
+  </style>
 
 
-  
+
+
+
+
   <title>HRS ADMIN</title>
 </head>
+
 <body>
 
 
-<?php
-                        
+  <?php
 
-if ($_SESSION["darkk"]=="green"){
-echo '
+
+  if ($_SESSION["darkk"] == "green") {
+    echo '
 
 
 
@@ -242,36 +247,29 @@ echo '
 
 
 ';
-
-}
-
-else
-
-{
- // kapag wala pang user name na kaparehas
-      $kekelpogi_index = "Page direct Un Authorized";
+  } else {
+    // kapag wala pang user name na kaparehas
+    $kekelpogi_index = "Page direct Un Authorized";
 
     // remove all session variables
 
-session_unset(); 
+    session_unset();
 
-// destroy the session 
-session_destroy(); 
-
-}
-?>
-
+    // destroy the session 
+    session_destroy();
+  }
+  ?>
 
 
 
 
-<?php
+
+  <?php
 
 
 
-if(isset($_POST['addclient']))
-   {
-      Echo '
+  if (isset($_POST['addclient'])) {
+    echo '
 
 
   <div class="cd-content-wrapper">
@@ -292,7 +290,7 @@ if(isset($_POST['addclient']))
                                           <select class="form-control cbo" name="area_coverage"   data-placeholder="" style= "height:45px;width:60%"> ;      
                                                            
                                                            ';
-                                                           echo '<option>Select One:</option> 
+    echo '<option>Select One:</option> 
                                                          <option value="NCR">NCR</option>
                                                          <option value="PROVINCIAL">PROVINCIAL</option>
                                                           <option value="NATIONWIDE">NATIONWIDE</option>
@@ -305,13 +303,12 @@ if(isset($_POST['addclient']))
                                <select class="form-control cbo" name="region_coverage"   data-placeholder="" style= "height:45px;width:60%" > ;      
                                                            
                                                            ';
-                                                           echo '<option>Select Region:</option> ';
-                                                          $resultrg =mysql_query("SELECT * FROM region");
-                                                                        while($rowrg=mysql_fetch_array($resultrg))
-                                                                    {
-                                                                       echo '<option  value="'.$rowrg[2].'">'.$rowrg[2].' </option> ';
-                                                                     }
-                                                                  echo '          
+    echo '<option>Select Region:</option> ';
+    $resultrg = mysqli_query($link, "SELECT * FROM region");
+    while ($rowrg = mysqli_fetch_array($resultrg)) {
+      echo '<option  value="' . $rowrg[2] . '">' . $rowrg[2] . ' </option> ';
+    }
+    echo '          
                                                            </select> 
                                                            </div>
 
@@ -325,7 +322,7 @@ if(isset($_POST['addclient']))
                    <select class="form-control cbo" name="client_status"   data-placeholder="" style= "height:45px;width:60%"> ;      
                                                            
                                                            ';
-                                                           echo '<option>Select One:</option> 
+    echo '<option>Select One:</option> 
                                                          <option value="0">ACTIVE</option>
                                                          <option value="1">NOT ACTIVE</option>
                                                           </select> 
@@ -348,79 +345,62 @@ if(isset($_POST['addclient']))
 
 
 ';
-    }
+  }
 
 
 
-if(isset($_POST['createit']))
-   {
-  $clientname1=$_POST['clientname'];
-  $area_coverage1=$_POST['area_coverage'];
-  $region_coverage1=$_POST['region_coverage'];
-  $client_address1=$_POST['client_address'];
-  $client_status1=$_POST['client_status'];
+  if (isset($_POST['createit'])) {
+    $clientname1 = $_POST['clientname'];
+    $area_coverage1 = $_POST['area_coverage'];
+    $region_coverage1 = $_POST['region_coverage'];
+    $client_address1 = $_POST['client_address'];
+    $client_status1 = $_POST['client_status'];
 
 
-     $resultclient = mysql_query("select * from client_company");
+    $resultclient = mysqli_query($link, "select * from client_company");
 
-                if (mysql_num_rows($result) == 0)
-
-                    {
-                              mysql_query("INSERT INTO client_company
+    if (mysqli_num_rows($result) == 0) {
+      mysqli_query($link, "INSERT INTO client_company
                                     (company_name,area,region,branch,address,is_deleted)
                                     VALUES
                                     ('$clientname1','$area_coverage1','$region_coverage1','BRANCH','$client_address1','$client_status1')
                                     ");
 
-                     $kekelpogi="Client Created !";         
-                    }                 
-                    else
-                    {
-                      $kekelpogi="Client name already existed !";
-                    }
+      $kekelpogi = "Client Created !";
+    } else {
+      $kekelpogi = "Client name already existed !";
+    }
+  }
 
 
-
-   }
-
-
-if(isset($_POST['projectit']))
-   {
-  $projectname1=$_POST['projectname'];
-  $clientname11=$_POST['client_name1'];
-  $applicant_count1=$_POST['applicant_count'];
-  $start_date1=$_POST['start_date'];
-  $end_date1=$_POST['end_date'];
-  $statusofproject1=$_POST['statusofproject'];
+  if (isset($_POST['projectit'])) {
+    $projectname1 = $_POST['projectname'];
+    $clientname11 = $_POST['client_name1'];
+    $applicant_count1 = $_POST['applicant_count'];
+    $start_date1 = $_POST['start_date'];
+    $end_date1 = $_POST['end_date'];
+    $statusofproject1 = $_POST['statusofproject'];
 
 
-     $resultclient = mysql_query("select * from projects");
+    $resultclient = mysqli_query($link, "select * from projects");
 
-                if (mysql_num_rows($result) == 0)
-
-                    {
-                              mysql_query("INSERT INTO projects
+    if (mysqli_num_rows($result) == 0) {
+      mysqli_query($link, "INSERT INTO projects
                                     (project_title,client_company_id,ewb_count,start_date,end_date,status,is_deleted)
                                     VALUES
                                     ('$projectname1','$clientname11','$applicant_count1','$start_date1','$end_date1','$statusofproject1','0')
                                     ");
 
-                     $kekelpogi="Project Created !";         
-                    }                 
-                    else
-                    {
-                      $kekelpogi="Project name already existing !";
-                    }
+      $kekelpogi = "Project Created !";
+    } else {
+      $kekelpogi = "Project name already existing !";
+    }
+  }
 
 
 
-   }
-
-
-
-if(isset($_POST['addproject']))
-   {
-      Echo '
+  if (isset($_POST['addproject'])) {
+    echo '
 
 
   <div class="cd-content-wrapper">
@@ -440,13 +420,12 @@ if(isset($_POST['addproject']))
                                <select class="form-control cbo" name="client_name1"   data-placeholder="" style= "height:45px;width:60%" > ;      
                                                            
                                                            ';
-                                                           echo '<option>Select Client:</option> ';
-                                                          $resultcn =mysql_query("SELECT * FROM client_company");
-                                                                        while($rowcn=mysql_fetch_array($resultcn))
-                                                                    {
-                                                                       echo '<option  value="'.$rowcn[0].'">'.$rowcn[1].' </option> ';
-                                                                     }
-                                                                  echo '          
+    echo '<option>Select Client:</option> ';
+    $resultcn = mysqli_query($link, "SELECT * FROM client_company");
+    while ($rowcn = mysqli_fetch_array($resultcn)) {
+      echo '<option  value="' . $rowcn[0] . '">' . $rowcn[1] . ' </option> ';
+    }
+    echo '          
                                                            </select> 
                                                            </div>
 
@@ -470,7 +449,7 @@ if(isset($_POST['addproject']))
                          <select class="form-control cbo" name="statusofproject"   data-placeholder="" style= "height:45px;width:60%"> ;      
                                                            
                                                            ';
-                                                           echo '<option>Select One:</option> 
+    echo '<option>Select One:</option> 
                                                          <option value="0">ACTIVE</option>
                                                          <option value="1">NOT ACTIVE</option>
                                                           </select> 
@@ -490,12 +469,12 @@ if(isset($_POST['addproject']))
 
       
 ';
-    }
+  }
 
 
 
 
-?>
+  ?>
 
 
 
@@ -509,35 +488,34 @@ if(isset($_POST['addproject']))
 
 
 
-</script>
+  </script>
 
 
 </body>
+
 </html>
 
 
 
 
 <?php
-  if(isset($kekelpogi))
-  {
+if (isset($kekelpogi)) {
   echo '<div class = "how1"><div class = "many"><br> 
-    '.$kekelpogi.'<br>
+    ' . $kekelpogi . '<br>
     <form action = "" method = "POST"><br>
     <input type = "submit" name = "" value = "Okay" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px"></form>
     
   </div></div>';
-  }
+}
 
 
-    if(isset($kekelpogi_index))
-  {
+if (isset($kekelpogi_index)) {
   echo '<div class = "how2"><div class = "many"><br> 
-    <font color="Black" size="12">'.$kekelpogi_index.'</font><br>
+    <font color="Black" size="12">' . $kekelpogi_index . '</font><br>
     <form action = "" method = "POST"><br>
     <input type = "submit" name = "to_index" value = "Okay" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
     </form>
     
   </div></div>';
-  }
+}
 ?>

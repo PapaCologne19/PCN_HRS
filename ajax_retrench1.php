@@ -3,8 +3,8 @@
 include ("connect.php");
 
 
-    $resultrg =mysql_query("SELECT * FROM deployment where is_deleted !='1' and appno_d ='".$_POST['city_code']."' ");
-          while($rowrg=mysql_fetch_array($resultrg))
+    $resultrg =mysqli_query($link, "SELECT * FROM deployment where is_deleted !='1' and appno_d ='".$_POST['city_code']."' ");
+          while($rowrg=mysqli_fetch_array($resultrg))
          {
 
          $array1[] = array("city_name1" => "Division: ".$rowrg['10']."  //  "."Department: ".$rowrg['11']."  //  "."Project: ".$rowrg['3'] ." //  "."Job Title: ".$rowrg['16']);
