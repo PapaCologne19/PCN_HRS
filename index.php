@@ -27,7 +27,7 @@ if (isset($_POST['SubButton'])) {
 
   if (mysqli_num_rows($result) == 0) {
     // kapag wala pang user name na kaparehas
-    // $kekel = "No Such User Here !";
+    $kekel = "No Such User Here !";
     echo '<div class = "how1"><div class = "many"><br> 
     ' . $kekel . '<br>
     <form action = "" method = "POST"><br>
@@ -37,7 +37,7 @@ if (isset($_POST['SubButton'])) {
   </div></div>';
   } else {
 
-    $query1 = "SELECT * FROM data WHERE uname = '$Username' and pname = '$Password'and approve = '1'";
+    $query1 = "SELECT * FROM data WHERE uname = '$Username' and pname = '$Password' and approve = '1'";
     $result1 = mysqli_query($link, $query1);
     while ($rowd = mysqli_fetch_array($result1))
 
@@ -93,6 +93,24 @@ if (isset($_POST['SubButton'])) {
         $result5 = mysqli_query($link, $query5);
 
         header("location:recruitment.php");
+
+      } else if($rowd[9] == "MRF"){
+        // Set session variables
+
+        $_SESSION["dmark"] = $rowd[7];
+        $_SESSION["dmark1"] = $rowd[7] . $rowd[8];
+        $_SESSION["darkk"] = "mrf";
+        $_SESSION["dept"] = $rowd[6];
+        $_SESSION["data"] = $rowd[0];
+
+        //log control
+        $dtnow = date("m/d/Y");
+
+        $query5 = "INSERT INTO log(Username, Datelog, time, activitynya) VALUES('$rowd[7]','$dtnow',now(),'RECRUITMENT login Accepted')";
+        $result5 = mysqli_query($link, $query5);
+
+        header("location: mrf/form.php");
+
       } else if ($rowd[9] == "CASHIER") {
 
         // Set session variables

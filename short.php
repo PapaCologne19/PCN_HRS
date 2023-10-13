@@ -6,9 +6,6 @@ session_start();
 $data = $_SESSION["data"];
 $view = "Add Applicant to Shortlist (" . $data . ")";
 
-//$data1=$_SESSION["data1"];
-
-
 
 
 if (isset($_POST['displaymo'])) {
@@ -33,18 +30,43 @@ if (isset($_POST['Back1'])) {
 }
 
 
+
 ?>
-
-
-
 
 
 
 <html>
 
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=7">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito&family=Inter&family=Julius+Sans+One&family=Poppins&family=Quicksand:wght@400;500&family=Roboto&family=Thasadith&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="deo1.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+  <!--for data table-->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
 
   <style>
+    *{
+      font-family: 'Roboto', sans-serif;
+      text-transform: capitalize !important;
+    }
     .how2 {
       position: absolute;
       top: 0;
@@ -58,10 +80,8 @@ if (isset($_POST['Back1'])) {
     }
 
     .notification {
-      background-color: #555;
-      color: green;
+      color: black;
       text-decoration: none;
-      padding: 15px 26px;
       position: relative;
       display: inline-block;
       border-radius: 2px;
@@ -75,66 +95,49 @@ if (isset($_POST['Back1'])) {
       position: absolute;
       top: -10px;
       right: -10px;
-      padding: 5px 10px;
+      padding: 2px 5px;
       border-radius: 50%;
-      background-color: red;
+      background-color: #D80032;
       color: white;
     }
+    input{
+      text-transform: lowercase;
+    }
   </style>
-
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="deo1.css">
-
-
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-
-
-  <!--for data table-->
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
 </head>
 
 <body>
 
 
-  <center>
+  <center class="how2">
 
     <?php
     echo '
             <form action = "" method = "POST">
-            <button class="button btn-success" Name ="Back" style="float:right;width:150px;height:40px"><span>BACK</span></button>
-             </form>
+              <button class="btn btn-success btnsall" Name ="Back" style="float:right;"><span>BACK</span></button>
+            </form>
+            <br><br><br>
 
-<h2><font color="black"> ' . $view . ' </font> </h2>
+            <h2 class="fs-2"><font color="black"> ' . $view . ' </font> </h2>
 
 
-                  <table id="example" class="table" style="width:90%;">
+                  <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end " style="width:100%;">
                               <thead>
                               <tr>
                               
-                              <th> Lastname. </th>
-                              <th> Firstname </th>
-                              <th> Middlename </th>
-                              <th> SSS </th>
-                              <th> Pag-ibig </th>
-                              <th> Philhealth </th>
-                              <th> TIN </th>
-                              <th> Police </th>
-                              <th> Brgy </th>
-                              <th> NBI </th>
-                              <th> PSA </th>
-                              <th> Status </th>
-                              <th> Action </th>
+                              <th class="text-white"> Lastname. </th>
+                              <th class="text-white"> Firstname </th>
+                              <th class="text-white"> Middlename </th>
+                              <th class="text-white"> SSS </th>
+                              <th class="text-white"> Pag-ibig </th>
+                              <th class="text-white"> Philhealth </th>
+                              <th class="text-white"> TIN </th>
+                              <th class="text-white"> Police </th>
+                              <th class="text-white"> Brgy </th>
+                              <th class="text-white"> NBI </th>
+                              <th class="text-white"> PSA </th>
+                              <th class="text-white"> Status </th>
+                              <th class="text-white"> Action </th>
 
                                </tr>   
                               </thead>
@@ -165,7 +168,7 @@ if (isset($_POST['Back1'])) {
                                            <input type = "hidden" name = "shadowd2" value = "' . $data . '">
                                            <input type = "hidden" name = "appname88" value = "' . $rowx[6] . ', ' . $rowx[7] . ' ' . $rowx[8] . '">
 
-                                          <button type="submit" name = "displaymo" class="button btn-success" style = "font-size:15;width:140px;height:40px">
+                                          <button type="submit" name = "displaymo" class="btn btn-success" style = "font-size:15;width:90px;">
                                           <span class="glyphicon glyphicon-edit" >' . $rowx[33] . '</span> 
                                           </button>
                                           </form>
@@ -188,12 +191,8 @@ if (isset($_POST['Back1'])) {
                                                   <input type = "hidden" name = "shad" value = "' . $corow . '">
                                                   
 
-                                                  <!--<button type="submit" name = "renew" id = "addtoshortlistbtn1" class="btn btn-info notification" style = "font-size:15;width:100px;height:40px">
-                                                  <span class="glyphicon glyphicon-edit" >UnTerminate</span> <span class="badge">' . $corow . '</span>
-                                                  </button>
-                                                  <button type="button" class="btn btn-info notification" style = "font-size:15;width:120px;height:40px" data-toggle="modal" data-target="#myModal_unter" ><span class="glyphicon glyphicon-edit" >Un_Terminate</span> <span class="badge">' . $corow . '</span></button>
-                                                        -->
-<button type="submit" name="unterminate_me" class="btn btn-info notification" style = "font-size:15;width:120px;height:40px"  ><span class="glyphicon glyphicon-edit" >Un_Terminate</span> <span class="badge">' . $corow . '</span></button>
+                                      
+<button type="submit" name="unterminate_me" class="btn btn-info notification" style = "font-size:15;"  ><span class="glyphicon glyphicon-edit" >Unterminate</span> <span class="badge">' . $corow . '</span></button>
                                                   </form></td>
                                                   ';
       } else {
@@ -208,8 +207,8 @@ if (isset($_POST['Back1'])) {
         echo '
                                                   <input type = "hidden" name = "shad" value = "' . $corow . '">
                
-                                                  <button type="submit" name = "addtoshortlistbtn1" id = "addtoshortlistbtn1" class="btn btn-info notification" style = "font-size:15;width:100px;height:40px">
-                                                  <span class="glyphicon glyphicon-edit" >ADD</span> <span class="badge">' . $corow . '</span>
+                                                  <button type="submit" name = "addtoshortlistbtn1" id = "addtoshortlistbtn1" class="btn btn-info notification">
+                                                    <span class="glyphicon glyphicon-edit" >Add</span> <span class="badge">' . $corow . '</span>
                                                   </button>
 
                                                   </form></td>
@@ -309,33 +308,31 @@ if (isset($_POST['Back1'])) {
       $emp_number2 = $_POST['appname88'];
 
 
-      echo '<div class = "how1"><div class = "many"><br> 
+      echo '<div class = "how1">
+        <div class = "many"><br> 
     Revert Termination: for ' . $emp_number2 . '<br>
-
-
-
-
-
-    <form action = "" method = "POST"><br>
-    
-
-                                                              <div class="form-group" >
-                                                            <label>Reason of Un_Termination:</font></label>
-                                                            <center> 
-                                                          <input type="text" name = "unter_reason" value= "" class="form-control"  placeholder="" style= "height:45px;width:70%;" autofocus>
-                                                        </center>
-                                                      </div>
+      <form action = "" method = "POST"><br>
+        <div class="form-group" >
+          <label class="form-label">Reason of Untermination</label>
+            <center> 
+              <input type="text" name = "unter_reason" value= "" class="form-control"  placeholder="" autofocus>
+            </center>
+        </div>
 
                                                           
 <br>
 
 
 
-<input type = "text" name = "emp_number1" value = "' . $emp_number1 . '">
-
-    <input type = "submit" name = "unter_me" value = "Submit" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
+<input type = "text" class="form-control" name = "emp_number1" value = "' . $emp_number1 . '">
+<br><br>
+    <input type = "submit" name = "unter_me" value = "Submit" class="btn btn-info btn-lg" >
     
     </form>
+    <br> <br>
+    <form action = "" method = "POST">
+              <button class="btn btn-success" Name ="Back1" ><span>Back</span></button>
+            </form>
     
 
 
@@ -368,7 +365,7 @@ if (isset($_POST['Back1'])) {
       echo '<div class = "how1"><div class = "many"><br> 
     ' . $kekelpogi . '<br>
     <form action = "" method = "POST"><br>
-    <input type = "submit" name = "" value = "Okay" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
+    <input type = "submit" name = "" value = "Okay" class="btn btn-info btn-lg">
     </form>
     
   </div></div>';
@@ -385,24 +382,4 @@ if (isset($_POST['Back1'])) {
         $('#example1').DataTable();
       });
 
-
-
-      //$(document).ready(function() {
-      //    var table = $('#example').DataTable();
-
-      //    $('#example tbody').on( 'click', 'tr', function () {
-      //        if ( $(this).hasClass('selected') ) {
-      //            $(this).removeClass('selected');
-      //        }
-      //        else {
-      //            table.$('tr.selected').removeClass('selected');
-      //            $(this).addClass('selected');
-      //        }
-      //    } );
-
-      //    $('#addtoshortlistbtn').click( function () {
-      //        table.row('.selected').remove().draw( false );
-      //        document.getElementById("addtoshortlistbtn1").click();
-      //    } );
-      //} );
     </script>

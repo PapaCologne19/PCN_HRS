@@ -93,10 +93,8 @@ if (isset($_POST['Back1'])) {
     }
 
     .notification {
-      background-color: #555;
-      color: green;
+      color: black;
       text-decoration: none;
-      padding: 15px 26px;
       position: relative;
       display: inline-block;
       border-radius: 2px;
@@ -110,9 +108,9 @@ if (isset($_POST['Back1'])) {
       position: absolute;
       top: -10px;
       right: -10px;
-      padding: 5px 10px;
+      padding: 2px 5px;
       border-radius: 50%;
-      background-color: red;
+      background-color: #D80032;
       color: white;
     }
   </style>
@@ -248,7 +246,7 @@ if (isset($_POST['Back1'])) {
             
                   <input type = "hidden" name = "shad" value = "' . $corow . '">
        
-                      <button type="submit" name = "addtoewb"  class="btn btn-info notification" style = "font-size:15;width:100px;height:60px">
+                      <button type="submit" name = "addtoewb"  class="btn btn-info notification">
                         <span class="glyphicon glyphicon-edit">TO EWB</span>
                       </button>
 

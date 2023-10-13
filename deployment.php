@@ -1964,13 +1964,18 @@ if (isset($_POST['filter_shortlist'])) {
 
   <!-- Bootstrap Icon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Julius+Sans+One&family=Poppins&family=Quicksand&family=Roboto&family=Thasadith&display=swap" rel="stylesheet">
 
 
   <link rel="stylesheet" href="assets/css/style.css">
 
   <!--<script src="strap/jquery.min.js"></script>-->
 
-
+ 
 
   <!--for data table-->
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -2713,7 +2718,7 @@ if (isset($kekelpogi1)) {
           <div class="form-group">
             <!--<label> Project  Title : </label>-->
             <center>
-              <select class="form-select" name="applicant_no" data-placeholder=""> ;
+              <select class="form-select" name="applicant_no">
                 <option>Select Employee Name:</option>
                 <?php
 

@@ -41,7 +41,7 @@ while ($rowap = mysqli_fetch_array($resultap)) {
                           id = '2'
                           ");
 
-    $kekelpogi = "Shorlist Database Synch Complete";
+    $kekelpogi = "Shortlist Database Synch Complete";
   } else {
     //echo "synch na do nothing";
 
@@ -162,8 +162,7 @@ echo '
     }
     #results {
       padding: 10px;
-      border: 1px solid;
-      background: #ccc;
+      font-size: 18px;
     }
 
     .bs-example {
@@ -232,7 +231,6 @@ echo '
       position: absolute;
       top: 10%;
       left: 20%;
-      index: 102;
       border: 0px solid black;
       height: 10%;
       width: 70%;
@@ -398,9 +396,9 @@ echo '
                                                         <form action = "" method = "POST">
                                                         <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "blacklistr">List of Blacklisted</button></a></li>-->
                                                        <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "viewdatabaseshort">View Database</button></a></li>-->
-                                                       <li class="cd-side__btn"><a><button type="button" class="btn" style="font-size:14; width:150px;height:50px" data-bs-toggle="modal" data-bs-target="#myModaladdshortview" >+ Shortlist Download</button></a></li>
+                                                       <li class="cd-side__btn"><a><button type="button" class="btn" style="font-size:14; width:180px;height:50px" data-bs-toggle="modal" data-bs-target="#myModaladdshortview" >Shortlist Download</button></a></li>
                                                         <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "additionalr">Additional Repots</button></a></li>-->
-                                                        <li class="cd-side__btn"><a><BUTTON class="btn" name = "summary" style="font-size:14; width:150px;height:50px">+ Summary</button></a></li>     
+                                                        <li class="cd-side__btn"><a><BUTTON class="btn" name = "summary" style="font-size:14; width:150px;height:50px">Summary</button></a></li>     
                                                         </form>
                                                       </ul>
                                               </li>
@@ -656,7 +654,7 @@ echo '
     </form>
     
 ';
-    //  $kekelpogi="Shortlist title created" ;
+     $kekelpogi="Shortlist title created" ;
     echo '</center>
                   <!--- laman -->
                         </div>     </div>
@@ -920,7 +918,7 @@ echo '
                                       <label class="form-label">Region :</font></label>
                                     </div>
                                     <div class="col-md-10">
-                                      <select class="form-control cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;';
+                                      <select class="form-select cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;';
                                         echo '<option>Select Region:</option> ';
                                         $resultrg = mysqli_query($link, "SELECT * FROM region");
                                         while ($rowrg = mysqli_fetch_array($resultrg)) {
@@ -935,7 +933,7 @@ echo '
                                       <label class="form-label">City : </font></label>
                                     </div>  
                                     <div class="col-md-10">
-                                      <select class="form-control" name="cityn" id="cityn"  data-placeholder="Select City"> ;</select>
+                                      <select class="form-select" name="cityn" id="cityn"  data-placeholder="Select City"> ;</select>
                                     </div>                    
                                   </div>
                                                   
@@ -971,7 +969,7 @@ echo '
                                       <label class="form-label">Gender </font></label>
                                     </div>
                                     <div class="col-md-10">
-                                      <select class="form-control cbo" name="gendern"  value= "' . $rowed[16] . '" data-placeholder="Select Gendert "  > ;';
+                                      <select class="form-select cbo" name="gendern"  value= "' . $rowed[16] . '" data-placeholder="Select Gendert "  > ;';
                                         echo '<option>' . $rowed[16] . '</option> ';
                                         $resultg = mysqli_query($link, "SELECT * FROM gender");
                                         while ($rowg = mysqli_fetch_array($resultg)) {
@@ -986,7 +984,7 @@ echo '
                                       <label class="form-label">Civil Status </font></label>
                                     </div>
                                     <div class="col-md-10">
-                                      <select class="form-control cbo" name="civiln" value= "' . $rowed[17] . '" data-placeholder=""  > ;';
+                                      <select class="form-select cbo" name="civiln" value= "' . $rowed[17] . '" data-placeholder=""  > ;';
                                         echo '<option>' . $rowed[17] . '</option> ';
                                         $resultt = mysqli_query($link, "SELECT * FROM tax_status");
                                         while ($rowtt = mysqli_fetch_array($resultt)) {
@@ -1029,7 +1027,7 @@ echo '
                                     </div>
                                                             
                                     <div class="col-md-10">
-                                      <select class="form-control cbo" name="despo"  value= "' . $rowed[21] . '" data-placeholder=""  > ;';
+                                      <select class="form-select cbo" name="despo"  value= "' . $rowed[21] . '" data-placeholder=""  > ;';
                                         echo '<option>' . $rowed[21] . '</option> ';
                                         $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
                                         while ($rowjt = mysqli_fetch_array($resultjt)) {
@@ -1045,7 +1043,7 @@ echo '
                                   </div>
                                                             
                                    <div class="col-md-10">
-                                   <select class="form-control cbo" name="classn"  value= "' . $rowed[22] . '" data-placeholder=""  > ;';
+                                   <select class="form-select cbo" name="classn"  value= "' . $rowed[22] . '" data-placeholder=""  > ;';
                                       echo '<option>' . $rowed[22] . '</option> ';
                                       $resultca = mysqli_query($link, "SELECT * FROM classifications");
                                       while ($rowca = mysqli_fetch_array($resultca)) {
@@ -1061,7 +1059,7 @@ echo '
                                   </div>
                                                             
                                   <div class="col-md-10">
-                                  <select class="form-control cbo" name="idenn"  value= "' . $rowed[23] . '" data-placeholder="" > ;';
+                                  <select class="form-select cbo" name="idenn"  value= "' . $rowed[23] . '" data-placeholder="" > ;';
                                     echo '<option>' . $rowed[23] . '</option> ';
                                     $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
                                     while ($rowider = mysqli_fetch_array($resultide)) {
@@ -1147,7 +1145,7 @@ echo '
                                   </div>
                                      
                                   <div class="col-md-10">
-                                    <select class="form-control cbo" name="psa" value= "' . $rowed[31] . '"  data-placeholder=""> ;      
+                                    <select class="form-select cbo" name="psa" value= "' . $rowed[31] . '"  data-placeholder=""> ;      
                                       <option>' . $rowed[31] . '</option> 
                                       <option value="With">With</option>
                                       <option value="Without">Without</option>
@@ -1222,17 +1220,17 @@ echo '
                     
                   <!--- laman -->
         
-                        
-       <button class="btn btn-success" onclick="myFunctioncam()">Display Camera</button><br><br>
+                        <br><br><br><br><br><br><br>
+       <button class="btn btn-success btnsall" onclick="myFunctioncam()">Display Camera</button><br><br>
               <form method="POST" action="storeImage.php">   
        
-                                     <input type=button class="btn btn-success" value="Take Photo" onClick="take_snapshot()">
-                                  <input type=Submit class="btn btn-success" Value ="Submit">
+                                     <input type=button class="btn btn-success btnsall" value="Take Photo" onClick="take_snapshot()">
+                                  <input type="submit" class="btn btn-success btnsall" Value ="Submit">
     <hr>
                     
                    <h2 class="a"><div class="container">
                       
-                               <label for="text"><font color="Black" size="6"><font color="red">*</font>Image Capture</font></label> <br>
+                               <label class="fs-2"><font color="Black"></font>Image Capture</label> <br>
                     
                       
                                   <input type="hidden" name="image" class="image-tag">
@@ -1580,381 +1578,388 @@ echo '
 
       $datenow = date("m/d/Y h:i:s A");
       echo '
-         <div class="cd-content-wrapper">
+         <div class="container containers">
           
                        <form action = "" method = "POST">
                     
-                       <div class="">
-                       <center>
+                    <div class="">
+                      <center>
                           <img src="' . $_SESSION["photoko"] . '" alt="" style="width:200px;height:200px;">
-                          </center>
-                          </div>
+                      </center>
+                    </div>
           
-                                                     <div class="row mt-3">
-                                                             <div class="col-md-2">
-                                                             </div><label class="form-label">Date Applied : </fo
+                    <div class="row mt-5">
+                      <div class="col-md-2">
+                        <label class="form-label">Date Applied</label>
+                      </div>   
+                      <div class="col-md-10">
+                        <input type="text" name = "dapplied" class="form-control"  value= "' . $datenow . '"  readonly>
+                      </div>                               
+                    </div>
+                      
+                    <div class="row mt-3">
+                      <div class="col-md-2">
+                        <label class="form-label">Applicant Number</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "appnoko"  value= "' . $newtracking . '" class="form-control" readonly>
+                      </div> 
+                    </div>
                                                              
-                                                             nt></label>   
-                                                             
-                                                             <input type="text" name = "dapplied" class="form-control"  value= "' . $datenow . '"   placeholder="" style= "height:45px;width:45%;" readonly>
-                                                             <div class="col-md-2">
-                                                             </div> 
-                                                             
-                                                             <label class="form-label">Applicant Number : </font></label> 
-                                                             
-                                                             <input type="text" name = "appnoko"  value= "' . $newtracking . '" class="form-control"  placeholder="" style= "height:45px;width:45%;" readonly>
-                                                      </div>
-                                                       <div class="row mt-3">
-                                                      <div class="col-md-2">
-                                                      </div>
-                                                      
-                                                      <label class="form-label">Source :</font></label>
-                                                      
-                                                      <select class="form-control cbo" name="source"  data-placeholder="Select Source" style= "height:45px;width:250px" > ;      
-                                                           
-                                                           ';
-      echo '<option>Select Source</option>';
-      $results = mysqli_query($link, "SELECT * FROM sources");
-      while ($rows = mysqli_fetch_array($results)) {
-        echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
-      }
-      echo '          
-                                                           </select>
-                                                    </div>
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Last Nam
-                                                            
-                                                            e:</font></label>
-                                                          <i
-                                                          nput type="text" name = "lastnameko" class="form-control"  placeholder="" >
-                                                      </div>
-                                                      
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">First Nam
-                                                            
-                                                            e:</font></label>
-                                                          <i
-                                                          nput type="text" name = "firstnameko" class="form-control"  placeholder="" >
-                                                      </div>
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Middle Nam
-                                                            
-                                                            e:</font></label>
-                                                          <i
-                                                          nput type="text`" name = "mnko"  class="form-control"  placeholder="" >
-                                                      </div>
-                                                      
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Extension Nam
-                                                            
-                                                            e:</font></label>
-                                                          <i
-                                                          nput type="text" name = "extnname" maxlength="5" class="form-control"  placeholder="">
-                                                      </div>
-                                                      
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Present Addres
-                                                            
-                                                            s:</font></label>
-                                                          <i
-                                                          nput type="text" name = "paddress"  class="form-control"  placeholder="" >
-                                                      </div>
-                                                        <div class="row mt-3">
-                                                      <div class="col-md-2">
-                                                      </div>
-                                                      
-                                                      <label class="form-label">Region :</font></label>
-                                                      
-                                                      <select class="form-control cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;      
-                                                           
-                                                           ';
-      echo '<option>Select Region:</option> ';
-      $resultrg = mysqli_query($link, "SELECT * FROM region");
-      while ($rowrg = mysqli_fetch_array($resultrg)) {
-        echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
-      }
-      echo '          
-                                                           </select> 
-                                                    </div>
-                                                      
-                                                          <div class="row mt-3" >
-                                                          <div class="col-md-2">
-                                                          </div>  
-                                                          
-                                                          <label class="form-label">City : </font></label>
-                                                          
-                                                          <select class="form-control" name="cityn" id="cityn"  data-placeholder="Select City"  > ;      
-                                                           
-                                                               
-                                                           </select>
-                                                    </div>
-                                                  
-                                                    
-                                                  
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Permanent Addres
-                                                            
-                                                            s </font></label>
-                                                          <i
-                                                          nput type="text" name = "peraddress"  class="form-control"  placeholder="" >
-                                                      </div>  
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Date of Birt
-                                                            
-                                                            h </font></label>
-                                                          <i
-                                                          nput type="date" name = "birthday"  class="form-control"  placeholder="" >
-                                                      </div>
-                                                      <!--<div class="row mt-3" >
-                                                      <div class="col-md-2">
-                                                      </div>      
-                                                      
-                                                      <label class="form-label">Age </font></label>
-                                                      
-                                                      <input type="text" name = "age" id ="age"  class="form-control"  placeholder="" style= "height:45px;width:30%;">
-                                                      </div>-->
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Gende
-                                                            
-                                                            r </font></label>
-                                                  <select cl
-                                                  ass="form-control cbo" name="gendern"  data-placeholder="Select Gendert " > ;      
-                                                           
-                                                           ';
-      echo '<option>Select Gender</option> ';
-      $resultg = mysqli_query($link, "SELECT * FROM gender");
-      while ($rowg = mysqli_fetch_array($resultg)) {
-        echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
-      }
-      echo '          
-                                                           </select>
-                                                    </div>
-                                                          
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Civil Statu
-                                                            
-                                                            s </font></label>
-                                                      <selec
-                                                      t class="form-control cbo" name="civiln"  data-placeholder="" > ;      
-                                                           
-                                                           ';
-      echo '<option>Select Civil Status:</option> ';
-      $resultt = mysqli_query($link, "SELECT * FROM tax_status");
-      while ($rowtt = mysqli_fetch_array($resultt)) {
-        echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
-      }
-      echo '          
-                                                           </select>
-                                                    </div>
-                                                      
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Cell Phone Numbe
-                                                            
-                                                            r </font></label>
-                                                          <i
-                                                          nput type="text" name = "cpnum"  class="form-control"  placeholder="">
-                                                      </div>  
-                                                      
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">landlin
-                                                            
-                                                            e </font></label>
-                                                          <i
-                                                          nput type="text" name = "landline"  class="form-control"  placeholder="">
-                                                      </div>  
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Email Addres
-                                                            
-                                                            s </font></label>
-                                                          <i
-                                                          nput type="text" name = "emailadd"  class="form-control"  placeholder="">
-                                                      </div>  
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Desired Positio
-                                                            
-                                                            n </font></label>
-                                                            
-                                                            <select class="form-control cbo" name="despo"   data-placeholder="" > ;      
-                                                           
-                                                           ';
-      echo '<option>Select job title:</option> ';
-      $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
-      while ($rowjt = mysqli_fetch_array($resultjt)) {
-        echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
-      }
-      echo '          
-                                                           </select>
-                                                    </div>
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Classification of Applican
-                                                            
-                                                            t </font></label>
-                                                            
-                                                            <select class="form-control cbo" name="classn"   data-placeholder="" > ;      
-                                                           
-                                                           ';
-      echo '<option>Select Classification:</option> ';
-      $resultc = mysqli_query($link, "SELECT * FROM classifications");
-      while ($rowc = mysqli_fetch_array($resultc)) {
-        echo '<option  value="' . $rowc[1] . '">' . $rowc[1] . ' </option> ';
-      }
-      echo '          
-                                                           </select> 
-                                                           </div>
-                                                      <div class="row mt-3" >
-                                                            <div class="col-md-2">
-                                                            </div><label class="form-label">Identification Mark
-                                                            
-                                                            s </font></label>
-                                                            
-                                                            <select class="form-control cbo" name="idenn"   data-placeholder=""> ;      
-                                                           
-                                                           ';
-      echo '<option>Select Identification Marks:</option> ';
-      $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
-      while ($rowider = mysqli_fetch_array($resultide)) {
-        echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
-      }
-      echo  '          
-                                                           </select> 
-                                                           </div>
-                  
-                                     
-    
-                                
-                                                   
-       
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">SSS:</font></label>
-                                     
-                                     <input type="text" name = "sssnum" class="form-control"  placeholder="" >
-                                     </div>
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">PAG-IBIG:</font></label>
-                                     
-                                     <input type="text" name = "pagibignum" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">PHILHEALTH:</font></label>
-                                     
-                                     <input type="text" name = "phnum" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">TIN:</font></label>
-                                     
-                                     <input type="text" name = "tinnum" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">POLICE:</font></label>
-                                     
-                                     <input type="date" name = "policed" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">BRGY:</font></label>
-                                     
-                                     <input type="date" name = "brgyd" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">NBI:</font></label>
-                                     
-                                     <input type="date" name = "nbid" class="form-control"  placeholder="" >
-                                     </div>
-                                     
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
-                                     
-                                     <label class="form-label">PSA:</font></label>
-                                    
+                    <div class="row mt-3">
+                      <div class="col-md-2">
+                        <label class="form-label">Source</font></label>
+                      </div>                              
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="source"  data-placeholder="Select Source" > ;';
+                          echo '<option>Select Source</option>';
+                          $results = mysqli_query($link, "SELECT * FROM sources");
+                          while ($rows = mysqli_fetch_array($results)) {
+                            echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
+                          }
+                          echo '  
+                        </select>        
+                      </div>                               
+                    </div>
 
-                                          <select class="form-control cbo" name="psa"   data-placeholder=""> ;      
-                                                           
-                                                           ';
-      echo '<option>Select One:</option> 
-                                                         <option value="With">With</option>
-                                                         <option value="Without">Without</option>
-           
-                                                           </select> 
-                                                           </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Last Name</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "lastnameko" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                                 
                                                       
-         
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">First Name</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "firstnameko" class="form-control"  placeholder="" >
+                      </div>                               
+                    </div>                               
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Middle Name</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text`" name = "mnko"  class="form-control"  placeholder="" >
+                      </div>
+                    </div>       
+
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Extension Name</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "extnname" maxlength="5" class="form-control"  placeholder="">
+                      </div>
+                    </div>                                
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Present Address</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "paddress"  class="form-control"  placeholder="" >
+                      </div>
+                    </div>                                       
+                                                        
+                    <div class="row mt-3">
+                      <div class="col-md-2">
+                        <label class="form-label">Region</font></label>
+                      </div>
+                                                      
+                                                      
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;';
+                          echo '<option>Select Region:</option> ';
+                          $resultrg = mysqli_query($link, "SELECT * FROM region");
+                          while ($rowrg = mysqli_fetch_array($resultrg)) {
+                            echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
+                          }
+                          echo '          
+                        </select> 
+                      </div>                             
+                    </div>                                  
+                                                          
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">City </font></label>
+                      </div>  
+                    
+                    
+                      <div class="col-md-10">
+                        <select class="form-select" name="cityn" id="cityn"  data-placeholder="Select City"  > ;</select>
+                      </div>
+                    </div>                                 
+                                                                                               
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Permanent Address </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "peraddress"  class="form-control"  placeholder="" >
+                      </div>
+                    </div>                                      
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Date of Birth </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="date" name = "birthday"  class="form-control"  placeholder="" >
+                      </div>
+                    </div>
+
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Age </font></label>
+                      </div>                                      
+                                                      
+                      <div class="col-md-10">
+                        <input type="text" name = "age" id ="age"  class="form-control"  placeholder="">
+                      </div>
+                    </div>                                                        
+                    
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Gender </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="gendern"  data-placeholder="Select Gendert " > ;';
+                          echo '<option>Select Gender</option> ';
+                          $resultg = mysqli_query($link, "SELECT * FROM gender");
+                          while ($rowg = mysqli_fetch_array($resultg)) {
+                          echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
+                          }
+                          echo '          
+                        </select>
+                      </div>
+                    </div>                                                     
+                                                          
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Civil Status </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="civiln"  data-placeholder="" > ;';
+                          echo '<option>Select Civil Status:</option> ';
+                          $resultt = mysqli_query($link, "SELECT * FROM tax_status");
+                          while ($rowtt = mysqli_fetch_array($resultt)) {
+                          echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
+                          }
+                          echo '          
+                        </select>
+                      </div>
+                    </div>                                                  
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Cell Phone Number </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "cpnum"  class="form-control"  placeholder="">
+                      </div>
+                    </div>                                              
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">landline </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "landline"  class="form-control"  placeholder="">
+                      </div>
+                    </div> 
+              
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">landline </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "landline"  class="form-control"  placeholder="">
+                      </div>
+                    </div>           
+                                                    
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Email Address </font>
+                      </div></label>
+                      <div class="col-md-10">
+                        <input type="text" name = "emailadd"  class="form-control"  placeholder="">
+                      </div>
+                    </div>                                                     
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Desired Position </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="despo"   data-placeholder="" > ;';
+                          echo '<option>Select job title:</option> ';
+                          $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
+                          while ($rowjt = mysqli_fetch_array($resultjt)) {
+                          echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
+                          }
+                          echo '          
+                        </select>
+                      </div>      
+                    </div>
+
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Classification of Applicant </font></label>
+                      </div>
+                      
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="classn"   data-placeholder="" > ;';
+                          echo '<option>Select Classification:</option> ';
+                          $resultc = mysqli_query($link, "SELECT * FROM classifications");
+                          while ($rowc = mysqli_fetch_array($resultc)) {
+                          echo '<option  value="' . $rowc[1] . '">' . $rowc[1] . ' </option> ';
+                          }
+                          echo '          
+                        </select> 
+                      </div>
+                    </div>
+
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Identification Marks </font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="idenn"   data-placeholder=""> ;';
+                          echo '<option>Select Identification Marks:</option> ';
+                          $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
+                          while ($rowider = mysqli_fetch_array($resultide)) {
+                          echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
+                          }
+                          echo  '          
+                        </select> 
+                      </div>
+                    </div>                                                   
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">SSS</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "sssnum" class="form-control"  placeholder="" >
+                      </div>
+                    </div>
                                      
-                                     <label class="form-label">Emergency Contact Person:</font></label>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Pag-IBIG</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "pagibignum" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                       
                                      
-                                     <input type="text" name = "e_person" value= "" class="form-control"  placeholder="" >
-                                     </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">PhilHealth</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "phnum" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                
                                      
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">TIN</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "tinnum" class="form-control"  placeholder="" >
+                      </div>
+                    </div>               
                                      
-                                     <label class="form-label">Emergency Contact Address:</font></label>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">POLICE</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="date" name = "policed" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                   
                                      
-                                     <input type="text" name = "e_address" value= "" class="form-control"  placeholder="" >
-                                     </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">BRGY</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="date" name = "brgyd" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                     
                                      
-                                     <div class="row mt-3" >
-                                     <div class="col-md-2">
-                                     </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">NBI</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="date" name = "nbid" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                  
                                      
-                                     <label class="form-label">Emergency Contact Number:</font></label>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">PSA</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <select class="form-select cbo" name="psa"   data-placeholder=""> ;';
+                           echo '<option>Select One:</option> 
+                                 <option value="With">With</option>
+                                 <option value="Without">Without</option>
+                        </select> 
+                      </div>    
+                    </div>                          
+                                                      
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Emergency Contact Person</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "e_person" value= "" class="form-control"  placeholder="" >
+                      </div>
+                    </div>
                                      
-                                     <input type="text" name = "e_contact" value= "" class="form-control"  placeholder="" >
-                                     </div>
-                                    <div class="row mt-3" >
-                                   <div class="col-md-2">
-                                   </div>
-                                   
-                                   <label class="form-label">REMARKS:</font></label>
-                                   
-                                   <input type="text" name = "remarks" class="form-control"  placeholder="" >
-                                   </div>
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Emergency Contact Address</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "e_address" value= "" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                     
+                  
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">Emergency Contact Number</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "e_contact" value= "" class="form-control"  placeholder="" >
+                      </div> 
+                    </div>
+                                     
+                    <div class="row mt-3" >
+                      <div class="col-md-2">
+                        <label class="form-label">REMARKS</font></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input type="text" name = "remarks" class="form-control"  placeholder="" >
+                      </div>
+                    </div>                 
+                                    
        
     
-                     <input type = "submit" name = "next" value = "Save" class=" btn-info btn-lg" style = "height:50px;width:80%;">
+                     <center>
+                      <div class="col-md-6 mt-5 mb-5>
+                        <input type = "submit" name = "next" value = "Save" class="btn btn-info">
+                      </div>
+                     </center>
                  </form>
                                       
          
@@ -2247,10 +2252,10 @@ echo '
 
     function myFunctioncam() {
       Webcam.set({
-        width: 200,
+        width: 250,
         height: 200,
         image_format: 'jpeg',
-        jpeg_quality: 90
+        jpeg_quality: 100
       });
 
       Webcam.attach('#my_camera');
@@ -2496,7 +2501,7 @@ if (isset($kekelpogi_index)) {
   echo '<div class = "how2"><div class = "many"><br> 
     <font color="Black" size="12">' . $kekelpogi_index . '</font><br>
     <form action = "" method = "POST"><br>
-    <input type = "submit" name = "to_index" value = "Okay" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
+    <input type = "submit" name = "to_index" value = "Okay" class="btn btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
     </form>
     
   </div></div>';
@@ -2791,7 +2796,7 @@ if (isset($kekelpogi1)) {
               $resultpro = mysqli_query($link, "SELECT * FROM employees WHERE actionpoint !='BLACKLISTED' OR actionpoint !='DEPLOYED' order by lastnameko ASC ");
               while ($rowpro = mysqli_fetch_array($resultpro)) {
 
-                echo '<option  value="' . $rowpro[4] . '">' . $rowpro[6] . ", " . $rowpro[7] . " " . $rowpro[8] . ') </option> 
+                echo '<option  value="' . $rowpro[4] . '">' . $rowpro[6] . ", " . $rowpro[7] . " " . $rowpro[8] . ' </option> 
                                                    
                                                                        ';
               }

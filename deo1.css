@@ -111,7 +111,7 @@
 	left: 30%;
 	top: 20%;
 	color: black;
-	height: 40%;
+	height: 50%;
 	width: 50%;
 	z-index: 10;
 	justify-content: center;
@@ -123,7 +123,7 @@
 	border-radius: 10px;
 	box-shadow: 1px 5px 10px 5px #000000;
 	text-align: center;
-	font-style: oblique;
+	/* font-style: oblique; */
 	font-family: 'Poppins', sans-serif;
 	font-size: 20;
 
@@ -141,9 +141,7 @@
 	color: black;
 	width: 40%;
 	z-index: 100;
-	border: 2px inset Blue;
 	opacity: .8;
-
 	padding: 0% 0% 20% 0%;
 	background-size: cover;
 	border-radius: 10px;
@@ -163,9 +161,8 @@
 	color: black;
 	width: 50%;
 	z-index: 101;
-	border: 10px inset Blue;
+	border: none;
 	opacity: .8;
-
 	padding: 0% 0% 20% 0%;
 	background-size: cover;
 	border-radius: 10px;

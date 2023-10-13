@@ -46,7 +46,28 @@ if (isset($_POST['Back1'])) {
 <html>
 
 <head>
+  <meta http-equiv="X-UA-Compatible" content="IE=7">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gabarito&family=Inter&family=Julius+Sans+One&family=Poppins&family=Quicksand:wght@400;500&family=Roboto&family=Thasadith&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="deo1.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+  <!--for data table-->
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <style>
     .how2 {
       position: absolute;
@@ -85,32 +106,12 @@ if (isset($_POST['Back1'])) {
     }
   </style>
 
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="deo1.css">
-
-
-
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-
-
-  <!--for data table-->
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
 </head>
 
 <body>
 
 
-  <center>
+  <center class="how2">
 
     <?php
     echo '
@@ -118,35 +119,35 @@ if (isset($_POST['Back1'])) {
 <form method="post" action="export1.php">';
     $_SESSION["dataexport1"] = $data;
     echo '
-     <input type="submit" name="export" class="btn-success" value="Export" style="float:right;font-size:15;width:200px;height:50px" />
+     <input type="submit" name="export" class="btn btn-success btnsall" value="Export" style="float:right;" />
     </form>
 
 
             <form action = "" method = "POST">
-            <button class="button btn-success" Name ="Back" style="float:right;width:200px;height:50px"><span>BACK</span></button>
+            <button class="btn btn-success btnsall" Name ="Back" style="float:right;"><span>Back</span></button>
              </form>
 <br><br>
-<h2><font color="black"> ' . $view . ' </font> </h2>
+<h2 class="fs-2"><font color="black"> ' . $view . ' </font> </h2>
 <br><br>
 
-                  <table id="example" class="table" style="width:90%;">
+                  <table id="example" class="table p-3 table-sm align-middle mb-0 p-3 border border-info border-start-0 border-end-0 rounded-end" style="width:100%;">
                               <thead>
                               <tr>
                               
-                              <th> Lastname </th>
-                              <th> Firstname </th>
-                              <th> Middlename </th>
-                              <th> SSS </th>
-                              <th> Pag-ibig </th>
-                              <th> Philhealth </th>
-                              <th> TIN </th>
-                              <th> Police </th>
-                              <th> Brgy </th>
-                              <th> NBI </th>
-                              <th> PSA </th>
-                                  <th> Birthday </th>
-            <th> Address </th>
-                      <th> Status </th>
+                              <th class="text-white"> Lastname </th>
+                              <th class="text-white"> Firstname </th>
+                              <th class="text-white"> Middlename </th>
+                              <th class="text-white"> SSS </th>
+                              <th class="text-white"> Pag-ibig </th>
+                              <th class="text-white"> Philhealth </th>
+                              <th class="text-white"> TIN </th>
+                              <th class="text-white"> Police </th>
+                              <th class="text-white"> Brgy </th>
+                              <th class="text-white"> NBI </th>
+                              <th class="text-white"> PSA </th>
+                                  <th class="text-white"> Birthday </th>
+            <th class="text-white"> Address </th>
+                      <th class="text-white"> Status </th>
                                </tr>   
                               </thead>
 
@@ -255,7 +256,7 @@ if (isset($_POST['Back1'])) {
       echo '<div class = "how1"><div class = "many"><br> 
     ' . $kekelpogi . '<br>
     <form action = "" method = "POST"><br>
-    <input type = "submit" name = "" value = "Okay" class="btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
+    <input type = "submit" name = "" value = "Okay" class=" btn btn-info btn-lg">
     </form>
     
   </div></div>';

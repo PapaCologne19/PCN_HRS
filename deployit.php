@@ -10,11 +10,6 @@ $date = date('D : F d, Y');
 $datenow = date("m/d/Y h:i:s A");
 
 
-?>
-
-<?php
-
-
 if (isset($_POST['Back'])) {
   header("location:deployment.php");
 }
@@ -900,7 +895,7 @@ if (isset($_POST['Regular'])) {
 <?php
 
 if (isset($kekelpogi)) {
-  echo '<div class = "how3"><div class = "many2">
+  echo '<div class = "how2"><div class = "many2">
   <br><br> 
 
     ';
@@ -910,9 +905,9 @@ if (isset($kekelpogi)) {
   echo '
       <h3>' . $kekelpogi . '</h3><br><br><br>
     <form action = "" method = "POST"><br>
-       <input type = "submit" name = "dl_loa" value = "Download LOA" class="btn btn-info" style = "font-size:15;width:250px;height:50px">
+       <input type = "submit" name = "dl_loa" value = "Download LOA" class="btn btn-info">
 
-       <input type = "submit" name = "Back" value = "Close" class="btn btn-info " style = "font-size:15;width:100px;height:50px">
+       <input type = "submit" name = "Back" value = "Close" class="btn btn-secondary ">
        
     </form>
     
