@@ -144,13 +144,13 @@ $datenow = date("m/d/Y h:i:s A");
                             <center>
                                 <h2 class="fs-3 mb-5">MANPOWER REQUISITION FORM (MRF)</h2>
                             </center>
-                            <form action="action.php" class="row">
+                            <form action="action.php" method="post" class="row">
                                 <center>
                                     <h4 class="fs-4">PROJECT DETAILS</h4>
                                 </center>
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">MRF Type</label>
-                                    <select name="mretype" id="mretype" class="form-select" required>
+                                    <select name="mrf_type" id="mrf_type" onchange="validate_type()" class="form-select cbo" required>
                                         <option value="" selected disabled></option>
                                         <option value="INHOUSE">INHOUSE</option>
                                         <option value="FIELD FORCE">FIELD FORCE</option>
@@ -207,8 +207,9 @@ $datenow = date("m/d/Y h:i:s A");
                                 </div>
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">CE Number</label>
-                                    <select name="cen_umber" id="ce_number" class="form-select" required>
+                                    <select name="ce_number" id="ce_number" class="form-select" required>
                                         <option value="" selected disabled></option>
+                                        <option value="Test">Select this for temporary</option>
                                     </select>
                                 </div>
 
@@ -216,10 +217,113 @@ $datenow = date("m/d/Y h:i:s A");
                                 <center>
                                     <h4 class="fs-4 mt-4">POSITION</h4>
                                 </center>
-                                <div class="col-md-12 mt-3">
-                                    <select name="position" id="position" class="form-select" required>
-                                        <option value="" selected disabled></option>
-                                    </select>
+                                <div class="row cs1">
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="inhouse">
+                                            <select class="form-select cbo" name="position" id="position"> ;
+                                                <option value="" disabled selected>Please select One</option>
+                                                <option>ACCOUNT EXECUTIVE</option>
+                                                <option>BUSS. MANAGER</option>
+                                                <option>ACCOUNT MANAGER</option>
+                                                <option>OPERATIONS MANAGER</option>
+                                                <option>PROJECT MANAGER</option>
+                                                <option>PROJECT COORDINATOR</option>
+                                                <option>AREA COORDINATOR</option>
+                                                <option>BILLING ASST.</option>
+                                                <option>TRAINER</option>
+                                                <option>ENCODER</option>
+                                                <option>MERCHANDISING SUPERVISOR</option>
+                                                <option>OPERATIONS SUPERVISOR</option>
+                                                <option>OTHER</option>
+                                            </select>
+                                        </div>
+                                        <input type="text" name="other_position" id="other_position" class="form-control" onfocusout="myFunction_focusout()">
+                                    </div>
+                                </div>
+                                <!--=================================================================================-->
+                                <div class="form-group" id="field">
+                                    <div class="row cs1">
+                                        <div class="column ">
+                                            <div class="containerx ">
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Push Girl" />
+                                                    Push Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Demo Girl"/>
+                                                    Demo Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Promo Girl"/>
+                                                    Promo Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Sampler"/>
+                                                    Sampler
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column" >
+                                            <div class="containerx">
+
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Merchandiser"/>
+                                                    Merchandiser
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Helper"/>
+                                                    Helper
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Mystery Buyer"/>
+                                                    Mystery Buyer
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Validator">
+                                                    Validator
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="containerx">
+
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Promoter"/>
+                                                    Promoter
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Encoder"/>
+                                                    Encoder
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Coordinator"/>
+                                                    Coordinator
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Bundler">
+                                                    Bundler
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="containerx">
+                                                <br>
+                                                <h5>Others</h5>
+                                                <p>Please Specify</p>
+
+                                                <input type="text" name="other_position1" id="other_position1" value="" class="form-control" onfocusout="myFunction_focusout()">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- FOR JOB REQUIREMENTS -->
@@ -236,15 +340,15 @@ $datenow = date("m/d/Y h:i:s A");
 
                                 <label for="" class="form-label mt-3">Height Requirements</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="male" id="male" placeholder="Male" class="form-control">
+                                    <input type="text" name="height_male" id="height_male" placeholder="Male" class="form-control">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" name="female" id="female" placeholder="Female" class="form-control">
+                                    <input type="text" name="height_female" id="height_female" placeholder="Female" class="form-control">
                                 </div>
 
                                 <div class="col-md-12 mt-3">
                                     <label for="" class="form-label">Educational Background</label>
-                                    <select name="educationBackground" id="educationalBackground" class="form-select" required>
+                                    <select name="educational_background" id="educational_background" class="form-select" required>
                                         <option value="" selected disabled></option>
                                         <option value="High School Graduate">High School Graduate</option>
                                         <option value="College Level">College Level</option>
@@ -264,15 +368,15 @@ $datenow = date("m/d/Y h:i:s A");
                                     <label for="" class="form-check-label">With Good Moral Character</label>
                                 </div>
                                 <div class="col-md-12 form-check">
-                                    <input type="checkbox" name="work_experience" id="work_experience" value="" class="form-check-input">
+                                    <input type="checkbox" name="work_experience" id="work_experience" value="With Work Experience" class="form-check-input">
                                     <label for="" class="form-check-label">With Work Experience</label>
                                 </div>
                                 <div class="col-md-12 form-check">
-                                    <input type="checkbox" name="good_communication" id="good_communication" value="" class="form-check-input">
+                                    <input type="checkbox" name="good_communication" id="good_communication" value="Good communication skills" class="form-check-input">
                                     <label for="" class="form-check-label">Good Communication Skills</label>
                                 </div>
                                 <div class="col-md-12 form-check">
-                                    <input type="checkbox" name="physically_fit" id="physically_fit" value="" class="form-check-input">
+                                    <input type="checkbox" name="physically_fit" id="physically_fit" value="Physically fit / good built" class="form-check-input">
                                     <label for="" class="form-check-label">Physically Fit / Good Build</label>
                                 </div>
                                 <div class="col-md-12 form-check">
@@ -284,7 +388,7 @@ $datenow = date("m/d/Y h:i:s A");
                                         <label for="" class="form-label">Others</label>
                                     </div>
                                     <div class="col-md-5">
-                                        <input type="text" name="otherPersonality" id="otherPersonality" class="form-control">
+                                        <input type="text" name="other_personality" id="other_personality" class="form-control">
                                     </div>
                                 </div>
 
@@ -299,7 +403,7 @@ $datenow = date("m/d/Y h:i:s A");
                                         <label for="" class="form-label">Basic Salary: </label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control salary_package" name="basicSalary" id="basicSalary" required>
+                                        <input type="text" class="form-control salary_package" name="basic_salary" id="basic_salary" required>
                                     </div>
 
                                     <div class="col-md-2">
@@ -408,12 +512,12 @@ $datenow = date("m/d/Y h:i:s A");
                                     <label for="" class="form-label">Directly Reporting To</label>
                                     <select name="direct_report" id="direct_report" class="form-select">
                                         <option value="" selected disabled></option>
-                                        <option value="Deo">Mr. Deo</option>
-                                        <option value="Mike">Mr. Mike</option>
+                                        <option value="VILLAVICENCIO, RODEO">Mr. Deo</option>
+                                        <option value="BURCE, MIKE">Mr. Mike</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="" class="form-label">Position</label>
+                                    <label for="" class="form-label">Requestee Position</label>
                                     <select name="job_position" id="job_position" class="form-select">
                                         <option value="" selected disabled>Please select</option>
                                         <?php
@@ -421,7 +525,7 @@ $datenow = date("m/d/Y h:i:s A");
                                         $result = $link->query($query);
                                         while ($row = $result->fetch_assoc()) {
                                         ?>
-                                            <option value="<?php echo $row['code'] ?>"><?php echo $row['description'] ?></option>
+                                            <option value="<?php echo $row['description'] ?>"><?php echo $row['description'] ?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -441,6 +545,48 @@ $datenow = date("m/d/Y h:i:s A");
 
 
         </main>
+        <script type="text/javascript">
+            document.getElementById('other_position').style.visibility = 'hidden';
+
+            //FOR position text magic
+            document.getElementById("position").addEventListener("change", function() {
+                var e = document.getElementById("position");
+                var selected = e.options[e.selectedIndex].text;
+
+                //alert(e.options[e.selectedIndex].text);
+                if (e.options[e.selectedIndex].text == "OTHER") {
+                    document.getElementById('other_position').style.visibility = 'visible';
+                    document.getElementById('other_position').focus();
+
+                } else {
+                    document.getElementById('other_position').style.visibility = 'hidden';
+                }
+
+            });
+
+            function myFunction_focusout() {
+
+            }
+
+            document.getElementById('field').style.display = 'none';
+            document.getElementById('inhouse').style.display = 'none';
+            document.getElementById("mrf_type").addEventListener("change", function() {
+                var e = document.getElementById("mrf_type");
+                var selected = e.options[e.selectedIndex].text;
+
+                if (e.options[e.selectedIndex].text == "INHOUSE") {
+                    document.getElementById('field').style.display = 'none';
+                    document.getElementById('inhouse').style.display = 'block';
+                    document.getElementById('position').focus();
+                } else {
+                    document.getElementById('field').style.display = 'block';
+                    document.getElementById('inhouse').style.display = 'none';
+                }
+            });
+
+            function validate_type() {
+            }
+        </script>
     <?php } ?>
 </body>
 

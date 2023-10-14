@@ -109,7 +109,7 @@ if (isset($_POST['SubButton'])) {
         $query5 = "INSERT INTO log(Username, Datelog, time, activitynya) VALUES('$rowd[7]','$dtnow',now(),'RECRUITMENT login Accepted')";
         $result5 = mysqli_query($link, $query5);
 
-        header("location: mrf/form.php");
+        header("location: mrf/index.php");
 
       } else if ($rowd[9] == "CASHIER") {
 

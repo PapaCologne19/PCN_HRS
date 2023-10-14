@@ -771,12 +771,12 @@ if (isset($_POST['data'])) {
       <div class="col-md-4">
 
         <label for="NEW" style="font-size:20px">MRF TYPE :</label>
-        <!--         <input type="text" name="location" id="location" value="" style= "height:45px;width:50%;" class="form-control" required>-->
+        <!--         <input type="text" name="location" id="location" value="" style= "height:45px;width:50%;" class="form-control">-->
         <br>
 
         <div class="form-group">
 
-          <select class="form-control cbo" name="mrf_type" id="mrf_type" onchange="validate_type()" data-placeholder="" style="height:45px;width:250px" required> ;
+          <select class="form-control cbo" name="mrf_type" id="mrf_type" onchange="validate_type()" data-placeholder="" style="height:45px;width:250px"> ;
 
 
             <option value="" disabled selected>Please select One</option>
@@ -793,7 +793,7 @@ if (isset($_POST['data'])) {
 
         <div class="form-group">
 
-          <select class="form-control cbo" name="mrf_location" id="mrf_location" data-placeholder="" style="height:45px;width:250px" required> ;
+          <select class="form-control cbo" name="mrf_location" id="mrf_location" data-placeholder="" style="height:45px;width:250px"> ;
 
 
             <option value="" disabled selected>Please select One</option>
@@ -813,7 +813,7 @@ if (isset($_POST['data'])) {
 
         <div class="form-group">
 
-          <select class="form-control cbo" name="division" id="division" data-placeholder="" style="height:45px;width:250px" required> ;
+          <select class="form-control cbo" name="division" id="division" data-placeholder="" style="height:45px;width:250px"> ;
 
 
             <option value="" disabled selected>Please select One</option>
@@ -846,7 +846,7 @@ if (isset($_POST['data'])) {
 
         <?php echo '                <div class="form-group">
                                                
-                                                      <select class="form-control cbo" name="client" id="client"  data-placeholder="" style= "height:45px;width:350px" required> ;      
+                                                      <select class="form-control cbo" name="client" id="client"  data-placeholder="" style= "height:45px;width:350px"> ;      
                                                         
                                                            ';
         echo '<option value="" disabled selected>Please select One</option>';
@@ -863,7 +863,7 @@ if (isset($_POST['data'])) {
 
       <div class="form-group">
 
-        <select class="form-control cbo" name="p_title" id="p_title" data-placeholder="" style="height:45px;width:350px" required> ;
+        <select class="form-control cbo" name="p_title" id="p_title" data-placeholder="" style="height:45px;width:350px"> ;
 
         </select>
       </div>
@@ -880,8 +880,8 @@ if (isset($_POST['data'])) {
 
 
       <label for="NEW" style="font-size:20px">CE Number : </label> <br>
-      <!--<input type="text" name="ce_number" id="ce_number" value=""   class="form-control" style= "height:45px;width:;"required > <br>-->
-      <select class="form-control cbo" name="ce_number" id="ce_number" value="" data-placeholder="Select CE Number" style="height:45px;width:60%" required> ;
+      <!--<input type="text" name="ce_number" id="ce_number" value=""   class="form-control" style= "height:45px;width:; > <br>-->
+      <select class="form-control cbo" name="ce_number" id="ce_number" value="" data-placeholder="Select CE Number" style="height:45px;width:60%"> ;
       </select>
     </div>
     </div>
@@ -889,19 +889,11 @@ if (isset($_POST['data'])) {
 
     <hr>
     <label style="font-size:20px;padding-left:30px"><strong>Position</strong></label> <br>
-
-
     <div class="row cs1">
-
       <div class="col-md-4">
-
-
-
         <div class="form-group" id="inhouse">
 
-          <select class="form-control cbo" name="position" id="position" data-placeholder="" style="height:45px;width:80%" required> ;
-
-
+          <select class="form-control cbo" name="position" id="position" data-placeholder="" style="height:45px;width:80%"> ;
             <option value="" disabled selected>Please select One</option>
             <option>ACCOUNT EXECUTIVE</option>
             <option>BUSS. MANAGER</option>
@@ -916,14 +908,11 @@ if (isset($_POST['data'])) {
             <option>MERCHANDISING SUPERVISOR</option>
             <option>OPERATIONS SUPERVISOR</option>
             <option>OTHER</option>
-
-
           </select>
         </div>
 
         <input type="text" name="other_position" id="other_position" value="" style="height:45px;width:50%;" class="form-control" onfocusout="myFunction_focusout()">
       </div>
-
     </div>
 
 
@@ -932,11 +921,8 @@ if (isset($_POST['data'])) {
     <!--=================================================================================-->
     <div class="form-group" id="field">
       <div class="row cs1">
-
-
         <div class="column " style="background-color:#bbb;">
           <div class="containerx ">
-
               <label class="form-control">
               <input type="radio" name="radio" />
               Push Girl
@@ -1037,13 +1023,13 @@ if (isset($_POST['data'])) {
 
         <label for="NEW" style="font-size:20px"><strong>No. of People</strong></label> <br>
         <label for="NEW" style="font-size:18px">Male</label> <br>
-        <input type="text" name="no_male" id="no_male" value="" class="form-control" style="height:45px;width:250px;" required> <br>
+        <input type="text" name="no_male" id="no_male" value="" class="form-control" style="height:45px;width:250px;"> <br>
 
         <label for="NEW" style="font-size:18px">Female</label> <br>
-        <input type="text" name="no_female" id="no_female" value="" class="form-control" style="height:45px;width:250px;" required> <br>
+        <input type="text" name="no_female" id="no_female" value="" class="form-control" style="height:45px;width:250px;"> <br>
 
         <label for="NEW" style="font-size:18px">Height Requirement</label> <br>
-        <input type="text" name="height_r" id="height_r" value="" class="form-control" style="height:45px;width:;" required> <br>
+        <input type="text" name="height_r" id="height_r" value="" class="form-control" style="height:45px;width:;"> <br>
 
 
 
@@ -1055,7 +1041,7 @@ if (isset($_POST['data'])) {
 
         <div class="form-group">
 
-          <select class="form-control cbo" name="edu" id="edu" data-placeholder="Select Source" style="height:45px;width:80%" onclick="verify_next()" required> ;
+          <select class="form-control cbo" name="edu" id="edu" data-placeholder="Select Source" style="height:45px;width:80%" onclick="verify_next()"> ;
 
             <option value="" disabled selected>Please select One</option>
             <option>High School Graduate</option>
@@ -1099,7 +1085,7 @@ if (isset($_POST['data'])) {
 
 
         <label for="NEW" style="font-size:18px">Others</label> <br>
-        <input type="text" name="o_perso7" id="o_perso7" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="o_perso7" id="o_perso7" value="" class="form-control" style="height:45px;width:80%;"> <br>
       </div>
 
 
@@ -1117,19 +1103,19 @@ if (isset($_POST['data'])) {
 
         <label for="NEW" style="font-size:20px"><strong>Salary Package</strong></label> <br>
         <label for="NEW" style="font-size:18px">Basic Salary</label> <br>
-        <input type="text" name="basic" id="basic" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="basic" id="basic" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Transpo Allowance</label> <br>
-        <input type="text" name="transpo" id="transpo" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="transpo" id="transpo" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Meal Allowance</label> <br>
-        <input type="text" name="meal" id="meal" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="meal" id="meal" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Comm Allowance</label> <br>
-        <input type="text" name="comm" id="comm" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="comm" id="comm" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Others</label> <br>
-        <input type="text" name="other_allow" value="" id="other_allow" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="other_allow" value="" id="other_allow" class="form-control" style="height:45px;width:80%;"> <br>
 
       </div>
 
@@ -1140,7 +1126,7 @@ if (isset($_POST['data'])) {
 
         <div class="form-group">
 
-          <select class="form-control cbo" name="es" id="es" data-placeholder="Select Source" style="height:45px;width:80%" onclick="verify_next()" required> ;
+          <select class="form-control cbo" name="es" id="es" data-placeholder="Select Source" style="height:45px;width:80%" onclick="verify_next()"> ;
 
 
             <option value="" disabled selected>Please select One</option>
@@ -1165,22 +1151,22 @@ if (isset($_POST['data'])) {
 
 
         <label for="NEW" style="font-size:18px">Salary Schedule</label> <br>
-        <input type="text" name="salary_sched" id="salary_sched" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="salary_sched" id="salary_sched" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Work Duration</label> <br>
-        <input type="text" name="work_duration" id="work_duration" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="work_duration" id="work_duration" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Work Days</label> <br>
-        <input type="text" name="work_days" id="work_days" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="work_days" id="work_days" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Time Schedule</label> <br>
-        <input type="text" name="time_sched" id="time_sched" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="time_sched" id="time_sched" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Day Off</label> <br>
-        <input type="text" name="day_off" id="day_off" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="day_off" id="day_off" value="" class="form-control" style="height:45px;width:80%;"> <br>
 
         <label for="NEW" style="font-size:18px">Outlet</label> <br>
-        <input type="text" name="outlet" id="outlet" value="" class="form-control" style="height:45px;width:80%;" required> <br>
+        <input type="text" name="outlet" id="outlet" value="" class="form-control" style="height:45px;width:80%;"> <br>
       </div>
 
 
@@ -1197,12 +1183,12 @@ if (isset($_POST['data'])) {
 
 
       <label for="NEW" style="font-size:18px">Date Needed :</label> <br>
-      <input type="date" name="date_needed" id="date_needed" value="" class="form-control" style="height:45px;width:350px;" required> <br>
+      <input type="date" name="date_needed" id="date_needed" value="" class="form-control" style="height:45px;width:350px;"> <br>
 
       <label for="NEW" style="font-size:18px">Directly Reporting to :</label> <br>
       <div class="form-group">
 
-        <select class="form-control cbo" name="drp" id="drp" data-placeholder="Select Source" onchange="myFunction1(this.value)" style="height:45px;width:350px" required> ;
+        <select class="form-control cbo" name="drp" id="drp" data-placeholder="Select Source" onchange="myFunction1(this.value)" style="height:45px;width:350px"> ;
           <option value="" disabled selected id="showDatax">Please select One</option>
           <option>Project Based</option>
           <option>Probationary (180 Days)</option>
@@ -1525,7 +1511,7 @@ if (isset($kekelpogi)) {
     <div class="modal-body">
       <br>
       <!--   <form action = "" method = "POST">-->
-      <input type="text" name="idnum" id="idnum" value="" placeholder="ID Number" class="form-control" style="height:45px;width:80%;" required> <br>
+      <input type="text" name="idnum" id="idnum" value="" placeholder="ID Number" class="form-control" style="height:45px;width:80%;"> <br>
 
     </div>
     <div class="modal-footer">

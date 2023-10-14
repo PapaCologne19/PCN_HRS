@@ -1956,7 +1956,7 @@ echo '
        
     
                      <center>
-                      <div class="col-md-6 mt-5 mb-5>
+                      <div class="col-md-6 mt-5 mb-5">
                         <input type = "submit" name = "next" value = "Save" class="btn btn-info">
                       </div>
                      </center>
@@ -2386,18 +2386,18 @@ echo '
 
         <div class="modal-body">
           <center>
-            <h3>Summary Report</h3>
+            <h3 class="fs-2">Summary Report</h3>
 
             <hr>
-            <table id="e99" class="display" style="width:100%">
+            <table id="e99" class="table table-sm align-middle mb-0 border border-info border-start-0 border-end-0 rounded-end" style="width:100%">
               <thead>
                 <tr>
-                  <th> FILLED BY </th>
-                  <th> LOCATION </th>
-                  <th> POSITION </th>
-                  <th> NEEDED </thh>
-                  <th> PROVIDED </th>
-                  <th> RECEIVED BY: </th>
+                  <th class="text-white"> FILLED BY </th>
+                  <th class="text-white"> LOCATION </th>
+                  <th class="text-white"> POSITION </th>
+                  <th class="text-white"> NEEDED </thh>
+                  <th class="text-white"> PROVIDED </th>
+                  <th class="text-white"> RECEIVED BY: </th>
                 </tr>
               </thead>
               <tbody>
@@ -2411,14 +2411,14 @@ echo '
                   $totalprovided = $row[43] + $row[44];
 
 
-                  $result_uid = mysqli_query($link, "SELECT * FROM book1 where idnya='$uid1'");
-                  while ($row_uid = mysqli_fetch_assoc($result_uid)) {
-                    $fullname = $row_uid[9];
+                  // $result_uid = mysqli_query($link, "SELECT * FROM book1 where idnya='$uid1'");
+                  // while ($row_uid = mysqli_fetch_assoc($result_uid)) {
+                    $fullname = $row[41];
 
                     if ($row[46] == "YES") {
 
                       echo ' <tr> ';
-                      echo '  <td>  ' . $row['drt'] . '   </td> ';
+                      echo '  <td>  ' . $row[41] . '   </td> ';
                       echo '  <td>  ' . $row[42] . '   </td> ';
                       echo '  <td>  ' . $row[10] . '   </td> ';
                       echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
@@ -2446,7 +2446,7 @@ echo '
                                    </tr> ';
                     }
                   }
-                } ?>
+                //} ?>
 
 
 
@@ -2457,7 +2457,7 @@ echo '
 
         <div class="modal-footer">
           <form action="" method="POST">
-            <button class="button" Name="cancel"><span>OK</span></button>
+            <button class="btn btn-primary" Name="cancel"><span>OK</span></button>
 
           </form>
           <!--  <a href="https://www.facebook.com/sosy.tindera" class="fa fa-facebook"></a>
