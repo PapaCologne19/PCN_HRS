@@ -25,6 +25,10 @@ $datenow = date("m/d/Y h:i:s A");
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gabarito&family=Inter&family=Julius+Sans+One&family=Poppins&family=Quicksand:wght@400;500&family=Roboto&family=Thasadith&display=swap" rel="stylesheet">
 
+    <!-- Sweet Alert and Jquery -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
     <link rel="stylesheet" href="../assets/css/style.css">
     <title>MRF</title>
 
@@ -54,6 +58,43 @@ $datenow = date("m/d/Y h:i:s A");
 </head>
 
 <body>
+<?php
+if (isset($_SESSION['successMessage'])) {
+    $id = mysqli_insert_id($link);
+    $query = "SELECT * FROM mrf WHERE id = '$id'";
+    $result = $link->query($query);
+    ?>
+    <script>
+        var id = <?php echo $_GET['id']; ?>; // Pass $id as a JavaScript variable
+        Swal.fire({
+            title: '<?php echo $_SESSION['successMessage']; ?>',
+            icon: 'success',
+            showCloseButton: true,
+            showCancelButton: false,
+            showConfirmButton: true,
+            confirmButtonText: 'Print Data',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Open the "print_mrf.php" page in a new window
+                window.open("print_mrf.php?id=" + encodeURIComponent(id));
+            }
+        });
+    </script>
+    <?php
+    unset($_SESSION['successMessage']);
+}
+?>
+
+    <?php
+    if (isset($_SESSION['errorMessage'])) { ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: "<?php echo $_SESSION['errorMessage']; ?>",
+            })
+        </script>
+    <?php unset($_SESSION['errorMessage']);
+    } ?>
     <?php
     if ($_SESSION['darkk'] === "mrf") {
     ?>
@@ -91,7 +132,7 @@ $datenow = date("m/d/Y h:i:s A");
                         <ul class="cd-side__sub-list">
 
                             <form action="" method="POST">
-                                <li class="cd-side__btn"><BUTTON class="btn" name="viewdatabase" style="font-size:14; width:150px;height:50px">Presently Deployed</button></li>
+                                <li class="cd-side__btn"><BUTTON class="btn" name="viewdatabase" style="font-size:14px; width:150px;height:50px">Presently Deployed</button></li>
                             </form>
 
                             <li class="cd-side__btn"><button class="btn" data-bs-toggle="modal" data-bs-target="#myModaldephistory" style="font-size:14; width:150px;height:50px">Employee History</button></li>
@@ -149,6 +190,30 @@ $datenow = date("m/d/Y h:i:s A");
                                     <h4 class="fs-4">PROJECT DETAILS</h4>
                                 </center>
                                 <div class="col-md-4 mt-3">
+                                    <?php
+                                    $query = "SELECT id FROM mrf";
+                                    $result = $link->query($query);
+                                    while ($row = $result->fetch_assoc()) {
+                                        $track = $row['id'] + 1;
+                                    }
+                                    ?>
+                                    <label for="" class="form-label">TRACKING NUMBER</label>
+                                    <input type="text" name="tracking_number" id="tracking_number" class="form-control" value="<?php echo $track ?>" readonly>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">MRF Category</label>
+                                    <select name="mrf_category" id="mrf_category" oninput="showCategory()" class="form-select cbo" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="NEW">NEW</option>
+                                        <option value="REPLACEMENT">REPLACEMENT</option>
+                                        <option value="RELIEVER">RELIEVER</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label" id="name-label">Name</label>
+                                    <input type="text" class="form-control" name="category_name" id="category_name" required>
+                                </div>
+                                <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">MRF Type</label>
                                     <select name="mrf_type" id="mrf_type" onchange="validate_type()" class="form-select cbo" required>
                                         <option value="" selected disabled></option>
@@ -170,6 +235,7 @@ $datenow = date("m/d/Y h:i:s A");
                                         <?php } ?>
                                     </select>
                                 </div>
+
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">Location</label>
                                     <select name="location" id="location" class="form-select" required>
@@ -180,7 +246,7 @@ $datenow = date("m/d/Y h:i:s A");
                                 </div>
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">Project Title</label>
-                                    <select name="projectTitle" id="projectTitle" class="form-select" required>
+                                    <!-- <select name="projectTitle" id="projectTitle" class="form-select" required>
                                         <option value="" selected disabled></option>
                                         <?php
                                         $query = "SELECT * FROM projects WHERE status = '1' AND is_deleted = '0'";
@@ -189,7 +255,8 @@ $datenow = date("m/d/Y h:i:s A");
                                         ?>
                                             <option value="<?php echo $row['project_title']; ?>"><?php echo $row['project_title']; ?></option>
                                         <?php } ?>
-                                    </select>
+                                    </select> -->
+                                    <input type="text" name="projectTitle" id="projectTitle" class="form-control" required>
                                 </div>
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">Division</label>
@@ -207,10 +274,11 @@ $datenow = date("m/d/Y h:i:s A");
                                 </div>
                                 <div class="col-md-4 mt-3">
                                     <label for="" class="form-label">CE Number</label>
-                                    <select name="ce_number" id="ce_number" class="form-select" required>
+                                    <!-- <select name="ce_number" id="ce_number" class="form-select" required>
                                         <option value="" selected disabled></option>
                                         <option value="Test">Select this for temporary</option>
-                                    </select>
+                                    </select> -->
+                                    <input type="text" name="ce_number" id="ce_number" class="form-control" required>
                                 </div>
 
                                 <!-- FOR POSITION -->
@@ -250,35 +318,35 @@ $datenow = date("m/d/Y h:i:s A");
                                                     Push Girl
                                                 </label>
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Demo Girl"/>
+                                                    <input type="radio" name="radio" value="Demo Girl" />
                                                     Demo Girl
                                                 </label>
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Promo Girl"/>
+                                                    <input type="radio" name="radio" value="Promo Girl" />
                                                     Promo Girl
                                                 </label>
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Sampler"/>
+                                                    <input type="radio" name="radio" value="Sampler" />
                                                     Sampler
                                                 </label>
                                             </div>
                                         </div>
 
-                                        <div class="column" >
+                                        <div class="column">
                                             <div class="containerx">
 
                                                   <label class="form-control">
-                                                    <input type="radio" name="radio" value="Merchandiser"/>
+                                                    <input type="radio" name="radio" value="Merchandiser" />
                                                     Merchandiser
                                                 </label>
 
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Helper"/>
+                                                    <input type="radio" name="radio" value="Helper" />
                                                     Helper
                                                 </label>
 
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Mystery Buyer"/>
+                                                    <input type="radio" name="radio" value="Mystery Buyer" />
                                                     Mystery Buyer
                                                 </label>
 
@@ -293,17 +361,17 @@ $datenow = date("m/d/Y h:i:s A");
                                             <div class="containerx">
 
                                                   <label class="form-control">
-                                                    <input type="radio" name="radio" value="Promoter"/>
+                                                    <input type="radio" name="radio" value="Promoter" />
                                                     Promoter
                                                 </label>
 
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Encoder"/>
+                                                    <input type="radio" name="radio" value="Encoder" />
                                                     Encoder
                                                 </label>
 
                                                 <label class="form-control">
-                                                    <input type="radio" name="radio" value="Coordinator"/>
+                                                    <input type="radio" name="radio" value="Coordinator" />
                                                     Coordinator
                                                 </label>
 
@@ -454,7 +522,7 @@ $datenow = date("m/d/Y h:i:s A");
                                     </center>
                                     <div class="row mt-3">
                                         <div class="col-md-2">
-                                            <label for="" class="form-label">Salary Schedule: </label>
+                                            <label for="" class="form-label">* Salary Schedule: </label>
                                         </div>
                                         <div class="col-md-4">
                                             <input type="text" class="form-control salary_package" name="salary_schedule" id="salary_schedule" required>
@@ -496,6 +564,12 @@ $datenow = date("m/d/Y h:i:s A");
 
                                 </div>
 
+                                <center>
+                                    <h4 class="fs-4 mt-4">SPECIAL REQUIREMENTS (IF ANY) / INSTRUCTIONS / REMARKS / RECOMMENDATIONS</h4>
+                                </center>
+                                <textarea name="special_requirements" id="special_requirements" cols="30" rows="5" class="form-control"></textarea>
+
+
                                 <!-- FOR REQUISITIONER INFORMATION -->
                                 <center>
                                     <h4 class="fs-4 mt-4">REQUISITIONER INFORMATION</h4>
@@ -510,7 +584,7 @@ $datenow = date("m/d/Y h:i:s A");
                                 </div>
                                 <div class="col-md-6">
                                     <label for="" class="form-label">Directly Reporting To</label>
-                                    <select name="direct_report" id="direct_report" class="form-select">
+                                    <select name="direct_report" id="direct_report" class="form-select" required>
                                         <option value="" selected disabled></option>
                                         <option value="VILLAVICENCIO, RODEO">Mr. Deo</option>
                                         <option value="BURCE, MIKE">Mr. Mike</option>
@@ -564,6 +638,31 @@ $datenow = date("m/d/Y h:i:s A");
 
             });
 
+            document.getElementById('category_name').style.visibility = 'hidden';
+            document.getElementById('name-label').style.visibility = 'hidden';
+
+            function showCategory() {
+                document.getElementById('mrf_category').addEventListener("change", function() {
+                    var category = document.getElementById("mrf_category");
+                    var show_category = category.options[category.selectedIndex].text;
+
+                    if (category.options[category.selectedIndex].text === "REPLACEMENT") {
+                        document.getElementById('category_name').style.visibility = 'visible';
+                        document.getElementById('name-label').style.visibility = 'visible';
+                        document.getElementById('category_name').focus();
+
+                    } else if (category.options[category.selectedIndex].text === "RELIEVER") {
+                        document.getElementById('category_name').style.visibility = 'visible';
+                        document.getElementById('name-label').style.visibility = 'visible';
+                        document.getElementById('category_name').focus();
+
+                    } else {
+                        document.getElementById('category_name').style.visibility = 'hidden';
+                        document.getElementById('name-label').style.visibility = 'hidden';
+                    }
+                });
+            }
+
             function myFunction_focusout() {
 
             }
@@ -584,8 +683,7 @@ $datenow = date("m/d/Y h:i:s A");
                 }
             });
 
-            function validate_type() {
-            }
+            function validate_type() {}
         </script>
     <?php } ?>
 </body>
