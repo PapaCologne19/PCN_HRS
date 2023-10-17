@@ -2404,7 +2404,7 @@ echo '
 
                 <?php
 
-                $result = mysqli_query($link, "SELECT * FROM mrf where uid<>''");
+                $result = mysqli_query($link, "SELECT * FROM mrf");
                 while ($row = mysqli_fetch_row($result)) {
                   $uid1 = $row[47];
                   $totalneed = $row[12] + $row[13];

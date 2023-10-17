@@ -97,16 +97,19 @@ if (isset($_POST['SubButton'])) {
       } else if($rowd[9] == "MRF"){
         // Set session variables
 
-        $_SESSION["dmark"] = $rowd[7];
+        $_SESSION["username"] = $rowd[7];
+        $_SESSION["password"] = $rowd[8];
+        $_SESSION["firstname"] = $rowd[2];
+        $_SESSION["lastname"] = $rowd[1];
         $_SESSION["dmark1"] = $rowd[7] . $rowd[8];
         $_SESSION["darkk"] = "mrf";
         $_SESSION["dept"] = $rowd[6];
-        $_SESSION["data"] = $rowd[0];
+        $_SESSION["id"] = $rowd[0];
 
         //log control
         $dtnow = date("m/d/Y");
 
-        $query5 = "INSERT INTO log(Username, Datelog, time, activitynya) VALUES('$rowd[7]','$dtnow',now(),'RECRUITMENT login Accepted')";
+        $query5 = "INSERT INTO log(Username, Datelog, time, activitynya) VALUES('$rowd[7]','$dtnow',now(),'MRF login Accepted')";
         $result5 = mysqli_query($link, $query5);
 
         header("location: mrf/index.php");
