@@ -3,7 +3,7 @@ include '../connect.php';
 session_start();
 
 date_default_timezone_set('Asia/Hong_Kong');
-$datenow = date("m/d/Y h:i:s A");
+$datenow = date("m/d/Y");
 
 ?>
 <!DOCTYPE html>
@@ -27,20 +27,24 @@ $datenow = date("m/d/Y h:i:s A");
 
 
     <!-- Datatables -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.css">
-   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.semanticui.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.semanticui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.9.2/semantic.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="../assets/css/sidebar.css">
     <title>MRF List</title>
 
     <style>
         * {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .containers {
@@ -48,17 +52,24 @@ $datenow = date("m/d/Y h:i:s A");
         }
 
         .form-control {
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-bottom: 1px solid black;
-            border-radius: 0;
+            width: 100% !important;
+            padding: 0.375rem 2.25rem 0.375rem 0.75rem !important;
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            line-height: 1.5 !important;
+            color: var(--bs-body-color) !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            background-color: var(--bs-body-bg) !important;
+            background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none) !important;
+            background-repeat: no-repeat !important;
+            background-position: right 0.75rem center !important;
+            background-size: 16px 12px !important;
+            border: var(--bs-border-width) solid var(--bs-border-color) !important;
+            border-radius: var(--bs-border-radius) !important;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
         }
-
-        .form-check-input {
-            border: 1px solid black;
-        }
-
         table {
             border: 1px solid black !important;
             font-size: 12px;
@@ -84,15 +95,17 @@ $datenow = date("m/d/Y h:i:s A");
             font-size: 13px;
         }
 
-        i{
+        i {
             text-decoration: underline;
             color: #3876BF;
             font-weight: bold;
         }
-        .icon{
+
+        .icon {
             color: #C2C7D0 !important;
         }
-        .icon:hover{
+
+        .icon:hover {
             color: red;
         }
         .form-check-input {
@@ -101,33 +114,17 @@ $datenow = date("m/d/Y h:i:s A");
     </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
     <?php
-    if (isset($_SESSION['successMessage'])) {
-        $id = mysqli_insert_id($link);
-        $query = "SELECT * FROM mrf WHERE id = '$id'";
-        $result = $link->query($query);
-    ?>
+    if (isset($_SESSION['successMessage'])) { ?>
         <script>
-            var id = <?php echo $_GET['id']; ?>; // Pass $id as a JavaScript variable
             Swal.fire({
-                title: '<?php echo $_SESSION['successMessage']; ?>',
                 icon: 'success',
-                showCloseButton: true,
-                showCancelButton: false,
-                showConfirmButton: true,
-                confirmButtonText: 'Print Data',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Open the "print_mrf.php" page in a new window
-                    window.open("print_mrf.php?id=" + encodeURIComponent(id));
-                }
-            });
+                title: "<?php echo $_SESSION['successMessage']; ?>",
+            })
         </script>
-    <?php
-        unset($_SESSION['successMessage']);
-    }
-    ?>
+    <?php unset($_SESSION['successMessage']);
+    } ?>
 
     <?php
     if (isset($_SESSION['errorMessage'])) { ?>
@@ -140,15 +137,16 @@ $datenow = date("m/d/Y h:i:s A");
     <?php unset($_SESSION['errorMessage']);
     } ?>
     <?php
-    if ($_SESSION['darkk'] === "mrf") {
+    if (isset($_SESSION['darkk'])) {
 
         include '../components/sidebar.php';
     ?>
 
         <div class="container" style="padding-top: 10rem;">
-            <table class="table p-3 table-striped align-middle mb-0 p-3 bg-info bg-opacity-10 border border-info border-start-0 border-end-0 rounded-end mdc-data-table" id="example" style="border: 1px solid whitesmoke !important;">
+            <table class="table p-3 table-striped table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" id="example" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 15px !important;">
                 <thead>
                     <tr>
+                        <th>Date Created</th>
                         <th>ID</th>
                         <th>Tracking Number</th>
                         <th>Project Title</th>
@@ -157,19 +155,29 @@ $datenow = date("m/d/Y h:i:s A");
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM mrf WHERE uid = '" . $_SESSION['id'] . "'";
+                    $query = "SELECT * FROM mrf WHERE uid = '" . $_SESSION['id'] . "' AND is_deleted = '0'";
                     $result = $link->query($query);
                     while ($row = $result->fetch_assoc()) {
+                        $inputDate = $row['dt_now'];
+                        $timestamp = strtotime($inputDate);
+                        $formattedDate = date("F d, Y", $timestamp);
                     ?>
                         <tr>
+                            <td><?php echo $formattedDate ?></td>
                             <td><?php echo $row['id'] ?></td>
                             <td><?php echo $row['tracking'] ?></td>
                             <td><?php echo $row['project_title'] ?></td>
                             <td>
-                                <button type="button" class="btn btnview" data-bs-toggle="modal" data-bs-target="#viewmdf"><i class="bi bi-eye icon" style="color: black !important;"></i></button>
-                                <button type="button" class="btn btnprint" id="btnprint" onclick="location.href = 'print_mrf.php?id=<?php echo $row['id'] ?>'"><i class="bi bi-printer icon" style="color: black !important;"></i></button>
-                                <button type="button" class="btn btnedit"><i class="bi bi-gear icon" style="color: black !important;"></i></button>
-                                <button type="button" class="btn btndelete"><i class="bi bi-trash3 icon" style="color: black !important;"></i></button>
+                                <input type="hidden" name="ids" class="ids" id="ids" value="<?php echo $row['id']; ?>">
+                                <button type="button" class="btn btnview" data-bs-toggle="modal" data-bs-target="#viewmrf" ><i class="bi bi-eye icon" style="color: black !important;"></i></button>
+                                <button type="button" class="btn btnprint" id="btnprint" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Print MRF" onclick="location.href = 'print_mrf.php?id=<?php echo $row['id'] ?>'"><i class="bi bi-printer icon" style="color: black !important;"></i></button>
+                                <a href="edit_mrf.php?id=<?php echo $row['id']?>" method="post" style="width: 0% !important;">
+                                    <input type="hidden" name="edit_id" class="edit_id" id="edit_id" value="<?php echo $row['id']; ?>">
+                                    <button type="button" class="btn btnedit" name="btnedit" id="btnedit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit MRF"><i class="bi bi-gear icon" style="color: black !important;"></i></button>
+                                </a>
+
+                                <input type="hidden" name="delete_id" class="delete_id" id="delete_id" value="<?php echo $row['id']; ?>">
+                                <button type="button" class="btn btndelete" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete MRF"><i class="bi bi-trash3 icon" style="color: black !important;"></i></button>
                             </td>
                         </tr>
                     <?php } ?>
@@ -178,592 +186,112 @@ $datenow = date("m/d/Y h:i:s A");
         </div>
 
 
-        <!-- Modal for View MDF -->
-        <div class="modal fade" id="viewmdf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal for View MRF -->
+        <div class="modal fade" id="viewmrf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                    <modal class="modal-header">
+                    <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </modal>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="row">
-                                <?php
-                                $query = "SELECT * FROM mrf";
-                                $result = $link->query($query);
-                                $row = $result->fetch_assoc();
-                                ?>
-                                <div class="header">
-                                    <img src="../assets/img/pcnlogo1.png" alt="" class="img-responsive justify-content-start logo">
-                                    <center>
-                                        <p class="justify-content-center" style="margin-top: -4rem; font-size: 10px;"><i style="color: black !important;">PCN-HR-006 Rev No.1 - October 12, 2020</i></p>
-                                        <h4 class="fs-5" style=""><strong>MANPOWER REQUISITION FORM (MRF)</strong></h4>
-                                    </center>
-                                    <div class="tracking">
-                                        <p style="float: right;">Tracking No. <?php echo $row['tracking'] ?></p>
-                                    </div>
-                                    <div class="sub-header mt-4">
-                                        <p style="font-size: 12px;"><strong><i style="color: black !important; text-decoration: none !important;">Instructions: 1. Accomplish / Complete the form on a per position basis. <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Forward to Recruitment (hard copy or scanned copy) together with the Job description</i></strong></p>
-                                    </div>
-
-
-
-                                    <div class="sub-header-checkbox">
-                                        <table class="table" style="border: 1px solid white !important;">
-                                            <tbody>
-                                                <tr>
-                                                    <td width="80">
-                                                        <div class="form-check col-md-1">
-                                                            <?php
-                                                            if ($row['location'] === 'NCR') {
-                                                            ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                            <?php } else { ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input">
-                                                            <?php } ?>
-                                                            <label for="" class="form-check-label">NCR</label>
-                                                        </div>
-                                                        <div class="form-check col-md-1">
-                                                            <?php
-                                                            if ($row['mrf_category'] === 'NEW') {
-                                                            ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                            <?php } else { ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input">
-                                                            <?php } ?>
-                                                            <label for="" class="form-check-label">NEW</label>
-                                                        </div>
-                                                    </td>
-                                                    <td width="20">
-                                                        <div class="form-check col-md-12">
-                                                            <?php
-                                                            if ($row['location'] === 'PROVINCIAL') {
-                                                            ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                            <?php } else { ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input">
-                                                            <?php } ?>
-                                                            <label for="" class="form-check-label">PROVINCIAL</label>
-                                                        </div>
-
-                                                        <div class="form-check col-md-12">
-                                                            <?php
-                                                            if ($row['mrf_category'] === 'REPLACEMENT') {
-                                                            ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                            <?php } else { ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input">
-                                                            <?php } ?>
-                                                            <label for="" class="form-check-label">REPLACEMENT<i style="text-decoration: underline;"><?php echo $row['mrf_category_name'] ?></i></label>
-                                                        </div>
-                                                    </td>
-
-                                                    <td width="20">
-                                                        <div class="form-check col-md-1" style="visibility: hidden;">
-
-                                                            <label for="" class="form-check-label ">RELIEVER_______________</label>
-                                                        </div>
-                                                        <div class="form-check col-md-1">
-                                                            <?php
-                                                            if ($row['mrf_category'] === 'RELIEVER') {
-                                                            ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                            <?php } else { ?>
-                                                                <input type="checkbox" name="" id="" class="form-check-input">
-                                                            <?php } ?>
-                                                            <label for="" class="form-check-label ">RELIEVER_______________</label>
-                                                        </div>
-
-                                                    </td>
-
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="body">
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="7" class="text-center" style="background: whitesmoke;">PROJECT DETAILS</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td width="40">Division/Dept</td>
-                                                <td width="100"><i style="color: skyblue;"><?php echo $row['division'] ?></i></td>
-                                                <td width="60">Client</td>
-                                                <td width="100" colspan="4"><i style="color: skyblue;"><?php echo $row['client'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Project Title</td>
-                                                <td colspan="4"><i style="color: skyblue;"><?php echo $row['project_title'] ?></i></td>
-                                                <td width="70">C.E. No.</td>
-                                                <td><i style="color: skyblue;"><?php echo $row['ce_number'] ?></i></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="6" class="text-center" style="background: whitesmoke;">POSITION (Please choose one and attach detailed Job Description)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important;">
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Push Girl') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Push Girl</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Demo Girl') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Demo Girl</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Promo Girl') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Promo Girl</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Sampler') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Sampler</label>
-                                                    </div>
-                                                </td>
-                                                <td style="border-right: 1px solid white !important;">
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Merchandiser') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <label for="" class="form-check-label">Merchandiser</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Helper') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Helper</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Mystery Buyer') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Mystery Buyer</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Validator') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Validator</label>
-                                                    </div>
-                                                </td>
-                                                <td style="border-right: 1px solid white !important;">
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Promoter') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Promoter</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Encoder') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Encoder</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Coordinator') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Coordinator</label>
-                                                    </div>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Bundler') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Bundler</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-check col-md-12">
-                                                        <?php
-                                                        if ($row['position'] === 'Others') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Others (Please Specify)</label>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <?php
-                                                        if (
-                                                            $row['position'] === 'Push Girl' || $row['position'] === 'Demo Girl' || $row['position'] === 'Promo Girl'
-                                                            || $row['position'] === 'Sampler' || $row['position'] === 'Merchandiser' || $row['position'] === 'Helper' || $row['position'] === 'Mystery Buyer'
-                                                            || $row['position'] === 'Validator' || $row['position'] === 'Promoter' || $row['position'] === 'Encoder' || $row['position'] === 'Coordinator'
-                                                            || $row['position'] === 'Coordinator' || $row['position'] === 'Bundler'
-                                                        ) {
-                                                        ?>
-                                                            <input type="text" name="" id="" class="form-control" value="<?php echo $row['position_detail'] ?>">
-                                                        <?php } else { ?>
-                                                            <input type="text" name="" id="" class="form-control" value="<?php echo $row['position'] . " (" . $row['position_detail'] . ")" ?>">
-                                                        <?php } ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="6" class="text-center" style="background: whitesmoke;">JOB REQUIREMENTS / QUALIFICATIONS</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr style="padding: 10rem !important;">
-                                                <th style="border-right: 1px solid white !important; border-bottom: 1px solid white !important;"></th>
-                                                <th style="border-right: 1px solid white !important; border-bottom: 1px solid white !important">Male</th>
-                                                <th style="border-right: 1px solid white !important; border-bottom: 1px solid white !important">Female</th>
-                                                <th style="border-bottom: 1px solid white !important; padding-left: 7rem;">Personality (Please Check)</th>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important; border-bottom: 1px solid white !important;">No. of People</td>
-                                                <td width="50" style="border-right: 1px solid white !important; text-align: center; "><i style="text-decoration: none !important; "><?php echo $row['np_male'] ?></i></td>
-                                                <td width="50" style="border-right: 1px solid white !important;text-align: center;"><i style="text-decoration: none !important; "><?php echo $row['np_female'] ?></i></td>
-                                                <td rowspan="7" colspan="4" style="border-left: 1px solid white !important;">
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['pleasing_personality'] === 'Pleasing Personality') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Pleasing Personality</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['moral'] === 'Good Moral') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">With Good Moral Character</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['work_experience'] === 'With Work Experience') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">With Work Experience</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['comm_skills'] === 'Good communication skills') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Good Communication Skills</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['physically'] === 'Physically fit / good built') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Physically fit / Good Built</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if ($row['articulate'] === 'Articulate') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Articulate</label>
-                                                    </div>
-                                                    <div class="col-md-12 form-check" style=" padding-left: 8rem;">
-                                                        <?php
-                                                        if (!empty($row['others'])) {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Others: &nbsp; &nbsp; &nbsp; &nbsp; <i><?php echo $row['others'] ?></i></label>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important; border-bottom: 1px solid white !important">Height Requirement</td>
-                                                <td width="50" style="border-right: 1px solid white !important;  text-align: center; "><i style="text-decoration: none !important;"><?php echo $row['height_r'] ?></i></td>
-                                                <td width="50" style="border-right: 1px solid white !important;  text-align: center; "><i style="text-decoration: none !important;"><?php echo $row['height_female'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3" style="border-right: 1px solid white !important; border-bottom: 1px solid white !important;">Educational Background (please check)</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important; border-bottom: 1px solid white !important">High School Graduate</td>
-                                                <?php
-                                                if ($row['edu'] === 'High School Graduate') {
-                                                ?>
-                                                    <td style="border-right: 1px solid white !important; text-align: center;">
-
-                                                        <i style="text-decoration: none !important;">1</i>
-                                                    </td>
-                                                    <td style="border-right: 1px solid white !important; text-align: center;">
-
-                                                        <i style="text-decoration: none !important;">1</i>
-                                                    </td>
-                                                <?php } ?>
-
-                                            </tr>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important; border-bottom: 1px solid white !important; border-top: 1px solid white !important">College Level</td>
-                                                <td style="border-right: 1px solid white !important; text-align:center;">
-                                                    <?php
-                                                    if ($row['edu'] === 'College Level') {
-                                                    ?>
-                                                        <i style="text-decoration: none !important;">1</i>
-                                                </td>
-                                                <td style="border-right: 1px solid white !important; text-align:center;">
-                                                    <i style="text-decoration: none !important;">1</i>
-                                                <?php } else {
-                                                    } ?>
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-right: 1px solid white !important; border-bottom: 1px solid white !important;">College Graduate</td>
-                                                <td style="border-right: 1px solid white !important;  text-align: center;">
-                                                    <?php
-                                                    if ($row['edu'] === 'College Graduate') {
-                                                    ?>
-                                                        <i style="text-decoration: none !important;">1</i>
-                                                </td>
-                                                <td style="border-right: 1px solid white !important;  text-align: center;">
-                                                    <i style="text-decoration: none !important;">1</i>
-                                                <?php } ?>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <?php
-                                                if ($row['edu'] === 'Vocational') { ?>
-                                                    <td style="border-right: 1px solid white !important;">Others:
-                                                        <i><?php echo $row['edu'] ?></i>
-                                                    <?php } else { ?>
-                                                    </td>
-                                                    <td style="border-right: 1px solid white !important;">Others: _________</td>
-                                                <?php } ?>
-                                                <td style="border-right: 1px solid white !important;"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" colspan="6" style="font-weight: 900;">JOB / WORK DETAILS</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="text-center">
-                                                <th style="border-bottom: 1px solid white;">Salary Package</th>
-                                                <th style="border-bottom: 1px solid white;">Employment Status</th>
-                                                <th style="border-bottom: 1px solid white;">Work Schedule & Others</th>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: 1px solid white;">Basic Salary: &nbsp;&nbsp;&nbsp;<i style="float: right; margin-right: 1rem;"><?php echo $row['basic_salary'] ?></i></td>
-                                                <td rowspan="6">
-                                                    <div class="form-check">
-                                                        <?php
-                                                        if ($row['employment_stat'] === 'Project Based') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Project Based</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <?php
-                                                        if ($row['employment_stat'] === 'Probationary') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Probationary (180 Days)</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <?php
-                                                        if ($row['employment_stat'] === 'Regular') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Regular</label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <?php
-                                                        if ($row['employment_stat'] === 'Other') {
-                                                        ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input" checked>
-                                                        <?php } else { ?>
-                                                            <input type="checkbox" name="" id="" class="form-check-input">
-                                                        <?php } ?>
-                                                        <label for="" class="form-check-label">Other: </label>
-                                                    </div>
-                                                </td>
-                                                <td style="border-bottom: 1px solid white;">Salary Schedule: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['salary_sched'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: 1px solid white;">Transpo Allowance: <i style="float: right; margin-right: 1.5rem; margin-right: 1.5rem;"><?php echo $row['transpo'] ?></i></td>
-                                                <td style="border-bottom: 1px solid white;">Work Duration: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['work_duration'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: 1px solid white;">Meal Allowance: <i style="float: right; margin-right: 1.5rem; "><?php echo $row['meal'] ?></i></td>
-                                                <td style="border-bottom: 1px solid white;">Work Days: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['work_days'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: 1px solid white;">Communication Allowance: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['comm'] ?></i></td>
-                                                <td style="border-bottom: 1px solid white;">Time Schedule: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['time_sched'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border-bottom: 1px solid white;">Others: <i style="float: right; margin-right: 1.5rem; margin-right: 1.5rem;"><?php echo $row['other_allow'] ?></i></td>
-                                                <td style="border-bottom: 1px solid white;">Day-off: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['day_off'] ?></i></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td>Outlet: <i style="float: right; margin-right: 1.5rem;"><?php echo $row['outlet'] ?></i></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th colspan="6" class="text-center">SPECIAL REQUIREMENTS (IF ANY) / INSTRUCTIONS / REMARKS / RECOMMENDATIONS</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td rowspan="6">
-                                                    <p>
-                                                        <i style="text-decoration: none !important;"><?php echo $row['special_requirements_others'] ?></i>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <table class="table table-bordered" width="100">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center" colspan="4">REQUISITIONER</th>
-                                                <th class="text-center">APPROVER</th>
-                                                <th class="text-center">RECEIVER</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="3">Date Requested: <i style="display: block; text-decoration: none !important;"><?php echo $row['dt_now'] ?></i></td>
-                                                <td rowspan="3" class="text-center" style=" font-weight: bold;">Prepared / Requested By: <br><br><br> <?php echo $row['prepared_by'] ?></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">Date Needed: <i style="float: right;text-decoration: none !important;"><?php echo $row['date_needed'] ?></i></td>
-                                                <td style="border-top: 1px solid white;"></td>
-                                                <td style="border-top: 1px solid white;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">Directly Reporting to: <i style="display: block;text-decoration: none !important;"><?php echo $row['drt'] ?></i></td>
-                                                <td style="border-top: 1px solid white;"></td>
-                                                <td style="border-top: 1px solid white;"></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3">Position: <i style="display: block;text-decoration: none !important;"><?php echo $row['rp'] ?></i></td>
-                                                <td style="border-top: 1px solid white;" class="text-center"><i style="color: black !important;">Sig. over Printed Name/Date</i></td>
-                                                <td class="text-center" style="border-top: 1px solid white;"><i style="color: black !important;">Dept. Head / MGL / FSB</i></td>
-                                                <td class="text-center" style="border-top: 1px solid white;"><i style="color: black !important;">HR Sig. over printed Name/Date</i></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                   
+                    <div class="modal-body">
+
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <script>
-            new DataTable('#example');
+
+
+
+        
+
+
+        <script>     
+            // Viewing of MRF
+            $(document).ready(function() {
+                $('tbody').on('click', '.btnview', function() {
+                    var Id = $(this).prev('.ids').val();
+                    $('#viewmrf').modal('show');
+
+                    // load the corresponding question(s) for the clicked row
+                    $.ajax({
+                        url: 'view_mrf.php',
+                        type: 'post',
+                        data: {
+                            id: Id
+                        },
+                        success: function(response) {
+                            $('#viewmrf .modal-body').html(response);
+                        },
+                        error: function() {
+                            alert('Error.');
+                        }
+                    });
+                });
+            });
+
+
+            // Deleting MRF
+            // Deleting Rooms
+            $(document).ready(function() {
+                $('.btndelete').click(function(e) {
+                    e.preventDefault();
+
+                    var deleteID = $(this).closest("tr").find('.delete_id').val();
+                    Swal.fire({
+                        title: "Are you sure you want to delete this room?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel",
+                    }).then((willDelete) => {
+                        if (willDelete.isConfirmed) {
+                            $.ajax({
+                                    type: "POST",
+                                    url: "action.php",
+                                    data: {
+                                        "delete_button_click": 1,
+                                        "deleteIDs": deleteID,
+                                    },
+                                    success: function(response) {
+
+                                        Swal.fire({
+                                            title: "Successfully Deleted!",
+                                            icon: "success"
+                                        }).then((result) => {
+                                            location.reload();
+                                        });
+
+                                    }
+                                });
+                        }
+                    });
+                });
+            });
+
+            // Enabling Tooltips
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
+<script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+            });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
 
 
     <?php } ?>

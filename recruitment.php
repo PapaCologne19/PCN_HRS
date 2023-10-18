@@ -145,21 +145,25 @@ echo '
   <link rel="stylesheet" type="text/css" href="deo1.css">
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <!--for data table-->
-  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+  <!-- Datatables -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.4/css/buttons.dataTables.min.css">
 
-
-
-
-
+  <!-- Sweet Alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   <style type="text/css">
-    *{
+    * {
       font-family: 'Inter', sans-serif;
     }
+
     #results {
       padding: 10px;
       font-size: 18px;
@@ -249,6 +253,26 @@ echo '
     th {
       text-align: center;
     }
+
+    table {
+      border: 1px solid black !important;
+      font-size: 12px;
+    }
+
+    .table td,
+    .table th {
+      padding: 0 .3rem;
+    }
+
+    table tr td {
+      padding-top: .1rem !important;
+      padding-bottom: 0rem !important;
+
+    }
+
+    table thead tr th {
+      background: whitesmoke !important;
+    }
   </style>
 
 
@@ -263,7 +287,35 @@ echo '
 
 
 <!-- <body style="background-image: url(bg.png); background-size:100% 100%; background-repeat: no-repeat;"> -->
-  <body>
+
+<body>
+
+  <?php
+  if (isset($_SESSION['successMessage'])) { ?>
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: "<?php echo $_SESSION['successMessage']; ?>",
+      })
+    </script>
+  <?php unset($_SESSION['successMessage']);
+  } ?>
+
+  <?php
+  if (isset($_SESSION['errorMessage'])) { ?>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: "<?php echo $_SESSION['errorMessage']; ?>",
+      })
+    </script>
+  <?php unset($_SESSION['errorMessage']);
+  } ?>
+
+
+
+
+
 
   <div class="body5010p" id="my_camera" style="z-index: -1;"></div>
 
@@ -627,17 +679,17 @@ echo '
                                                      
 
                                                           <select class="form-select" name="projecttitle"> ';
-                                                              echo '<option>Select Project:</option> ';
+    echo '<option>Select Project:</option> ';
 
 
-                                                              $resultpro = mysqli_query($link, "SELECT * FROM Projects where end_date >= '$datenow1' order by project_title ASC ");
-                                                              while ($rowpro = mysqli_fetch_array($resultpro)) {
+    $resultpro = mysqli_query($link, "SELECT * FROM Projects where end_date >= '$datenow1' order by project_title ASC ");
+    while ($rowpro = mysqli_fetch_array($resultpro)) {
 
-                                                                echo '<option  value="' . $rowpro[0] . '">' . $rowpro[1] . '(' . $rowpro[2] . ')' . $rowpro[5] . ' </option> 
+      echo '<option  value="' . $rowpro[0] . '">' . $rowpro[1] . '(' . $rowpro[2] . ')' . $rowpro[5] . ' </option> 
                                                                                                             
                                                                                                                                 ';
-                                                              }
-                                                              echo '          
+    }
+    echo '          
                                                            </select> 
                                                            </div>
                                                           
@@ -654,7 +706,7 @@ echo '
     </form>
     
 ';
-     $kekelpogi="Shortlist title created" ;
+    $kekelpogi = "Shortlist title created";
     echo '</center>
                   <!--- laman -->
                         </div>     </div>
@@ -709,44 +761,32 @@ echo '
 
   ?>
 
-    <div class="how2">
-      <form action="" method="POST">
-        <button type="submit" class="btn btn-default btnsall" Name="Back" style="float:right;"><span>Close Report</span></button>
-        <br><br>
-      </form>
-      <div class="cd-content-wrapper">
+    <div class="containers" id="databaselist">
+      <div class="cd-content-wrappers">
         <div class="text-component text-center">
-
-
-          <!--- laman -->
           <h2 class="fs-2">Applicant Database</h2>
-
-
-
-          <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%">
+          <table id="example" class="table p-3 table-striped table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 15px !important;">
             <thead>
               <tr>
-                <th class="text-white"> Applicant No </th>
-                <th class="text-white"> Lastname </th>
-                <th class="text-white"> Firstname </th>
-                <th class="text-white"> Middlename </th>
-                <th class="text-white"> SSS </th>
-                <th class="text-white"> Pag-ibig </th>
-                <th class="text-white"> Philhealth </th>
-                <th class="text-white"> TIN </th>
-                <th class="text-white"> Police </th>
-                <th class="text-white"> Brgy </th>
-                <th class="text-white"> NBI </th>
-                <th class="text-white"> PSA </th>
-                <th class="text-white"> Birthday </th>
-                <th class="text-white"> Address </th>
-                <th class="text-white"> Action </th>
+                <th>Applicant No </th>
+                <th>Lastname </th>
+                <th>Firstname </th>
+                <th>Middlename </th>
+                <th>SSS </th>
+                <th>Pag-ibig </th>
+                <th>Philhealth </th>
+                <th>TIN </th>
+                <th>Police </th>
+                <th>Brgy </th>
+                <th>NBI </th>
+                <th>PSA </th>
+                <th>Birthday </th>
+                <th>Address </th>
+                <th>Action </th>
 
               </tr>
             </thead>
-
             <tbody>
-
               <?php
               $resultx = mysqli_query($link, "SELECT * FROM employees WHERE actionpoint <> 'BLACKLISTED' AND actionpoint <> 'REJECTED' AND actionpoint <> 'SHORTLISTED'");
               while ($rowx = mysqli_fetch_row($resultx)) {
@@ -766,105 +806,54 @@ echo '
                 echo '  <td> ' . $rowx[31] . '   </td> ';
                 echo '  <td> ' . $rowx[14] . '   </td> ';
                 echo '  <td> ' . $rowx[10] . '   </td> ';
-
-
                 echo '<td> <form action = "" method = "POST">
-<input type = "hidden" name = "shadowE" value = "' . $rowx[0] . '">
-       <button type="submit" name = "Editbtn" class="btn btn-default">
-      <span class="glyphicon glyphicon-edit" ></span> Edit
-    </button>
-     <button type="submit" name = "blackbtn" class="btn btn-default">
-      <span class="glyphicon glyphicon-edit" ></span> Black List
-    </button>
-  
-    ';
-
-
+                        <input type = "hidden" name = "shadowE" value = "' . $rowx[0] . '">
+                              <button type="submit" name = "Editbtn" class="btn btn-default btn-sm">
+                              <span class="glyphicon glyphicon-edit" ></span> Edit
+                            </button>
+                            <br>
+                            <button type="button" name = "blackbtn" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#blackbtns">
+                              <span class="glyphicon glyphicon-edit" ></span> Blacklist
+                            </button>
+                          
+                            ';
                 echo '</form></td>';
-
-
-
-
                 echo ' </tr> ';
               }
               ?>
-
-
             </tbody>
           </table>
-
-
-
-
-
-
         </div>
-
-
-        <!--- laman -->
       </div>
-    </div> <!-- .content-wrapper -->
-
+    </div>
   <?php
-
-
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   if (isset($_POST['Editbtn'])) {
-
     $idshadow = $_POST['shadowE'];
-
-
-
     $resulted = mysqli_query($link, "SELECT * FROM employees WHERE id = '$idshadow'");
     while ($rowed = mysqli_fetch_array($resulted)) {
-
-      //$datebirthx=date_create($rowed[14]);
-      //echo $rowed[14];
-      //$birthday1ax = date_format($rowed[14],"Y/m/d");
-      //echo $birthday1ax;
-
-
       echo '   
                       <div class="container" style="padding-left: 20rem; padding-right: 20rem; padding-top: 5rem; ">
                         <div class="row ">
-                    
                   <!--- laman -->
-    <form action = "" method = "POST">
-                    
+    <form action = "action.php" method = "POST">
                       <center>
                           <img src="' . $rowed[2] . '" alt="" class="img-circle" style="width:200px;height:200px;">
                           </center>
                           </div>
-                    
                                 <div class="row mt-5">
                                   <div class="col-md-2">
                                     <label class="form-label">Sources :</font></label>
                                   </div>
                                   <div class="col-md-10">
                                     <select class="form-select" name="source" value= "' . $rowed[5] . '" data-placeholder="Select Source";';
-                                      echo '<option>' . $rowed[5] . '</option>';
-                                      $results = mysqli_query($link, "SELECT * FROM sources");
-                                      while ($rows = mysqli_fetch_array($results)) {
-                                        echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
-                                      }
-                                      echo '          
+      echo '<option>' . $rowed[5] . '</option>';
+      $results = mysqli_query($link, "SELECT * FROM sources");
+      while ($rows = mysqli_fetch_array($results)) {
+        echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
+      }
+      echo '          
                                     </select>
                                   </div>                                 
                                 </div>
@@ -919,11 +908,12 @@ echo '
                                     </div>
                                     <div class="col-md-10">
                                       <select class="form-select cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;';
-                                        echo '<option>Select Region:</option> ';
-                                        $resultrg = mysqli_query($link, "SELECT * FROM region");
-                                        while ($rowrg = mysqli_fetch_array($resultrg)) {
-                                          echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
-                                        } echo '          
+      echo '<option>Select Region:</option> ';
+      $resultrg = mysqli_query($link, "SELECT * FROM region");
+      while ($rowrg = mysqli_fetch_array($resultrg)) {
+        echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
+      }
+      echo '          
                                       </select>
                                     </div>      
                                   </div>
@@ -970,11 +960,12 @@ echo '
                                     </div>
                                     <div class="col-md-10">
                                       <select class="form-select cbo" name="gendern"  value= "' . $rowed[16] . '" data-placeholder="Select Gendert "  > ;';
-                                        echo '<option>' . $rowed[16] . '</option> ';
-                                        $resultg = mysqli_query($link, "SELECT * FROM gender");
-                                        while ($rowg = mysqli_fetch_array($resultg)) {
-                                          echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
-                                        }echo '          
+      echo '<option>' . $rowed[16] . '</option> ';
+      $resultg = mysqli_query($link, "SELECT * FROM gender");
+      while ($rowg = mysqli_fetch_array($resultg)) {
+        echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
+      }
+      echo '          
                                       </select>
                                     </div>         
                                   </div>
@@ -985,11 +976,12 @@ echo '
                                     </div>
                                     <div class="col-md-10">
                                       <select class="form-select cbo" name="civiln" value= "' . $rowed[17] . '" data-placeholder=""  > ;';
-                                        echo '<option>' . $rowed[17] . '</option> ';
-                                        $resultt = mysqli_query($link, "SELECT * FROM tax_status");
-                                        while ($rowtt = mysqli_fetch_array($resultt)) {
-                                          echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
-                                        }echo '          
+      echo '<option>' . $rowed[17] . '</option> ';
+      $resultt = mysqli_query($link, "SELECT * FROM tax_status");
+      while ($rowtt = mysqli_fetch_array($resultt)) {
+        echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
+      }
+      echo '          
                                       </select>
                                     </div>           
                                   </div>
@@ -1028,11 +1020,12 @@ echo '
                                                             
                                     <div class="col-md-10">
                                       <select class="form-select cbo" name="despo"  value= "' . $rowed[21] . '" data-placeholder=""  > ;';
-                                        echo '<option>' . $rowed[21] . '</option> ';
-                                        $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
-                                        while ($rowjt = mysqli_fetch_array($resultjt)) {
-                                          echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
-                                        }echo '          
+      echo '<option>' . $rowed[21] . '</option> ';
+      $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
+      while ($rowjt = mysqli_fetch_array($resultjt)) {
+        echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
+      }
+      echo '          
                                       </select>
                                      </div>                   
                                   </div>
@@ -1044,11 +1037,12 @@ echo '
                                                             
                                    <div class="col-md-10">
                                    <select class="form-select cbo" name="classn"  value= "' . $rowed[22] . '" data-placeholder=""  > ;';
-                                      echo '<option>' . $rowed[22] . '</option> ';
-                                      $resultca = mysqli_query($link, "SELECT * FROM classifications");
-                                      while ($rowca = mysqli_fetch_array($resultca)) {
-                                      echo '<option  value="' . $rowca[1] . '">' . $rowca[1] . ' </option> ';
-                                      } echo '          
+      echo '<option>' . $rowed[22] . '</option> ';
+      $resultca = mysqli_query($link, "SELECT * FROM classifications");
+      while ($rowca = mysqli_fetch_array($resultca)) {
+        echo '<option  value="' . $rowca[1] . '">' . $rowca[1] . ' </option> ';
+      }
+      echo '          
                                     </select> 
                                    </div>
                                 </div>
@@ -1060,11 +1054,12 @@ echo '
                                                             
                                   <div class="col-md-10">
                                   <select class="form-select cbo" name="idenn"  value= "' . $rowed[23] . '" data-placeholder="" > ;';
-                                    echo '<option>' . $rowed[23] . '</option> ';
-                                    $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
-                                    while ($rowider = mysqli_fetch_array($resultide)) {
-                                      echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
-                                    } echo  '          
+      echo '<option>' . $rowed[23] . '</option> ';
+      $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
+      while ($rowider = mysqli_fetch_array($resultide)) {
+        echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
+      }
+      echo  '          
                                    </select>
                                   </div> 
                                 </div>
@@ -1195,11 +1190,10 @@ echo '
        
                                 <input type="hidden" name = "shadowEdit" value= "' . $rowed[0] . '" class="form-control" >
                                 <button <input type = "submit" name = "updateit" value = "" class="btn btn-info btn-lg mb-5" style="vertical-align:middle">Update It</button>
-                                <button <input type = "submit" name = "Cancel" value = "" class="btn btn-info btn-lg mb-5" style="vertical-align:middle">Cancel</button>
+                                <a href = "recruitment.php" name = "Cancel" value = "" class="btn btn-info btn-lg mb-5" style="vertical-align:middle">Cancel</a>
                                 
                  </form>
                                       
-                  <!--- laman -->
                         </div>
                       </div> <!-- .content-wrapper -->';
     }
@@ -1224,7 +1218,7 @@ echo '
        <button class="btn btn-success btnsall" onclick="myFunctioncam()">Display Camera</button><br><br>
               <form method="POST" action="storeImage.php">   
        
-                                     <input type=button class="btn btn-success btnsall" value="Take Photo" onClick="take_snapshot()">
+                                     <input type="button" class="btn btn-success btnsall" value="Take Photo" onClick="take_snapshot()" >
                                   <input type="submit" class="btn btn-success btnsall" Value ="Submit">
     <hr>
                     
@@ -1289,285 +1283,20 @@ echo '
 
 
 
-  if (isset($_POST['updateit'])) {
 
 
-    $id1 = $_POST['shadowEdit'];
 
-    //$photoko2=$_SESSION["photoko"];
-    // $dapplied1 = $_POST['dapplied'];
-    // $appno1 = $_POST['appnoko'];
-    $source1 = $_POST['source'];
-    $lastnameko1 = strtoupper($_POST['lastnameko']);
-    $firstnameko1 = strtoupper($_POST['firstnameko']);
-    $mnko1 = strtoupper($_POST['mnko']);
-    $extnname1 = strtoupper($_POST['extnname']);
-    $paddress1 = strtoupper($_POST['paddress']);
-    $cityn1 = $_POST['cityn'];
-    $regionn1 = $_POST['regionn'];
-
-    //$resultct=mysqli_query($link, "SELECT * FROM city WHERE citymunDesc = '$cityn1'");
-    //    while($rowct=mysqli_fetch_array($resultct))
-    //{
-    //$cityn2 = $rowct[3];
-    //}
-
-
-
-
-    //    $resultregi=mysqli_query($link, "SELECT * FROM region WHERE regCode = '$cityn2'");
-    //    while($rowregi=mysqli_fetch_array($resultregi))
-    //{
-    //$regionn1 = $rowregi[2];
-    //}
-
-
-
-
-
-
-    //  $regionn1 = $_POST['regionn'];
-    $peraddress1 = strtoupper($_POST['peraddress']);
-    $birthday1 = $_POST['birthday'];
-
-    $dateOfBirth = $birthday1;
-    $today = date("Y-m-d");
-    //echo $birthday1;
-    //ECHO $today;
-    $diff = date_diff(date_create($dateOfBirth), date_create($today));
-    //echo "Age is ".$diff->format("%y");
-    $age1 = $diff->format("%y");
-
-
-    $datebirth = date_create($birthday1);
-    $birthday1a = date_format($datebirth, "m/d/Y");
-
-
-
-    //  $age1 = $_POST['agen'];
-    $gendern = $_POST['gendern'];
-    $civiln1 = $_POST['civiln'];
-    $cpnum1 = $_POST['cpnum'];
-    $landline1 = $_POST['landline'];
-    $emailadd1 = $_POST['emailadd'];
-    $despo1 = $_POST['despo'];
-    $classn1 = $_POST['classn'];
-    $idenn1 = $_POST['idenn'];
-    $sssnum1 = $_POST['sssnum'];
-    $pagibignum1 = $_POST['pagibignum'];
-    $phnum1 = $_POST['phnum'];
-    $tinnum1 = $_POST['tinnum'];
-    $e_person1 = $_POST['e_person'];
-    $e_address1 = $_POST['e_address'];
-    $e_contact1 = $_POST['e_contact'];
-
-    $policed1x = $_POST['policed'];
-    $datepol = date_create($policed1x);
-    $policed1 = date_format($datepol, "m/d/Y");
-
-
-
-
-    $brgyd1x = $_POST['brgyd'];
-    $datebrgy = date_create($brgyd1x);
-    $brgyd1 = date_format($datebrgy, "m/d/Y");
-
-
-
-    $nbid1x = $_POST['nbid'];
-    $datenbi = date_create($nbid1x);
-    $nbid1 = date_format($datenbi, "m/d/Y");
-
-
-    $psa1 = $_POST['psa'];
-    $remarks1 = $_POST['remarks'];
-
-
-    mysqli_query($link, "UPDATE employees
-          SET
-    
-        source='$source1',
-        lastnameko='$lastnameko1',
-        firstnameko='$firstnameko1',
-        mnko='$mnko1',
-        extnname='$extnname1',
-        paddress='$paddress1',
-        cityn='$cityn1',
-        regionn='$regionn1',
-        peraddress='$peraddress1',
-        birthday='$birthday1',
-        age='$age1',
-        gendern='$gendern',
-        civiln='$civiln1',
-        cpnum='$cpnum1',
-        landline='$landline1',
-        emailadd='$emailadd1',
-        despo='$despo1',
-        classn='$classn1',
-        idenn='$idenn1',
-        sssnum='$sssnum1',
-        pagibignum='$pagibignum1',
-        phnum='$phnum1',
-        tinnum='$tinnum1',
-        policed='$policed1x',
-        brgyd='$brgyd1x',
-        nbid='$nbid1x',
-        psa='$psa1',
-        e_person='$e_person1',
-        e_address='$e_address1',
-        e_number='$e_contact1',
-        remarks='$remarks1'
-          
-          WHERE
-          id = '$id1'
-          ");
-    //echo $id1;
-    $kekelpogi = "Update Successful!";
-  }
-  //VALUES
-  //     (,'$photoko2','$dapplied1','$appno1',,
-
-  //tracking,
-  //     photopath,
-  //     dapplied,
-  //     appno,
-
-  if (isset($_POST['next'])) {
-
-
-
-    $photoko2 = $_SESSION["photoko"];
-    $dapplied1 = $_POST['dapplied'];
-    $appno1 = $_POST['appnoko'];
-    $source1 = $_POST['source'];
-    $lastnameko1 = strtoupper($_POST['lastnameko']);
-    $firstnameko1 = strtoupper($_POST['firstnameko']);
-    $mnko1 = strtoupper($_POST['mnko']);
-    $extnname1 = strtoupper($_POST['extnname']);
-    $paddress1 = strtoupper($_POST['paddress']);
-    $cityn1 = $_POST['cityn'];
-    $regionn1 = $_POST['regionn'];
-    //$resultct=mysqli_query($link, "SELECT * FROM city WHERE citymunDesc = '$cityn1'");
-    //  while($rowct=mysqli_fetch_array($resultct))
-    //{
-    //$cityn2 = $rowct[3];
-    //}
-
-
-
-
-    //  $resultregi=mysqli_query($link, "SELECT * FROM region WHERE regCode = '$cityn2'");
-    // while($rowregi=mysqli_fetch_array($resultregi))
-    //{
-    //$regionn1 = $rowregi[2];
-    //}
-
-
-    //echo $regionn1;
-
-    $peraddress1 = strtoupper($_POST['peraddress']);
-    $birthday1 = $_POST['birthday'];
-
-
-    $dateOfBirth = $birthday1;
-    $today = date("Y-m-d");
-    //echo $birthday1;
-    //ECHO $today;
-    $diff = date_diff(date_create($dateOfBirth), date_create($today));
-    //echo "Age is ".$diff->format("%y");
-    $age1 = $diff->format("%y");
-
-
-    $datebirth = date_create($birthday1);
-    $birthday1a = date_format($datebirth, "m/d/Y");
-
-    $gendern = $_POST['gendern'];
-    $civiln1 = $_POST['civiln'];
-    $cpnum1 = $_POST['cpnum'];
-    $landline1 = $_POST['landline'];
-    $emailadd1 = $_POST['emailadd'];
-    $despo1 = $_POST['despo'];
-    $classn1 = $_POST['classn'];
-    $idenn1 = $_POST['idenn'];
-    $sssnum1 = $_POST['sssnum'];
-    $pagibignum1 = $_POST['pagibignum'];
-    $phnum1 = $_POST['phnum'];
-    $tinnum1 = $_POST['tinnum'];
-    $e_person1 = $_POST['e_person'];
-    $e_address1 = $_POST['e_address'];
-    $e_contact1 = $_POST['e_contact'];
-
-    $policed1x = $_POST['policed'];
-    $datepol = date_create($policed1x);
-    $policed1 = date_format($datepol, "m/d/Y");
-
-
-
-
-    $brgyd1x = $_POST['brgyd'];
-    $datebrgy = date_create($brgyd1x);
-    $brgyd1 = date_format($datebrgy, "m/d/Y");
-
-
-
-    $nbid1x = $_POST['nbid'];
-    $datenbi = date_create($nbid1x);
-    $nbid1 = date_format($datenbi, "m/d/Y");
-
-
-
-    $psa1 = $_POST['psa'];
-    $remarks1 = $_POST['remarks'];
-
-    $resultempl = mysqli_query($link, "select * from employees WHERE lastnameko = '$lastnameko1' and firstnameko ='$firstnameko1' and mnko='$mnko1'");
-
-    if (mysqli_num_rows($resultempl) == 0) {
-
-      mysqli_query($link, "INSERT INTO employees
-        (tracking,photopath,dapplied,appno,source,lastnameko,firstnameko,mnko,extnname,paddress,cityn,regionn,peraddress,birthday,age,gendern,civiln,cpnum,landline,emailadd,despo,classn,idenn,sssnum,pagibignum,phnum,tinnum,policed,brgyd,nbid,psa,remarks,e_person,e_address,e_number)
-        VALUES
-        ('$appno1','$photoko2','$dapplied1','$appno1','$source1','$lastnameko1','$firstnameko1','$mnko1','$extnname1','$paddress1','$cityn1','$regionn1','$peraddress1','$birthday1','$age1','$gendern','$civiln1','$cpnum1','$landline1','$emailadd1','$despo1','$classn1','$idenn1','$sssnum1','$pagibignum1','$phnum1','$tinnum1','$policed1x','$brgyd1x','$nbid1x','$psa1','$remarks1','$e_person1','$e_address1','$e_contact1')
-        ");
-
-      $kekelpogi = "Successful!";
-    } else {
-      $kekelpogi = "Applicant is in Database!";
-    }
-
-    //     header("location:index.php");
-  }
 
 
   if (isset($_POST['shortlist'])) {
-
     if (!isset($_SESSION["photoko"]) || (trim($_SESSION["photoko"]) == '')) {
-      // do stuff
       $kekelpogi = "Take Photo First";
     } else {
-
-
-
-
-
-
       $resulttracking = mysqli_query($link, "SELECT * FROM track WHERE id = '1'");
       while ($rowtr = mysqli_fetch_array($resulttracking))
-
-        //echo $rowtr[1]+1;
         $newtracking = $rowtr[1] + 1;
-      //echo $newtracking;
-
-      //mysqli_query($link, "INSERT INTO fulldata
-      //              (tracking,rf_p,ce_p,po_p,ar_p,avp_p,d1_p,d2_p,d3_p,d4_p,d5_p)
-      //             VALUES
-      //            ('$newtracking','0','0','0','0','0','0','0','0','0','0')
-      //           ");
-
-
-
       mysqli_query($link, "UPDATE track
           SET
-          
           appno = '$newtracking'
           WHERE
           id = '1'
@@ -1579,9 +1308,9 @@ echo '
       $datenow = date("m/d/Y h:i:s A");
       echo '
          <div class="container containers">
+  
+      <form action="action.php" method="POST">
           
-                       <form action = "" method = "POST">
-                    
                     <div class="">
                       <center>
                           <img src="' . $_SESSION["photoko"] . '" alt="" style="width:200px;height:200px;">
@@ -1612,12 +1341,12 @@ echo '
                       </div>                              
                       <div class="col-md-10">
                         <select class="form-select cbo" name="source"  data-placeholder="Select Source" > ;';
-                          echo '<option>Select Source</option>';
-                          $results = mysqli_query($link, "SELECT * FROM sources");
-                          while ($rows = mysqli_fetch_array($results)) {
-                            echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
-                          }
-                          echo '  
+      echo '<option>Select Source</option>';
+      $results = mysqli_query($link, "SELECT * FROM sources");
+      while ($rows = mysqli_fetch_array($results)) {
+        echo '<option value="' . $rows[1] . '">' . $rows[1] . '</option>';
+      }
+      echo '  
                         </select>        
                       </div>                               
                     </div>
@@ -1675,12 +1404,12 @@ echo '
                                                       
                       <div class="col-md-10">
                         <select class="form-select cbo" name="regionn" id="regionn"  data-placeholder="Select User type"  > ;';
-                          echo '<option>Select Region:</option> ';
-                          $resultrg = mysqli_query($link, "SELECT * FROM region");
-                          while ($rowrg = mysqli_fetch_array($resultrg)) {
-                            echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
-                          }
-                          echo '          
+      echo '<option>Select Region:</option> ';
+      $resultrg = mysqli_query($link, "SELECT * FROM region");
+      while ($rowrg = mysqli_fetch_array($resultrg)) {
+        echo '<option  value="' . $rowrg[3] . '">' . $rowrg[2] . '</option>';
+      }
+      echo '          
                         </select> 
                       </div>                             
                     </div>                                  
@@ -1730,12 +1459,12 @@ echo '
                       </div>
                       <div class="col-md-10">
                         <select class="form-select cbo" name="gendern"  data-placeholder="Select Gendert " > ;';
-                          echo '<option>Select Gender</option> ';
-                          $resultg = mysqli_query($link, "SELECT * FROM gender");
-                          while ($rowg = mysqli_fetch_array($resultg)) {
-                          echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
-                          }
-                          echo '          
+      echo '<option>Select Gender</option> ';
+      $resultg = mysqli_query($link, "SELECT * FROM gender");
+      while ($rowg = mysqli_fetch_array($resultg)) {
+        echo '<option  value="' . $rowg[1] . '">' . $rowg[1] . ' </option> ';
+      }
+      echo '          
                         </select>
                       </div>
                     </div>                                                     
@@ -1746,12 +1475,12 @@ echo '
                       </div>
                       <div class="col-md-10">
                         <select class="form-select cbo" name="civiln"  data-placeholder="" > ;';
-                          echo '<option>Select Civil Status:</option> ';
-                          $resultt = mysqli_query($link, "SELECT * FROM tax_status");
-                          while ($rowtt = mysqli_fetch_array($resultt)) {
-                          echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
-                          }
-                          echo '          
+      echo '<option>Select Civil Status:</option> ';
+      $resultt = mysqli_query($link, "SELECT * FROM tax_status");
+      while ($rowtt = mysqli_fetch_array($resultt)) {
+        echo '<option  value="' . $rowtt[2] . '">' . $rowtt[2] . ' </option> ';
+      }
+      echo '          
                         </select>
                       </div>
                     </div>                                                  
@@ -1776,15 +1505,6 @@ echo '
               
                     <div class="row mt-3" >
                       <div class="col-md-2">
-                        <label class="form-label">landline </font></label>
-                      </div>
-                      <div class="col-md-10">
-                        <input type="text" name = "landline"  class="form-control"  placeholder="">
-                      </div>
-                    </div>           
-                                                    
-                    <div class="row mt-3" >
-                      <div class="col-md-2">
                         <label class="form-label">Email Address </font>
                       </div></label>
                       <div class="col-md-10">
@@ -1798,12 +1518,12 @@ echo '
                       </div>
                       <div class="col-md-10">
                         <select class="form-select cbo" name="despo"   data-placeholder="" > ;';
-                          echo '<option>Select job title:</option> ';
-                          $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
-                          while ($rowjt = mysqli_fetch_array($resultjt)) {
-                          echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
-                          }
-                          echo '          
+      echo '<option>Select job title:</option> ';
+      $resultjt = mysqli_query($link, "SELECT * FROM job_title ");
+      while ($rowjt = mysqli_fetch_array($resultjt)) {
+        echo '<option  value="' . $rowjt[2] . '">' . $rowjt[2] . ' </option> ';
+      }
+      echo '          
                         </select>
                       </div>      
                     </div>
@@ -1815,12 +1535,12 @@ echo '
                       
                       <div class="col-md-10">
                         <select class="form-select cbo" name="classn"   data-placeholder="" > ;';
-                          echo '<option>Select Classification:</option> ';
-                          $resultc = mysqli_query($link, "SELECT * FROM classifications");
-                          while ($rowc = mysqli_fetch_array($resultc)) {
-                          echo '<option  value="' . $rowc[1] . '">' . $rowc[1] . ' </option> ';
-                          }
-                          echo '          
+      echo '<option>Select Classification:</option> ';
+      $resultc = mysqli_query($link, "SELECT * FROM classifications");
+      while ($rowc = mysqli_fetch_array($resultc)) {
+        echo '<option  value="' . $rowc[1] . '">' . $rowc[1] . ' </option> ';
+      }
+      echo '          
                         </select> 
                       </div>
                     </div>
@@ -1831,12 +1551,12 @@ echo '
                       </div>
                       <div class="col-md-10">
                         <select class="form-select cbo" name="idenn"   data-placeholder=""> ;';
-                          echo '<option>Select Identification Marks:</option> ';
-                          $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
-                          while ($rowider = mysqli_fetch_array($resultide)) {
-                          echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
-                          }
-                          echo  '          
+      echo '<option>Select Identification Marks:</option> ';
+      $resultide = mysqli_query($link, "SELECT * FROM distinguishing_qualification_marks");
+      while ($rowider = mysqli_fetch_array($resultide)) {
+        echo '<option  value="' . $rowider[1] . '">' . $rowider[1] . ' </option> ';
+      }
+      echo  '          
                         </select> 
                       </div>
                     </div>                                                   
@@ -1910,7 +1630,7 @@ echo '
                       </div>
                       <div class="col-md-10">
                         <select class="form-select cbo" name="psa"   data-placeholder=""> ;';
-                           echo '<option>Select One:</option> 
+      echo '<option>Select One:</option> 
                                  <option value="With">With</option>
                                  <option value="Without">Without</option>
                         </select> 
@@ -2174,50 +1894,53 @@ echo '
 
     $kekelpogi = "Blacklist reverted";
   }
-
-
-
-
-
-
-
-
-
-
-
-  if (isset($_POST['blackbtn'])) {
-
-    $idshadow1 = $_POST['shadowE'];
-
-    $resultbl = mysqli_query($link, "SELECT * FROM employees WHERE id = '$idshadow1'");
-    while ($rowbl = mysqli_fetch_array($resultbl)) {
-
-      echo '<div class = "how1"><div class = "many"><br> 
-                   <form action = "" method = "POST"><br>
-                                                  <div class="row mt-3" >
-                                                  <div class="col-md-2">
-                                                  </div> 
-                                                  
-                                                  <label class="form-label">Are you Sure you want to Blacklist: ' . $rowbl[6] . ' ' . $rowbl[7] . ' ' . $rowbl[8] . ' </label>
-                                                <b
-                                                r> <br><center>
-                   <input type="text" name = "blacklistreason" class="form-control"  placeholder="Type reason for Blacklisting" style= "height:45px;width:90%" autofocus>
-                   <br>
-                   
-<input type="hidden" name = "shadowblacklist" class="form-control"  value="' . $idshadow1 . '" placeholder="Type reason for Blacklisting" style= "height:45px;width:90%">
-                   
-                    <input type = "submit" name = "blacklistyes" value = "YES" class="btn btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
-                    <input type = "submit" name = "blacklistno" value = "NO" class="btn btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
-  </center>
-  </div>
-                    </form>
-                </div></div>';
-    }
-  }
-
-
   ?>
 
+
+  <!-- Modal for blacklisting-->
+  <div class="modal fade" id="blackbtns" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <?php
+          $idshadow1 = $_POST['shadowE'];
+          $resultbl = mysqli_query($link, "SELECT * FROM employees WHERE id = '$idshadow1'");
+          while ($rowbl = mysqli_fetch_array($resultbl)) {  ?>
+            <div class="how1">
+              <div class="many"><br>
+                <form action="" method="POST"><br>
+                  <div class="row mt-3">
+                    <div class="col-md-2">
+                    </div>
+
+                    <label class="form-label">Are you Sure you want to Blacklist: ' . $rowbl[6] . ' ' . $rowbl[7] . ' ' . $rowbl[8] . ' </label>
+                    <b r> <br>
+                      <center>
+                        <input type="text" name="blacklistreason" class="form-control" placeholder="Type reason for Blacklisting" style="height:45px;width:90%" autofocus>
+                        <br>
+
+                        <input type="hidden" name="shadowblacklist" class="form-control" value="' . $idshadow1 . '" placeholder="Type reason for Blacklisting" style="height:45px;width:90%">
+
+                        <input type="submit" name="blacklistyes" value="YES" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
+                        <input type="submit" name="blacklistno" value="NO" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
+                      </center>
+                  </div>
+                </form>
+              </div>
+            </div>';
+          <?php } ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
@@ -2282,45 +2005,9 @@ echo '
       });
     });
 
-
-
-
-
-    $(document).ready(function() {
-      $('#example').DataTable();
-    });
-
-
     $(document).ready(function() {
       $("#e99").DataTable();
     });
-
-
-
-
-    //$(document).ready(function() {
-    //    var table = $('#example').DataTable();
-
-    //    $('#example tbody').on( 'click', 'tr', function () {
-    //        if ( $(this).hasClass('selected') ) {
-    //            $(this).removeClass('selected');
-    //        }
-    //        else {
-    //            table.$('tr.selected').removeClass('selected');
-    //            $(this).addClass('selected');
-    //        }
-    //    } );
-
-    //    $('#addtoshortlistbtn').click( function () {
-    //        table.row('.selected').remove().draw( false );
-    //        document.getElementById("addtoshortlistbtn1").click();
-    //    } );
-    //} );
-
-
-
-
-
 
 
     $("#regionn").on("change", function() {
@@ -2366,7 +2053,24 @@ echo '
 
     });
   </script>
-
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+      });
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script>
 
 
 
@@ -2413,40 +2117,41 @@ echo '
 
                   // $result_uid = mysqli_query($link, "SELECT * FROM book1 where idnya='$uid1'");
                   // while ($row_uid = mysqli_fetch_assoc($result_uid)) {
-                    $fullname = $row[41];
+                  $fullname = $row[41];
 
-                    if ($row[46] == "YES") {
+                  if ($row[46] == "YES") {
 
-                      echo ' <tr> ';
-                      echo '  <td>  ' . $row[41] . '   </td> ';
-                      echo '  <td>  ' . $row[42] . '   </td> ';
-                      echo '  <td>  ' . $row[10] . '   </td> ';
-                      echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
-                      echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
+                    echo ' <tr> ';
+                    echo '  <td>  ' . $row[41] . '   </td> ';
+                    echo '  <td>  ' . $row[42] . '   </td> ';
+                    echo '  <td>  ' . $row[10] . '   </td> ';
+                    echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
+                    echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
 
-                      echo ' <td> <form action = "" method = "POST">
+                    echo ' <td> <form action = "" method = "POST">
                                                 <input type = "hidden" name = "mrf_val" value = "' . $row[0] . '">
                                                        <button type="submit" name = "r_mrf" class="btn btn-default"><span class="glyphicon glyphicon-edit" ></span> Provide Shortlist</button>
                                                 </form>
                                             </td>
                                    </tr> ';
-                    } else {
-                      echo ' <tr> ';
-                      echo '  <td>  ' . $fullname . '   </td> ';
-                      echo '  <td>  ' . $row[42] . '   </td> ';
-                      echo '  <td>  ' . $row[10] . '   </td> ';
-                      echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
-                      echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
-                      echo '
+                  } else {
+                    echo ' <tr> ';
+                    echo '  <td>  ' . $fullname . '   </td> ';
+                    echo '  <td>  ' . $row[42] . '   </td> ';
+                    echo '  <td>  ' . $row[10] . '   </td> ';
+                    echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
+                    echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
+                    echo '
                                            <td> <form action = "" method = "POST">
                                                 <input type = "hidden" name = "mrf_val" value = "' . $row[0] . '">
                                                        <button type="submit" name = "r_mrf" class="btn btn-default"><span class="glyphicon glyphicon-edit" ></span> Accept MRF</button>
                                                 </form>
                                             </td>
                                    </tr> ';
-                    }
                   }
-                //} ?>
+                }
+                //} 
+                ?>
 
 
 
@@ -2544,7 +2249,7 @@ if (isset($kekelpogi1)) {
 
           <label class="form-label"> Project Title </label>
           <center>
-            <select class="form-select" name="shortlisttitle" > 
+            <select class="form-select" name="shortlisttitle">
               <option>Select shortlist Name:</option>
               <?php
 
@@ -2665,8 +2370,8 @@ if (isset($kekelpogi1)) {
 
 
         <form action="" method="POST"><br>
-          
-        <label class="form-label"> Project Title </label>
+
+          <label class="form-label"> Project Title </label>
           <center>
             <select class="form-select" name="shortlisttitle1del" data-placeholder="" style="height:45px;width:60%"> ;
               <option>Select shortlist Name:</option>
@@ -2727,7 +2432,7 @@ if (isset($kekelpogi1)) {
 
         <form action="" method="POST"><br>
 
-        <label class="form-label"> Project Title  </label>
+          <label class="form-label"> Project Title </label>
           <center>
             <select class="form-select" name="shortlisttitle1del" data-placeholder="" style="height:45px;width:60%"> ;
               <option>Select shortlist Name:</option>
@@ -2787,7 +2492,7 @@ if (isset($kekelpogi1)) {
 
         <form action="" method="POST"><br>
 
-          <label class="form-label"> Project Title  </label>
+          <label class="form-label"> Project Title </label>
           <center>
             <select class="form-select" name="applicant_no"> ;
               <option>Select shortlist Name:</option>

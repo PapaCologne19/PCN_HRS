@@ -3,7 +3,7 @@ include '../connect.php';
 session_start();
 
 date_default_timezone_set('Asia/Hong_Kong');
-$datenow = date("m/d/Y h:i:s A");
+$datenow = date("m/d/Y");
 
 
 if (isset($_SESSION['username'], $_SESSION['password'])) {
@@ -59,7 +59,7 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
         </style>
     </head>
 
-    <body>
+    <body oncontextmenu="return false">
         <?php
         include '../components/sidebar.php';
         if (isset($_SESSION['successMessage'])) {
@@ -99,532 +99,456 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
         <?php unset($_SESSION['errorMessage']);
         } ?>
         <?php
-        if ($_SESSION['darkk'] === "mrf") {
-            
+        if (isset($_SESSION['darkk'])) {
         ?>
-
-            <!-- <header class="cd-main-header js-cd-main-header">
-                <div class="cd-logo-wrapper">
-                    <a href="#0" class="cd-logo"><img src="../assets/img/pcnlogo1.png" alt="Logo"></a>
-                </div>
-                <button class="reset cd-nav-trigger js-cd-nav-trigger" aria-label="Toggle menu"><span></span></button>
-
-                <ul class="cd-nav__list js-cd-nav__list">
-                    <li class="cd-nav__item cd-nav__item--has-children cd-nav__item--account js-cd-item--has-children">
-                        <a href="">
-                            <img src="../assets/img/cd-avatar.svg" alt="avatar">
-                            <span>Account</span>
-                        </a>
-                        <form action="" method="POST">
-                            <ul class="cd-nav__sub-list">
-                                <li class="cd-nav__sub-item"><a href="#0">Edit Account</a></li>
-                                <li class="cd-nav__sub-item"><button class="btn btn-primary button2" name="to_index" style="font-size:14;">Log out</button></li>
-                            </ul>
-                        </form>
-                    </li>
-                </ul>
-            </header>
-
-
-            <main class="cd-main-content" style="width: 100%;">
-                <nav class="cd-side-nav js-cd-side-nav">
-                    <ul class="cd-side__list js-cd-side__list">
-                        <li class="cd-side__label" style="font-size:26"><span>MANPOWER REQUEST FORM MENU</span></li>
-                        <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-                            <a href="">REPORTS</a>
-
-                            <ul class="cd-side__sub-list">
-
-                                <form action="" method="POST">
-                                    <li class="cd-side__btn"><BUTTON class="btn" name="viewdatabase" style="font-size:14px; width:150px;height:50px">Presently Deployed</button></li>
-                                </form>
-
-                                <li class="cd-side__btn"><button class="btn" data-bs-toggle="modal" data-bs-target="#myModaldephistory" style="font-size:14; width:150px;height:50px">Employee History</button></li>
-                                <li class="cd-side__btn"><button class="btn" data-bs-toggle="modal" data-bs-target="#myModalprojecthistory" style="font-size:14; width:150px;height:50px">Project History</button></li>
-                            </ul>
-                        </li>
-
-                        <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-                            <ul class="cd-side__sub-list">
-                                <form action="" method="POST">
-                                    <li class="cd-side__btn"><BUTTON class="btn" name="summarygender" style="font-size:14; width:150px;height:50px">Gender</button></li>
-                                </form>
-                                <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalgender">+ Gender</button></li>
-
-                                <li class="cd-side__btn"><button class="btn" data-bs-toggle="modal" data-bs-target="#myModaldephistory" style="font-size:14; width:150px;height:50px">Employee History</button></li>
-                                <li class="cd-side__btn"><button class="btn" data-bs-toggle="modal" data-bs-target="#myModalprojecthistory" style="font-size:14; width:150px;height:50px">Project History</button></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-
-                    <ul class="cd-side__list js-cd-side__list">
-                        <form action="" method="POST">
-                            <li class="cd-side__label"><span>MRF ACTION</span></li>
-
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#mrfform"><i class="bi bi-ui-checks" style="margin-right: 1rem;"></i> MRF Form</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#mrf_list"><i class="bi bi-file-plus" style="margin-right: .5rem !important"></i>MRF List</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal_LOA"><i class="bi bi-person-lines-fill" style="margin-right: .5rem !important"></i> LOA</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal_xletter"><i class="bi bi-envelope" style="margin-right: .5rem !important"></i> Excuse Letter</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalter"><i class="bi bi-terminal-x" style="margin-right: .5rem !important"></i> Terminate</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalres"><i class="bi bi-person-x" style="margin-right: .5rem !important"></i> Resign</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal_retrench"><i class="bi bi-person-dash" style="margin-right: .5rem !important"></i> Retrench</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModal_float"><i class="bi bi-person-up" style="margin-right: .5rem !important"></i> Float</button></li>
-                            <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalewb"><i class="bi bi-layer-forward" style="margin-right: .5rem !important"></i> Forward to EWB</button></li>
-                        </form>
-                    </ul>
-                </nav> -->
-
-
-
-                <!-- Modal for MRF Form -->
-                <div class="modal fade" id="mrfform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <img src="../assets/img/pcnlogo1.png" alt="">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
+            <!-- Modal for MRF Form -->
+            <div class="modal fade" id="mrfform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <img src="../assets/img/pcnlogo1.png" alt="">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <center>
+                                <h2 class="fs-3 mb-5">MANPOWER REQUISITION FORM (MRF)</h2>
+                            </center>
+                            <form action="action.php" method="post" class="row">
                                 <center>
-                                    <h2 class="fs-3 mb-5">MANPOWER REQUISITION FORM (MRF)</h2>
+                                    <h4 class="fs-4">PROJECT DETAILS</h4>
                                 </center>
-                                <form action="action.php" method="post" class="row">
-                                    <center>
-                                        <h4 class="fs-4">PROJECT DETAILS</h4>
-                                    </center>
-                                    <div class="col-md-4 mt-3">
+                                <div class="col-md-4 mt-3">
+                                    <?php
+                                    $query = "SELECT id FROM mrf";
+                                    $result = $link->query($query);
+                                    while ($row = $result->fetch_assoc()) {
+                                        $track = $row['id'] + 1;
+                                    }
+                                    ?>
+                                    <label for="" class="form-label">TRACKING NUMBER</label>
+                                    <input type="text" name="tracking_number" id="tracking_number" class="form-control" value="<?php echo $track ?>" readonly>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">MRF Category</label>
+                                    <select name="mrf_category" id="mrf_category" onchange="showCategory()" class="form-select cbo" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="NEW">NEW</option>
+                                        <option value="REPLACEMENT">REPLACEMENT</option>
+                                        <option value="RELIEVER">RELIEVER</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label" id="name-label">Name</label>
+                                    <input type="text" class="form-control" name="category_name" id="category_name" style="display: none;">
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">MRF Type</label>
+                                    <select name="mrf_type" id="mrf_type" onchange="validate_type()" class="form-select cbo" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="INHOUSE">INHOUSE</option>
+                                        <option value="FIELD FORCE">FIELD FORCE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">Client</label>
+                                    <hr>
+                                    <select name="client" id="client" class="form-select" required>
+                                        <option value="" selected disabled></option>
                                         <?php
-                                        $query = "SELECT id FROM mrf";
+                                        $query = "SELECT * FROM client_company WHERE is_deleted = '0' ORDER BY company_name ASC";
                                         $result = $link->query($query);
-                                        while ($row = $result->fetch_assoc()) {
-                                            $track = $row['id'] + 1;
-                                        }
+                                        while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
-                                        <label for="" class="form-label">TRACKING NUMBER</label>
-                                        <input type="text" name="tracking_number" id="tracking_number" class="form-control" value="<?php echo $track ?>" readonly>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">MRF Category</label>
-                                        <select name="mrf_category" id="mrf_category" onchange="showCategory()" class="form-select cbo" required>
-                                            <option value="" selected disabled></option>
-                                            <option value="NEW">NEW</option>
-                                            <option value="REPLACEMENT">REPLACEMENT</option>
-                                            <option value="RELIEVER">RELIEVER</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label" id="name-label">Name</label>
-                                        <input type="text" class="form-control" name="category_name" id="category_name" style="display: none;">
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">MRF Type</label>
-                                        <select name="mrf_type" id="mrf_type" onchange="validate_type()" class="form-select cbo" required>
-                                            <option value="" selected disabled></option>
-                                            <option value="INHOUSE">INHOUSE</option>
-                                            <option value="FIELD FORCE">FIELD FORCE</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">Client</label>
-                                        <hr>
-                                        <select name="client" id="client" class="form-select" required>
-                                            <option value="" selected disabled></option>
-                                            <?php
-                                            $query = "SELECT * FROM client_company WHERE is_deleted = '0' ORDER BY company_name ASC";
-                                            $result = $link->query($query);
-                                            while ($row = mysqli_fetch_assoc($result)) {
-                                            ?>
-                                                <option value="<?php echo $row['company_name'] ?>"><?php echo $row['company_name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
+                                            <option value="<?php echo $row['company_name'] ?>"><?php echo $row['company_name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
 
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">Location</label>
-                                        <select name="location" id="location" class="form-select" required>
-                                            <option value="" selected disabled></option>
-                                            <option value="NCR">NCR</option>
-                                            <option value="PROVINCIAL">PROVINCIAL</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">Project Title</label>
-                                        <input type="text" name="projectTitle" id="projectTitle" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">Division</label>
-                                        <select name="division" id="division" class="form-select" required>
-                                            <option value="" disabled selected></option>
-                                            <option value="HR">HR</option>
-                                            <option value="BSG">BSG</option>
-                                            <option value="BD1">BD1</option>
-                                            <option value="BD2">BD2</option>
-                                            <option value="BD3">BD3</option>
-                                            <option value="FINANCE">FINANCE</option>
-                                            <option value="HR">HR</option>
-                                            <option value="PPI">PPI</option>
-                                            <option value="STRAT">STRAT</option>
-                                            <option value="EXECOM">EXECOM</option>
-                                            <option value="MANCOM">MANCOM</option>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">Location</label>
+                                    <select name="location" id="location" class="form-select" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="NCR">NCR</option>
+                                        <option value="PROVINCIAL">PROVINCIAL</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">Project Title</label>
+                                    <input type="text" name="projectTitle" id="projectTitle" class="form-control" required>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">Division</label>
+                                    <select name="division" id="division" class="form-select" required>
+                                        <option value="" disabled selected></option>
+                                        <option value="HR">HR</option>
+                                        <option value="BSG">BSG</option>
+                                        <option value="BD1">BD1</option>
+                                        <option value="BD2">BD2</option>
+                                        <option value="BD3">BD3</option>
+                                        <option value="FINANCE">FINANCE</option>
+                                        <option value="HR">HR</option>
+                                        <option value="PPI">PPI</option>
+                                        <option value="STRAT">STRAT</option>
+                                        <option value="EXECOM">EXECOM</option>
+                                        <option value="MANCOM">MANCOM</option>
 
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4 mt-3">
-                                        <label for="" class="form-label">CE Number</label>
-                                        <input type="text" name="ce_number" id="ce_number" class="form-control" required>
-                                    </div>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="" class="form-label">CE Number</label>
+                                    <input type="text" name="ce_number" id="ce_number" class="form-control" required>
+                                </div>
 
-                                    <!-- FOR POSITION -->
-                                    <center>
-                                        <h4 class="fs-4 mt-4">POSITION</h4>
-                                    </center>
-                                    <div class="row cs1">
-                                        <div class="col-md-12">
-                                            <div class="form-group" id="inhouse">
-                                                <select class="form-select cbo" name="position" id="position"> ;
-                                                    <option value="" disabled selected>Please select One</option>
-                                                    <option>ACCOUNT EXECUTIVE</option>
-                                                    <option>BUSS. MANAGER</option>
-                                                    <option>ACCOUNT MANAGER</option>
-                                                    <option>OPERATIONS MANAGER</option>
-                                                    <option>PROJECT MANAGER</option>
-                                                    <option>PROJECT COORDINATOR</option>
-                                                    <option>AREA COORDINATOR</option>
-                                                    <option>BILLING ASST.</option>
-                                                    <option>TRAINER</option>
-                                                    <option>ENCODER</option>
-                                                    <option>MERCHANDISING SUPERVISOR</option>
-                                                    <option>OPERATIONS SUPERVISOR</option>
-                                                    <option>OTHER</option>
-                                                </select>
-                                            </div>
-                                            <input type="text" name="other_position" id="other_position" class="form-control" onfocusout="myFunction_focusout()">
-                                        </div>
-                                    </div>
-                                    <!--=================================================================================-->
-                                    <div class="form-group" id="field">
-                                        <div class="row cs1">
-                                            <div class="column ">
-                                                <div class="containerx ">
-                                                      <label class="form-control">
-                                                        <input type="radio" name="radio" value="Push Girl" />
-                                                        Push Girl
-                                                    </label>
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Demo Girl" />
-                                                        Demo Girl
-                                                    </label>
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Promo Girl" />
-                                                        Promo Girl
-                                                    </label>
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Sampler" />
-                                                        Sampler
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="column">
-                                                <div class="containerx">
-
-                                                      <label class="form-control">
-                                                        <input type="radio" name="radio" value="Merchandiser" />
-                                                        Merchandiser
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Helper" />
-                                                        Helper
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Mystery Buyer" />
-                                                        Mystery Buyer
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Validator">
-                                                        Validator
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="column">
-                                                <div class="containerx">
-
-                                                      <label class="form-control">
-                                                        <input type="radio" name="radio" value="Promoter" />
-                                                        Promoter
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Encoder" />
-                                                        Encoder
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Coordinator" />
-                                                        Coordinator
-                                                    </label>
-
-                                                    <label class="form-control">
-                                                        <input type="radio" name="radio" value="Bundler">
-                                                        Bundler
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="column">
-                                                <div class="containerx">
-                                                    <br>
-                                                    <h5>Others</h5>
-                                                    <p>Please Specify</p>
-
-                                                    <input type="text" name="other_position1" id="other_position1" value="" class="form-control" onfocusout="myFunction_focusout()">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- FOR JOB REQUIREMENTS -->
-                                    <center>
-                                        <h4 class="fs-4 mt-4">JOB REQUIREMENTS / QUALIFICATIONS</h4>
-                                    </center>
-                                    <label for="" class="form-label mt-3">No. of People</label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="number_male" id="number_male" placeholder="Male" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="number_female" id="number_female" placeholder="Female" class="form-control">
-                                    </div>
-
-                                    <label for="" class="form-label mt-3">Height Requirements</label>
-                                    <div class="col-md-6">
-                                        <input type="text" name="height_male" id="height_male" placeholder="Male" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="height_female" id="height_female" placeholder="Female" class="form-control">
-                                    </div>
-
-                                    <div class="col-md-12 mt-3">
-                                        <label for="" class="form-label">Educational Background</label>
-                                        <select name="educational_background" id="educational_background" class="form-select" required>
-                                            <option value="" selected disabled></option>
-                                            <option value="High School Graduate">High School Graduate</option>
-                                            <option value="College Level">College Level</option>
-                                            <option value="College Graduate">College Graduate</option>
-                                            <option value="Vocational">Vocational</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- PERSONALITY -->
-                                    <label for="" class="form-label mt-4">Personality</label>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="pleasing_personality" id="pleasing_personality" value="Pleasing Personality" class="form-check-input">
-                                        <label for="pleasing_personality" class="form-check-label">Pleasing Personality</label>
-                                    </div>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="good_moral" id="good_moral" value="Good Moral" class="form-check-input">
-                                        <label for="" class="form-check-label">With Good Moral Character</label>
-                                    </div>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="work_experience" id="work_experience" value="With Work Experience" class="form-check-input">
-                                        <label for="" class="form-check-label">With Work Experience</label>
-                                    </div>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="good_communication" id="good_communication" value="Good communication skills" class="form-check-input">
-                                        <label for="" class="form-check-label">Good Communication Skills</label>
-                                    </div>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="physically_fit" id="physically_fit" value="Physically fit / good built" class="form-check-input">
-                                        <label for="" class="form-check-label">Physically Fit / Good Build</label>
-                                    </div>
-                                    <div class="col-md-12 form-check">
-                                        <input type="checkbox" name="articulate" id="articulate" value="Articulate" class="form-check-input">
-                                        <label for="" class="form-check-label">Articulate</label>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-1">
-                                            <label for="" class="form-label">Others</label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" name="other_personality" id="other_personality" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <!-- For JOB / WORK DETAILS -->
-                                    <center>
-                                        <h4 class="fs-4 mt-5">WORK DETAILS</h4>
-                                        <label for="" class="form-label mt-4 fs-6">Salary Package</label>
-                                    </center>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-2">
-                                            <label for="" class="form-label">Basic Salary: </label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control salary_package" name="basic_salary" id="basic_salary" required>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label for="" class="form-label">Transpo Allowance: </label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control salary_package" name="transportation_allowance" id="transportation_allowance" required>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label for="" class="form-label">Meal Allowance: </label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control salary_package" name="meal_allowance" id="meal_allowance" required>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <label for="" class="form-label">Comm. Allowance: </label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control salary_package" name="communication_allowance" id="communication_allowance" required>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <label for="" class="form-label">Others: </label>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <input type="text" class="form-control salary_package" name="other_salary_package" id="other_salary_package">
-                                        </div>
-                                    </div>
-
-                                    <center>
-                                        <div class="col-md-8 mt-4">
-
-                                            <label for="" class="form-label mt-3 fs-6">Employment Status</label>
-
-                                            <select name="employment_status" id="employment_status" class="form-select">
-                                                <option value="" selected disabled></option>
-                                                <option value="Project Based">Project Based</option>
-                                                <option value="Probationary">Probationary (180 Days)</option>
-                                                <option value="Regular">Regular</option>
-                                                <option value="Co-Terminus">Co-Terminus</option>
+                                <!-- FOR POSITION -->
+                                <center>
+                                    <h4 class="fs-4 mt-4">POSITION</h4>
+                                </center>
+                                <div class="row cs1">
+                                    <div class="col-md-12">
+                                        <div class="form-group" id="inhouse">
+                                            <select class="form-select cbo" name="position" id="position"> ;
+                                                <option value="" disabled selected>Please select One</option>
+                                                <option>ACCOUNT EXECUTIVE</option>
+                                                <option>BUSS. MANAGER</option>
+                                                <option>ACCOUNT MANAGER</option>
+                                                <option>OPERATIONS MANAGER</option>
+                                                <option>PROJECT MANAGER</option>
+                                                <option>PROJECT COORDINATOR</option>
+                                                <option>AREA COORDINATOR</option>
+                                                <option>BILLING ASST.</option>
+                                                <option>TRAINER</option>
+                                                <option>ENCODER</option>
+                                                <option>MERCHANDISING SUPERVISOR</option>
+                                                <option>OPERATIONS SUPERVISOR</option>
+                                                <option>OTHER</option>
                                             </select>
                                         </div>
+                                        <input type="text" name="other_position" id="other_position" class="form-control" onfocusout="myFunction_focusout()">
+                                    </div>
+                                </div>
+                                <!--=================================================================================-->
+                                <div class="form-group" id="field">
+                                    <div class="row cs1">
+                                        <div class="column ">
+                                            <div class="containerx ">
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Push Girl" />
+                                                    Push Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Demo Girl" />
+                                                    Demo Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Promo Girl" />
+                                                    Promo Girl
+                                                </label>
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Sampler" />
+                                                    Sampler
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="containerx">
+
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Merchandiser" />
+                                                    Merchandiser
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Helper" />
+                                                    Helper
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Mystery Buyer" />
+                                                    Mystery Buyer
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Validator">
+                                                    Validator
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="containerx">
+
+                                                  <label class="form-control">
+                                                    <input type="radio" name="radio" value="Promoter" />
+                                                    Promoter
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Encoder" />
+                                                    Encoder
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Coordinator" />
+                                                    Coordinator
+                                                </label>
+
+                                                <label class="form-control">
+                                                    <input type="radio" name="radio" value="Bundler">
+                                                    Bundler
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <div class="containerx">
+                                                <br>
+                                                <h5>Others</h5>
+                                                <p>Please Specify</p>
+
+                                                <input type="text" name="other_position1" id="other_position1" value="" class="form-control" onfocusout="myFunction_focusout()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FOR JOB REQUIREMENTS -->
+                                <center>
+                                    <h4 class="fs-4 mt-4">JOB REQUIREMENTS / QUALIFICATIONS</h4>
+                                </center>
+                                <label for="" class="form-label mt-3">No. of People</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="number_male" id="number_male" placeholder="Male" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="number_female" id="number_female" placeholder="Female" class="form-control">
+                                </div>
+
+                                <label for="" class="form-label mt-3">Height Requirements</label>
+                                <div class="col-md-6">
+                                    <input type="text" name="height_male" id="height_male" placeholder="Male" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="height_female" id="height_female" placeholder="Female" class="form-control">
+                                </div>
+
+                                <div class="col-md-12 mt-3">
+                                    <label for="" class="form-label">Educational Background</label>
+                                    <select name="educational_background" id="educational_background" class="form-select" required>
+                                        <option value="" selected disabled></option>
+                                        <option value="High School Graduate">High School Graduate</option>
+                                        <option value="College Level">College Level</option>
+                                        <option value="College Graduate">College Graduate</option>
+                                        <option value="Vocational">Vocational</option>
+                                    </select>
+                                </div>
+
+                                <!-- PERSONALITY -->
+                                <label for="" class="form-label mt-4">Personality</label>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="pleasing_personality" id="pleasing_personality" value="Pleasing Personality" class="form-check-input">
+                                    <label for="pleasing_personality" class="form-check-label">Pleasing Personality</label>
+                                </div>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="good_moral" id="good_moral" value="Good Moral" class="form-check-input">
+                                    <label for="" class="form-check-label">With Good Moral Character</label>
+                                </div>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="work_experience" id="work_experience" value="With Work Experience" class="form-check-input">
+                                    <label for="" class="form-check-label">With Work Experience</label>
+                                </div>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="good_communication" id="good_communication" value="Good communication skills" class="form-check-input">
+                                    <label for="" class="form-check-label">Good Communication Skills</label>
+                                </div>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="physically_fit" id="physically_fit" value="Physically fit / good built" class="form-check-input">
+                                    <label for="" class="form-check-label">Physically Fit / Good Build</label>
+                                </div>
+                                <div class="col-md-12 form-check">
+                                    <input type="checkbox" name="articulate" id="articulate" value="Articulate" class="form-check-input">
+                                    <label for="" class="form-check-label">Articulate</label>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-1">
+                                        <label for="" class="form-label">Others</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" name="other_personality" id="other_personality" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- For JOB / WORK DETAILS -->
+                                <center>
+                                    <h4 class="fs-4 mt-5">WORK DETAILS</h4>
+                                    <label for="" class="form-label mt-4 fs-6">Salary Package</label>
+                                </center>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-2">
+                                        <label for="" class="form-label">Basic Salary: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control salary_package" name="basic_salary" id="basic_salary" required>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="" class="form-label">Transpo Allowance: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control salary_package" name="transportation_allowance" id="transportation_allowance" required>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="" class="form-label">Meal Allowance: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control salary_package" name="meal_allowance" id="meal_allowance" required>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="" class="form-label">Comm. Allowance: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control salary_package" name="communication_allowance" id="communication_allowance" required>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <label for="" class="form-label">Others: </label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control salary_package" name="other_salary_package" id="other_salary_package">
+                                    </div>
+                                </div>
+
+                                <center>
+                                    <div class="col-md-8 mt-4">
+
+                                        <label for="" class="form-label mt-3 fs-6">Employment Status</label>
+
+                                        <select name="employment_status" id="employment_status" class="form-select">
+                                            <option value="" selected disabled></option>
+                                            <option value="Project Based">Project Based</option>
+                                            <option value="Probationary">Probationary (180 Days)</option>
+                                            <option value="Regular">Regular</option>
+                                            <option value="Co-Terminus">Co-Terminus</option>
+                                        </select>
+                                    </div>
+                                </center>
+
+                                <div class="col-md-12 mt-4">
+                                    <center>
+                                        <label for="" class="form-label mt-3 fs-6">Work Schedule and Others</label>
                                     </center>
+                                    <div class="row mt-3">
+                                        <div class="col-md-2">
+                                            <label for="" class="form-label">* Salary Schedule: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="salary_schedule" id="salary_schedule" required>
+                                        </div>
 
-                                    <div class="col-md-12 mt-4">
-                                        <center>
-                                            <label for="" class="form-label mt-3 fs-6">Work Schedule and Others</label>
-                                        </center>
-                                        <div class="row mt-3">
-                                            <div class="col-md-2">
-                                                <label for="" class="form-label">* Salary Schedule: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="salary_schedule" id="salary_schedule" required>
-                                            </div>
+                                        <div class="col-md-2">
+                                            <label for="" class="form-label">Work Duration: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="work_duration" id="work_duration" required>
+                                        </div>
 
-                                            <div class="col-md-2">
-                                                <label for="" class="form-label">Work Duration: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="work_duration" id="work_duration" required>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <label for="" class="form-label">Work Days: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="work_days" id="work_days" required>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="" class="form-label">Time Schedule: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="time_schedule" id="time_schedule" required>
-                                            </div>
-                                            <div class="col-md-2 mt-3">
-                                                <label for="" class="form-label">Day-Off: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="day_off" id="day_off" required>
-                                            </div>
-                                            <div class="col-md-2 mt-3">
-                                                <label for="" class="form-label">Outlet: </label>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control salary_package" name="outlet" id="outlet" required>
-                                            </div>
-
+                                        <div class="col-md-2">
+                                            <label for="" class="form-label">Work Days: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="work_days" id="work_days" required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="" class="form-label">Time Schedule: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="time_schedule" id="time_schedule" required>
+                                        </div>
+                                        <div class="col-md-2 mt-3">
+                                            <label for="" class="form-label">Day-Off: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="day_off" id="day_off" required>
+                                        </div>
+                                        <div class="col-md-2 mt-3">
+                                            <label for="" class="form-label">Outlet: </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control salary_package" name="outlet" id="outlet" required>
                                         </div>
 
                                     </div>
 
-                                    <center>
-                                        <h4 class="fs-4 mt-4">SPECIAL REQUIREMENTS (IF ANY) / INSTRUCTIONS / REMARKS / RECOMMENDATIONS</h4>
-                                    </center>
-                                    <textarea name="special_requirements" id="special_requirements" cols="30" rows="5" class="form-control"></textarea>
+                                </div>
+
+                                <center>
+                                    <h4 class="fs-4 mt-4">SPECIAL REQUIREMENTS (IF ANY) / INSTRUCTIONS / REMARKS / RECOMMENDATIONS</h4>
+                                </center>
+                                <textarea name="special_requirements" id="special_requirements" cols="30" rows="5" class="form-control"></textarea>
 
 
-                                    <!-- FOR REQUISITIONER INFORMATION -->
-                                    <center>
-                                        <h4 class="fs-4 mt-4">REQUISITIONER INFORMATION</h4>
-                                    </center>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="" class="form-label">Date Requested</label>
-                                        <input type="text" name="date_requested" value="<?php echo $datenow ?>" id="date_requested" class="form-control" readonly>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="" class="form-label">Date Needed</label>
-                                        <input type="date" name="date_needed" id="date_needed" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="" class="form-label">Directly Reporting To</label>
-                                        <select name="direct_report" id="direct_report" class="form-select" required>
-                                            <option value="" selected disabled></option>
-                                        </select>
-                                    </div>
+                                <!-- FOR REQUISITIONER INFORMATION -->
+                                <center>
+                                    <h4 class="fs-4 mt-4">REQUISITIONER INFORMATION</h4>
+                                </center>
+                                <div class="col-md-6 mt-3">
+                                    <label for="" class="form-label">Date Requested</label>
+                                    <input type="text" name="date_requested" value="<?php echo $datenow ?>" id="date_requested" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <label for="" class="form-label">Date Needed</label>
+                                    <input type="date" name="date_needed" id="date_needed" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="" class="form-label">Directly Reporting To</label>
+                                    <select name="direct_report" id="direct_report" class="form-select" required>
+                                        <option value="" selected disabled></option>
+                                    </select>
+                                </div>
 
-                                    <div class="col-md-6">
-                                        <label for="" class="form-label">Requestee Position</label>
-                                        <select name="job_position" id="job_position" class="form-select">
-                                            <option value="" selected disabled>Please select</option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label for="" class="form-label">Requestee Position</label>
+                                    <select name="job_position" id="job_position" class="form-select">
+                                        <option value="" selected disabled>Please select</option>
+                                    </select>
+                                </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="process">Process</button>
-                            </div>
-                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" name="process">Process</button>
+                        </div>
+                        </form>
 
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal for MRF List -->
+            <!-- Modal -->
+            <div class="modal fade" id="mrf_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">MRF List</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-                <!-- Modal for MRF List -->
-                <!-- Modal -->
-                <div class="modal fade" id="mrf_list" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">MRF List</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-               
 
 
             </main>
@@ -766,26 +690,6 @@ if (isset($_SESSION['username'], $_SESSION['password'])) {
                     });
                 });
             </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <?php } ?>
     </body>
 
