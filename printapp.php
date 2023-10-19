@@ -49,7 +49,6 @@ if (isset($_POST['Back'])) {
 
     .form-label {
       text-align: left !important;
-      /* padding: 0px 15% 0px 0px; */
     }
 
     .form-control{
@@ -90,7 +89,17 @@ if (isset($_POST['Back'])) {
     }
 
     .form-group {
-      margin-top: 1rem !important;
+      font-size: 13px !important;
+    }
+
+    .form-control{
+      border-top: none;
+      border-right: none;
+      border-left: none;
+    }
+
+    .form-label{
+      font-size: 13px !important;
     }
 
     .many1 {
@@ -99,7 +108,7 @@ if (isset($_POST['Back'])) {
 
     @media screen and (max-width: 840px) {
       .name .name {
-        font-size: 20px;
+        font-size: 13px;
       }
       .name .address,
       .name .number {
@@ -113,7 +122,6 @@ if (isset($_POST['Back'])) {
 <body>
 
   <div class="container">
-
     <?php
 
     //echo $_SESSION["appnoto"];
@@ -121,184 +129,183 @@ if (isset($_POST['Back'])) {
 
     $querytap = "SELECT * FROM employees where appno ='$appnoto'";
     $resultap = mysqli_query($link, $querytap);
-    while ($rowap = mysqli_fetch_array($resultap)) { ?>
+    while ($rowap = mysqli_fetch_assoc($resultap)) { ?>
 
 
-      <div class="many1"><br>
+      <div class="many1">
+
         <form action="" method="POST">
           <div class="mb-1 buttons">
-            <button class="btn btn-dark" id="myDIV" onclick="myFunction()" data-bs-toggle="tooltip">Print this page</button>
+            <button class="btn btn-dark" id="myDIV" onclick="myFunction()">Print this page</button>
             <button class="btn btn-secondary" name="Back" id="myDIV1">Back</button>
           </div>
         </form>
 
         <div class="form-group name">
-
+          <p>Tracking No. <?php echo $rowap['tracking'] ?></p>
           <center>
-            <img src="<?php echo $rowap[2] ?>" alt="" style="float:left; width:150px; height:150px;">
+            <img src="<?php echo $rowap['photopath'] ?>" alt="" class="img-responsive" style="float:left; width:130px; height:130px;">
           </center>
-          <br><br><br>
+          <br>
 
           <label class="form-label">
-            <h2 class="name"><?php echo $rowap[6] .  ", " . $rowap[7] . " " . $rowap[8] ?></h2>
+            <h4 class="name"><?php echo $rowap['lastnameko'] .  ", " . $rowap['firstnameko'] . " " . $rowap['mnko'] ?></h2>
           </label>
           <br>
-          <label class="form-label address"><?php echo $rowap[10] ?></label>
+          <label class="form-label address"><?php echo $rowap['paddress'] ?></label>
           <br>
-          <label class="form-label number" style="font-stretch: ;"><?php echo $rowap[18] ?></label>
+          <label class="form-label number"><?php echo $rowap['cpnum'] ?></label>
 
         </div>
 
         <hr>
         <center>
           <label class="form-label">
-            <font color="Black" size="4">Applicant Information</font>
+            <font color="Black" size="3">Applicant Information</font>
           </label>
         </center>
         <hr>
 
         <form action="" class="row">
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Applicant Number</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" id="number" value="<?php echo $rowap[4] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" id="number" value="<?php echo $rowap["appno"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Region</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[12] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["regionn"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Gender</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[16] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["gendern"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Birthdate</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[14] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["birthday"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Civil Status</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[17] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["civiln"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">SSS Number</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[24] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["sssnum"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">PhilHealth Number</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[26] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["phnum"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Pag-IBIG Number</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[25] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["pagibignum"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">TIN Number</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[27] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["tinnum"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Desired Position</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[21] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["despo"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Email Address</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[20] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["emailadd"] ?>" class="form-control" readonly>
             </div>
           </div>
 
 
           <div class="row mt-2">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="form-label">Joined Date</label>
             </div>
-            <div class="col-md-8">
-              <input type="text" name="newshortlist" value="<?php echo $rowap[3] ?>" class="form-control" readonly>
+            <div class="col-md-6">
+              <input type="text" name="newshortlist" value="<?php echo $rowap["dapplied"] ?>" class="form-control" readonly>
             </div>
           </div>
 
         </form>
-        <br>
         <hr>
 
 
       
-        <label style="float:left; width:400px;height:10px; font-family: 'Thasadith', sans-serif; font-style: italic;">I hereby certify that the above information are true and correct.</label>
+        <label style="float:left; width:400px;height:10px; font-family: 'Thasadith', sans-serif; font-style: italic; font-size: 13px;">I hereby certify that the above information are true and correct.</label>
 
-        <br><br>
+        <br>
 
         <div class="footer">
           <label class="form-label">___________________________</label><br>
           <label class="form-label">Signature over Printed Name</label>
-          <br><br>
-          <label class="form-label">________________</label><br>
+          <br>
+          <label >________________</label><br>
           <label class="form-label">Date</label>
         </div>
 
 
 
       <?php
-      $rowap[10];
     }
       ?>
 

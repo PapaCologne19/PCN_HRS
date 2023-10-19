@@ -1,7 +1,5 @@
 
 <?php
-//export.php  
-
 include("connect.php");
 session_start();
 
@@ -9,14 +7,12 @@ date_default_timezone_set('Asia/Hong_Kong');
 $date = date('D : F d, Y');
 
 $dtnow = date("m/d/Y");
-
-
-
 $output = '';
-if (isset($_POST["export"])) {
-  $query = "SELECT * FROM employees";
-  $result = mysqli_query($link, $query);
-  if (mysqli_num_rows($result) > 0) {
+
+$id = mysqli_real_escape_string($link, $_GET['id']);
+$query = "SELECT * FROM employees WHERE id = '$id'";
+$result = mysqli_query($link, $query);
+if (mysqli_num_rows($result) > 0) {
     $output .= '
    <table class="table" bordered="1">  
                     
@@ -45,19 +41,19 @@ if (isset($_POST["export"])) {
              </tr>   
   ';
     while ($row = mysqli_fetch_assoc($result)) {
-      $police = $row['policed'];
-      $barangay = $row['brgyd'];
-      $nbi = $row['nbid'];
-      $birthday = $row['birthday'];
-      $timestamp_police = strtotime($police);
-      $timestamp_barangay = strtotime($barangay);
-      $timestamp_nbi = strtotime($nbi);
-      $timestamp_birthday = strtotime($birthday);
-      $formattedDate_police = date("F d, Y", $timestamp_police);
-      $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
-      $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
-      $formattedDate_birthday = date("F d, Y", $timestamp_birthday);
-      $output .= '
+        $police = $row['policed'];
+        $barangay = $row['brgyd'];
+        $nbi = $row['nbid'];
+        $birthday = $row['birthday'];
+        $timestamp_police = strtotime($police);
+        $timestamp_barangay = strtotime($barangay);
+        $timestamp_nbi = strtotime($nbi);
+        $timestamp_birthday = strtotime($birthday);
+        $formattedDate_police = date("F d, Y", $timestamp_police);
+        $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
+        $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
+        $formattedDate_birthday = date("F d, Y", $timestamp_birthday);
+        $output .= '
    
 <tr> 
   <td>  ' . $row['appno'] . '   </td> 
@@ -88,6 +84,5 @@ if (isset($_POST["export"])) {
     $fname = "HRdatabase_" . $dtnow . ".xls";
     header("Content-Disposition: attachment; filename=$fname");
     echo $output;
-  }
 }
 ?>

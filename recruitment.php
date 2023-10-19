@@ -78,28 +78,6 @@ if (isset($_POST['addappdel1'])) {
 }
 
 
-if (isset($_POST['addappdel'])) {
-  $short1 = $_POST['shortlisttitle1del'];
-
-  $_SESSION["data"] = $short1;
-  header("location:shortviewdel.php");
-}
-
-
-
-if (isset($_POST['addappview'])) {
-  $short1 = $_POST['shortlisttitle1'];
-
-  $_SESSION["data"] = $short1;
-  header("location:shortview.php");
-}
-
-
-if (isset($_POST['addapp'])) {
-  $short1 = $_POST['shortlisttitle'];
-  $_SESSION["data"] = $short1;
-  header("location:short.php");
-}
 
 $resultap = mysqli_query($link, "SELECT * FROM track where id ='1'");
 while ($rowap = mysqli_fetch_array($resultap)) {
@@ -273,6 +251,36 @@ echo '
     table thead tr th {
       background: whitesmoke !important;
     }
+
+    .contain {
+      display: grid;
+      grid-template-columns: 0fr 0fr;
+      grid-template-rows: 0fr 0fr;
+      gap: 5px;
+      margin: 0 auto;
+    }
+
+    .notification {
+      color: black;
+      text-decoration: none;
+      position: relative;
+      display: inline-block;
+      border-radius: 2px;
+    }
+
+    .notification:hover {
+      background: green;
+    }
+
+    .notification .badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      padding: 2px 5px;
+      border-radius: 50%;
+      background-color: #D80032;
+      color: white;
+    }
   </style>
 
 
@@ -436,61 +444,30 @@ echo '
                                                   <!--<li class="cd-side__label"><span>Recruitment Action</span></li>-->
                                                   <li class="cd-side__btn"><a><BUTTON class="btn" name = "applicant"><i class="bi bi-camera" style="margin-right: 1rem"></i> Take Applicant Photo</button></li>
                                                   <li class="cd-side__btn"><a><BUTTON class="btn" name = "shortlist"><i class="bi bi-database" style="margin-right: 1rem"></i> Database Entry</button></a></li>
-                                                  <li class="cd-side__btn"><a><BUTTON class="btn" name = "databaselist"><i class="bi bi-database-add" style="margin-right: 1rem;"></i> Edit Database Entry</button></a></li>
+                                                  <li class="cd-side__btn"><a><BUTTON class="btn" name = "databaselist"><i class="bi bi-person-rolodex" style="margin-right: 1rem;"></i> Applicant</button></a></li>
                                                         
-                                <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalapp_print" ><i class="bi bi-printer" style="margin-right: 1rem;"></i> Print an Entry</button></li>
-                                     <ul class="cd-side__list js-cd-side__list">
-                                              <li class="cd-side__label" style="font-size:26"><span>SHORTLISTING MENU</span></li>
-                                              <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
-                                                      <a href="">REPORTS</a>
+                                                  <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalapp_print" ><i class="bi bi-printer" style="margin-right: 1rem;"></i> Print an Entry</button></li>
+                                                      <ul class="cd-side__list js-cd-side__list">
+                                                        <li class="cd-side__label" style="font-size:26"><span>SHORTLISTING MENU</span></li>
+                                                        <li class="cd-side__item cd-side__item--has-children cd-side__item--bookmarks js-cd-item--has-children">
+                                                          <a href="">REPORTS</a>
                                                       
-                                                      <ul class="cd-side__sub-list">
-                                                        <form action = "" method = "POST">
-                                                        <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "blacklistr">List of Blacklisted</button></a></li>-->
-                                                       <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "viewdatabaseshort">View Database</button></a></li>-->
-                                                       <li class="cd-side__btn"><a><button type="button" class="btn" style="font-size:14; width:180px;height:50px" data-bs-toggle="modal" data-bs-target="#myModaladdshortview" >Shortlist Download</button></a></li>
-                                                        <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "additionalr">Additional Repots</button></a></li>-->
-                                                        <li class="cd-side__btn"><a><BUTTON class="btn" name = "summary" style="font-size:14; width:150px;height:50px">Summary</button></a></li>     
-                                                        </form>
-                                                      </ul>
-                                              </li>
-                                                      <li class="cd-side__item cd-side__item--has-children cd-side__item--images js-cd-item--has-children">
-                                                        <!--<a href="#0">Images</a>-->
-                                                        
-                                                        <ul class="cd-side__sub-list">
-                                                          <!--<li class="cd-side__sub-item"><a href="#0">All Images</a></li>
-                                                          <li class="cd-side__sub-item"><a href="#0">Edit Image</a></li>
-                                                        --> 
+                                                          <ul class="cd-side__sub-list">
+                                                          <form action = "" method = "POST">
+                                                            <li class="cd-side__btn"><a><button type="button" class="btn" style="font-size:14; width:180px;height:50px" data-bs-toggle="modal" data-bs-target="#myModaladdshortview" >Shortlist Download</button></a></li>
+                                                            <li class="cd-side__btn"><a><BUTTON class="btn" name = "summary" style="font-size:14; width:150px;height:50px">Summary</button></a></li>     
+                                                          </form>
                                                         </ul>
                                                       </li>
-                                                
-                                                    <li class="cd-side__item cd-side__item--has-children cd-side__item--users js-cd-item--has-children">
-                                                    <!--  <a href="#0">Users</a>-->
-                                                      
-                                                      <ul class="cd-side__sub-list">
-                                                        <!--
-                                                        <li class="cd-side__sub-item"><a href="#0">All Users</a></li>
-                                                        <li class="cd-side__sub-item"><a><BUTTON class="btn" name = "next1">Edit User</button></a></li>
-                                                        <li class="cd-side__sub-item"><a><BUTTON class="btn" name = "next">Add User</button></a></li>
-                                                        -->
-                                                      </ul>
-                                                    </li>
-                                          
-                                      </ul>
-                                                    <!--<li class="cd-side__label"><span>Shortlisting Action</span></li>-->
-                                                         <form action = "" method = "POST">
-                                                  <li class="cd-side__btn"><a><BUTTON class="btn" name = "shortlisttitle"><i class="bi bi-folder-plus" style="margin-right: 1rem;"></i> Create Shortlist Title</button></a></li>        
-                                                 <!-- <li class="cd-side__btn"><a><BUTTON class="btn" name = "addapp">+ Add Applicant to Shorlist1</button></a></li>        -->
-                                                       
-                                                
-                                <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModaladdshort" ><i class="bi bi-file-earmark-plus" style="margin-right: 1rem;"></i> Add to Shortlist</button></li>
-                                <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModaldelshort" ><i class="bi bi-file-earmark-minus" style="margin-right: 1rem;"></i> Remove from shortlist</button></li>
-                                <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalewb" ><i class="bi bi-layer-forward" style="margin-right: 1rem;"></i> Forward to EWB</button></li>
-                                                      <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalmrf" ><i class="bi bi-person" style="margin-right: 1rem;"></i> MRF </button></li>
-                                                  
-                                                 </form> 
-                                             
-                                                </ul>
+                                              </ul>
+                                                <form action = "" method = "POST">
+                                                  <li class="cd-side__btn"><a><BUTTON type="button" class="btn" name = "shortlisttitle" data-bs-toggle="modal" data-bs-target="#shortlist_title"><i class="bi bi-folder-plus" style="margin-right: 1rem;"></i> Create Shortlist Title</button></a></li>        
+                                                  <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModaladdshort" ><i class="bi bi-file-earmark-plus" style="margin-right: 1rem;"></i> Add to Shortlist</button></li>
+                                                  <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModaldelshort" ><i class="bi bi-file-earmark-minus" style="margin-right: 1rem;"></i> Remove from shortlist</button></li>
+                                                  <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalewb" ><i class="bi bi-layer-forward" style="margin-right: 1rem;"></i> Forward to EWB</button></li>
+                                                  <li class="cd-side__btn"><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#myModalmrf" ><i class="bi bi-person" style="margin-right: 1rem;"></i> MRF </button></li>
+                                                </form> 
+                                              </ul>
                                            
                                   
                                     </nav>
@@ -517,11 +494,11 @@ echo '
   if (isset($_POST['summary'])) {
     echo '
 <div class="body5025p">
-<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%">
+<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 14px;">
             <thead>
             <tr>
-            <th class="text-white"> Shortlist Name </th>
-            <th class="text-white"> Manpower Count </th>
+            <th> Shortlist Name </th>
+            <th> Manpower Count </th>
             
              </tr>   
             </thead>
@@ -543,6 +520,7 @@ echo '
     '
      </tbody>
         </table> 
+        <br><br><br>  
 </div>
 ';
   }
@@ -564,7 +542,7 @@ echo '
 
 
                                                      
-                                                          <select class="" name="shortlisttitle"  data-placeholder="" style= "height:45px;width:60%" > ';
+          <select class="" name="shortlisttitle"  data-placeholder="" style= "height:45px;width:60%" > ';
     echo '<option>Select shortlist Name:</option> ';
 
 
@@ -659,102 +637,54 @@ echo '
   if (isset($_POST['addtoshortlistbtn1'])) {
 
     $kekelpogi1 = "Shortlist Title and Employee Added";
-  }
+  } ?>
 
 
 
-
-
-  if (isset($_POST['shortlisttitle'])) {
-    echo '
-<div class="container" style="padding: 10rem;">
-<div class = "">
-<br><br>
-      <center >
-<h2 class="fs-2"><font color="black"> Shortlist Title Creation</font> </h2>
-<br>
-<form action = "" method = "POST"><br>
-                                                      <div class="row" >
-                                                            <label class="form-label"> Project Title </label>
-                                                     
-
-                                                          <select class="form-select" name="projecttitle"> ';
-    echo '<option>Select Project:</option> ';
-
-
-    $resultpro = mysqli_query($link, "SELECT * FROM Projects where end_date >= '$datenow1' order by project_title ASC ");
-    while ($rowpro = mysqli_fetch_array($resultpro)) {
-
-      echo '<option  value="' . $rowpro[0] . '">' . $rowpro[1] . '(' . $rowpro[2] . ')' . $rowpro[5] . ' </option> 
-                                                                                                            
-                                                                                                                                ';
-    }
-    echo '          
-                                                           </select> 
-                                                           </div>
-                                                          
-      
-<br>
-                                                      <div class="row mt-3" >
-                                                        <label class="form-label">Shortlist Name :</label>
-                                                          <input type="text" name = "newshortlist" value= "" class="form-control"  placeholder="New Shorlist Name" >
-                                                      </div>
-                                                      <div class="mt-5">
-                                                      <input type = "submit" name = "createshortlist" value = "Create Shortlist" class="btn btn-info btn-lg" style = "font-size:15;width: 200px;height: 50px">
-    <input type = "submit" name = "cancel" value = "Cancel" class="btn btn-info btn-lg" style = "font-size:15;width: 100px;height: 50px">
+  <!-- For Creating Shortlist Title -->
+  <div class="modal fade" id="shortlist_title" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Create Shortlist title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form action="action.php" method="POST"><br>
+              <div class="row">
+                <label class="form-label"> Project Title </label>
+                <select class="form-select" name="projecttitle" required>
+                  <option selected disabled>Select Project:</option>
+                  <?php
+                  $querypro = "SELECT *, DATE_FORMAT(end_date, '%M %d %Y') AS date_end FROM projects WHERE end_date >= '$datenow1' ORDER BY project_title ASC ";
+                  $resultpro = mysqli_query($link, $querypro);
+                  while ($rowpro = mysqli_fetch_assoc($resultpro)) {
+                    echo '<option value="' . $rowpro['id'] . '">' . $rowpro['project_title'] . '(' . $rowpro['client_company_id'] . ') - ' . $rowpro['date_end'] . ' </option>';
+                  }
+                  ?>
+                </select>
+              </div>
+              <br>
+              <div class="row mt-3">
+                <label class="form-label">Shortlist Name :</label>
+                <input type="text" name="newshortlist" value="" class="form-control" placeholder="New Shorlist Name" required>
+              </div>
+              <div class="modal-footer">
+                <div class="mt-5">
+                  <input type="submit" name="createshortlist" value="Create Shortlist" class="btn btn-info">
+                  <input type="button" name="cancel" value="Cancel" class="btn btn-info" data-bs-dismiss="modal">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-    </form>
-    
-';
-    $kekelpogi = "Shortlist title created";
-    echo '</center>
-                  <!--- laman -->
-                        </div>     </div>
-             
-';
-  }
+    </div>
+  </div>
 
 
-
-
-  if (isset($_POST['createshortlist'])) {
-    $dtnow = date("m/d/Y");
-
-    $projecttitle1 = $_POST['projecttitle'];
-    $newshortlist1 = $_POST['newshortlist'];
-
-
-    if (strlen($projecttitle1) == 0 || strlen($newshortlist1) == 0) {
-      $kekelpogi = "Fields must be Filled";
-    } else {
-      $resultmo = mysqli_query($link, "SELECT * FROM Projects where id='$projecttitle1' ");
-      while ($rowmo = mysqli_fetch_array($resultmo)) {
-        $project_t = $rowmo[1];
-        $client_t = $rowmo[2];
-      }
-
-
-      $resultns = mysqli_query($link, "select * from shortlist_details WHERE shortlistname = '$newshortlist1' ");
-
-      if (mysqli_num_rows($resultns) == 0) {
-        // kapag wala pang user name na kaparehas
-
-
-        mysqli_query($link, "INSERT INTO shortlist_details
-                                      (shortlistname,project,client,datecreated,activity)
-                                      VALUES
-                                      ('$newshortlist1','$project_t','$client_t','$dtnow','ACTIVE')
-                                      ");
-        $kekelpogi = "Shortlist Created";
-      } else {
-        $kekelpogi = "unable to create shortlist, name not unique !";
-      }
-    }
-  }
-
-
-
-
+  <?php
 
 
   if (isset($_POST['databaselist'])) {
@@ -765,21 +695,14 @@ echo '
       <div class="cd-content-wrappers">
         <div class="text-component text-center">
           <h2 class="fs-2">Applicant Database</h2>
-          <table id="example" class="table p-3 table-striped table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 15px !important;">
+          <table id="example" class="table p-3 table-striped table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 13px !important;">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Applicant No </th>
-                <th>Lastname </th>
-                <th>Firstname </th>
-                <th>Middlename </th>
-                <th>SSS </th>
-                <th>Pag-ibig </th>
-                <th>Philhealth </th>
-                <th>TIN </th>
-                <th>Police </th>
-                <th>Brgy </th>
-                <th>NBI </th>
-                <th>PSA </th>
+                <th>Applicant Name </th>
+                <th>Email </th>
+                <th>Contact No.</th>
                 <th>Birthday </th>
                 <th>Address </th>
                 <th>Action </th>
@@ -788,36 +711,50 @@ echo '
             </thead>
             <tbody>
               <?php
-              $resultx = mysqli_query($link, "SELECT * FROM employees WHERE actionpoint <> 'BLACKLISTED' AND actionpoint <> 'REJECTED' AND actionpoint <> 'SHORTLISTED'");
-              while ($rowx = mysqli_fetch_row($resultx)) {
+              $resultx = mysqli_query($link, "SELECT * FROM employees WHERE actionpoint <> 'BLACKLISTED' AND actionpoint <> 'REJECTED' AND actionpoint <> 'SHORTLISTED' AND actionpoint <> 'CANCELED'");
+              while ($rowx = mysqli_fetch_assoc($resultx)) {
 
                 echo ' <tr> ';
-                echo '  <td>  ' . $rowx[4] . '   </td> ';
-                echo '  <td>  ' . $rowx[6] . '   </td> ';
-                echo '  <td> ' . $rowx[7] . '   </td> ';
-                echo '  <td> ' . $rowx[8] . '   </td> ';
-                echo '  <td> ' . $rowx[24] . '   </td> ';
-                echo '  <td> ' . $rowx[25] . '   </td> ';
-                echo '  <td> ' . $rowx[26] . '   </td> ';
-                echo '  <td> ' . $rowx[27] . '   </td> ';
-                echo '  <td> ' . $rowx[28] . '   </td> ';
-                echo '  <td> ' . $rowx[29] . '   </td> ';
-                echo '  <td> ' . $rowx[30] . '   </td> ';
-                echo '  <td> ' . $rowx[31] . '   </td> ';
-                echo '  <td> ' . $rowx[14] . '   </td> ';
-                echo '  <td> ' . $rowx[10] . '   </td> ';
-                echo '<td> <form action = "" method = "POST">
-                        <input type = "hidden" name = "shadowE" value = "' . $rowx[0] . '">
-                              <button type="submit" name = "Editbtn" class="btn btn-default btn-sm">
-                              <span class="glyphicon glyphicon-edit" ></span> Edit
+                echo '  <td>  ' . $rowx['id'] . '   </td> ';
+                echo '  <td>  ' . $rowx['appno'] . '   </td> ';
+                echo '  <td>  ' . $rowx['lastnameko'] . ", " . $rowx['firstnameko'] . " " . $rowx['mnko'] . '   </td> ';
+                echo '  <td> ' . $rowx['emailadd'] . '   </td> ';
+                echo '  <td> ' . $rowx['cpnum'] . '   </td> ';
+                echo '  <td> ' . $rowx['birthday'] . '   </td> ';
+                echo '  <td> ' . $rowx['peraddress'] . '   </td> ';
+                echo '<td> 
+                      <form action = "" method = "POST" class="contain">
+                        <div class="columns">
+                          <input type = "hidden" name = "shadowE" value = "' . $rowx['id'] . '">
+                            <button type="submit" name = "Editbtn" class="btn btn-default btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Applicant">
+                              <i class="bi bi-pencil-square"></i>
                             </button>
-                            <br>
-                            <button type="button" name = "blackbtn" class="btn btn-default btn-sm" data-bs-toggle="modal" data-bs-target="#blackbtns">
-                              <span class="glyphicon glyphicon-edit" ></span> Blacklist
-                            </button>
+                        </div>
+                           
+                        <div class="columns">
+                          <input type = "hidden" name = "blackbtnID" class="blackbtnID" value = "' . $rowx['id'] . '">
+                            <button type="button" name = "blackbtn" class="btn btn-default btn-sm blackbtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Blacklist">
+                              <i class="bi bi-person-fill-x"></i>
+                          </button>
+                        </div>
+                            
+                        <div class="columns">
+                          <input type = "hidden" name = "deleteID" class="deleteID" value = "' . $rowx['id'] . '">
+                            <button type="button" name = "deletebtn" class="btn btn-default btn-sm deletebtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Delete Applicant">
+                              <i class="bi bi-trash"></i>
+                          </button>
+                        </div>
                           
+                        <div class="columns">
+                          <input type = "hidden" name = "downloadinfoID" class="downloadinfoID" value = "' . $rowx['id'] . '">
+                            <a href="export_applicant.php?id=' . $rowx['id'] . '" name = "downloadinfobtn" class="btn btn-default btn-sm downloadinfobtn  mb-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Download Applicant Information">
+                              <i class="bi bi-download"></i>
+                            </a>
+                          </div>
                             ';
-                echo '</form></td>';
+                echo  '</form>
+                          
+                                    </td>';
                 echo ' </tr> ';
               }
               ?>
@@ -1241,53 +1178,6 @@ echo '
   ';
   }
 
-
-
-  if (isset($_POST['blacklistyes'])) {
-
-    $id = $_POST['shadowblacklist'];
-    $blacklistreason1 = $_POST['blacklistreason'];
-    $datenow = date("m/d/Y h:i:s A");
-    $actionpoint1 = "BLACKLISTED";
-
-    mysqli_query($link, "UPDATE employees
-          SET
-    
-        actionpoint='$actionpoint1',
-        reasonofaction='$blacklistreason1',
-        dateofaction='$datenow'
-          
-          WHERE
-          id = '$id'
-          ");
-
-    $resultem = mysqli_query($link, "SELECT * FROM employees WHERE id = '$id'");
-    while ($rowem = mysqli_fetch_array($resultem)) {
-
-
-      mysqli_query($link, "INSERT INTO blacklist_history
-        (tracking,photopath,dapplied,appno,source,lastnameko,firstnameko,mnko,extnname,paddress,cityn,regionn,peraddress,birthday,age,gendern,civiln,cpnum,landline,emailadd,despo,classn,idenn,sssnum,pagibignum,phnum,tinnum,policed,brgyd,nbid,psa,remarks,actionpoint,reasonofaction,dateofaction)
-        VALUES
-        ('$rowem[1]','$rowem[2]','$rowem[3]','$rowem[4]','$rowem[5]','$rowem[6]','$rowem[7]','$rowem[8]','$rowem[9]','$rowem[10]','$rowem[11]','$rowem[12]','$rowem[13]','$rowem[14]','$rowem[15]','$rowem[16]','$rowem[17]','$rowem[18]','$rowem[19]','$rowem[20]','$rowem[21]','$rowem[22]','$rowem[23]','$rowem[24]','$rowem[25]','$rowem[26]','$rowem[27]','$rowem[28]','$rowem[29]','$rowem[30]','$rowem[31]','$rowem[32]','$actionpoint1','$blacklistreason1','$datenow')
-        ");
-    }
-
-    $kekelpogi = "Black list done !";
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   if (isset($_POST['shortlist'])) {
     if (!isset($_SESSION["photoko"]) || (trim($_SESSION["photoko"]) == '')) {
       $kekelpogi = "Take Photo First";
@@ -1471,10 +1361,10 @@ echo '
                                                           
                     <div class="row mt-3" >
                       <div class="col-md-2">
-                        <label class="form-label">Civil Status </font></label>
+                        <label class="form-label">Civil Statuss </font></label>
                       </div>
                       <div class="col-md-10">
-                        <select class="form-select cbo" name="civiln"  data-placeholder="" > ;';
+                        <select class="form-select cbo" name="civiln" onchange="myFunction_focusout()"  data-placeholder="" > ;';
       echo '<option>Select Civil Status:</option> ';
       $resultt = mysqli_query($link, "SELECT * FROM tax_status");
       while ($rowtt = mysqli_fetch_array($resultt)) {
@@ -1483,7 +1373,8 @@ echo '
       echo '          
                         </select>
                       </div>
-                    </div>                                                  
+                    </div>   
+                    
                                                       
                     <div class="row mt-3" >
                       <div class="col-md-2">
@@ -1694,67 +1585,50 @@ echo '
     echo '
                 <div class="cd-content-wrapper">
                   <div class="text-component text-center">
-<div class = "how2" style="width:100%">
+<div class = "container" style="width:100%">
             <!--- laman -->
   
    <form method="post" action="export.php">
-     <input type="submit" name="export" class="btn btn-success btnsall" value="Export" style="float:right;" />
+     <input type="submit" name="export" class="btn btn-success btnsall" value="Export All" style="float:right;" />
     </form>
-             <form action = "" method = "POST" style="align=left">
-             <button class="btn btn-success btnsall" Name ="Back" style="float:right;"><span>Close Report</span></button>
-</form>
 <br><br><br>
                     <h2 class="fs-2">Recruitment Database</h2>
          
-<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%">
+          <table id="example" class="table table-sm table-striped align-middle mb-3 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;">
             <thead>
-            <tr>
-            <th class="text-white"> Applicant No. </th>
-            <th class="text-white"> Lastname </th>
-            <th class="text-white"> Firstname </th>
-            <th class="text-white"> Middlename </th>
-            <th class="text-white"> SSS </th>
-            <th class="text-white"> Pag-ibig </th>
-            <th class="text-white"> Philhealth </th>
-            <th class="text-white"> TIN </th>
-            <th class="text-white"> Police </th>
-            <th class="text-white"> Brgy </th>
-            <th class="text-white"> NBI </th>
-            <th class="text-white"> PSA </th>
-            <th class="text-white"> Birthday </th>
-            <th class="text-white"> Address </th>
-          
-             </tr>   
+              <tr>
+                <th> ID </th>
+                <th> Applicant No. </th>
+                <th> Applicant Name </th>
+                <th> Email </th>
+                <th> Contact No. </th>
+                <th> Birthday </th>
+                <th> Action </th>
+              </tr>   
             </thead>
-            <tbody> 
-';
+            <tbody> ';
     $resultx = mysqli_query($link, "SELECT * FROM employees ");
-    while ($rowx = mysqli_fetch_row($resultx)) {
-
+    while ($rowx = mysqli_fetch_assoc($resultx)) {
+      $police = $rowx['policed'];
+      $barangay = $rowx['brgyd'];
+      $nbi = $rowx['nbid'];
+      $birthday = $rowx['birthday'];
+      $timestamp_police = strtotime($police);
+      $timestamp_barangay = strtotime($barangay);
+      $timestamp_nbi = strtotime($nbi);
+      $timestamp_birthday = strtotime($birthday);
+      $formattedDate_police = date("F d, Y", $timestamp_police);
+      $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
+      $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
+      $formattedDate_birthday = date("F d, Y", $timestamp_birthday);
       echo ' <tr> ';
-      echo '  <td>  ' . $rowx[4] . '   </td> ';
-      echo '  <td>  ' . $rowx[6] . '   </td> ';
-      echo '  <td> ' . $rowx[7] . '   </td> ';
-      echo '  <td> ' . $rowx[8] . '   </td> ';
-      echo '  <td> ' . $rowx[24] . '   </td> ';
-      echo '  <td> ' . $rowx[25] . '   </td> ';
-      echo '  <td> ' . $rowx[26] . '   </td> ';
-      echo '  <td> ' . $rowx[27] . '   </td> ';
-      echo '  <td> ' . $rowx[28] . '   </td> ';
-      echo '  <td> ' . $rowx[29] . '   </td> ';
-      echo '  <td> ' . $rowx[30] . '   </td> ';
-      echo '  <td> ' . $rowx[31] . '   </td> ';
-      echo '  <td> ' . $rowx[14] . '   </td> ';
-      echo '  <td> ' . $rowx[10] . '   </td> ';
-
-
-
-
-
-
-
-
-
+      echo '  <td>  ' . $rowx['id'] . '   </td> ';
+      echo '  <td>  ' . $rowx['appno'] . '   </td> ';
+      echo '  <td>  ' . $rowx['lastnameko'] . ", " . $rowx['firstnameko'] . " " . $rowx['mnko'] . '   </td> ';
+      echo '  <td> ' . $rowx['emailadd'] . '   </td> ';
+      echo '  <td> ' . $rowx['cpnum'] . '   </td> ';
+      echo '  <td> ' . $formattedDate_birthday . '   </td> ';
+      echo '  <td> <button type="button" class="btn btn-secondary data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Print MRF"><i class="bi bi-pencil-square"></i></button></td> ';
       echo ' </tr> ';
     }
     echo '
@@ -1771,13 +1645,39 @@ echo '
   }
 
 
+  ?>
+
+  <!-- Edit Recruitment Database -->
+  <div class="modal fade" id="edit_database" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
+
+
+
+
+
+  <?php
   if (isset($_POST['blacklistr'])) {
     echo '
                 <div class="cd-content-wrapper">
                   <div class="text-component text-center">
-<div class = "how2">
+<div class = "container">
             <!--- laman -->
              <form action = "" method = "POST" style="align=left">
              <button type="submit" class="btn btn-default btnsall" Name ="Back" style="float:right;"><span>Close Report</span></button>
@@ -1785,32 +1685,40 @@ echo '
 </form>
                     <h2 class="fs-2">List of Blacklisted</h2>
          
-<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%">
+<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;">
             <thead>
             <tr>
-            <th class="text-white"> Applicant No </th>
-            <th class="text-white"> Lastname </th>
-            <th class="text-white"> Firstname </th>
-            <th class="text-white"> Middlename </th>
-            <th class="text-white"> Action </th>
+            <th> ID</th>
+            <th> Applicant No </th>
+            <th> Lastname </th>
+            <th> Firstname </th>
+            <th> Middlename </th>
+            <th> Birthday </th>
+            <th> Reason </th>
+            <th> Action </th>
              </tr>   
             </thead>
             <tbody> 
 ';
-    $resultx = mysqli_query($link, "SELECT * FROM employees where actionpoint='BLACKLISTED'");
-    while ($rowx = mysqli_fetch_row($resultx)) {
+    $resultx = mysqli_query($link, "SELECT * FROM employees where actionpoint = 'BLACKLISTED'");
+    while ($rowx = mysqli_fetch_assoc($resultx)) {
+      $inputDate = $rowx['birthday'];
+      $timestamp = strtotime($inputDate);
+      $formattedDate = date("F d, Y", $timestamp);
 
       echo ' <tr> ';
-      echo '  <td>  ' . $rowx[4] . '   </td> ';
-      echo '  <td>  ' . $rowx[6] . '   </td> ';
-      echo '  <td> ' . $rowx[7] . '   </td> ';
-      echo '  <td> ' . $rowx[8] . '   </td> ';
+      echo '  <td>  ' . $rowx['id'] . '   </td> ';
+      echo '  <td>  ' . $rowx['appno'] . '   </td> ';
+      echo '  <td>  ' . $rowx['lastnameko'] . '   </td> ';
+      echo '  <td> ' . $rowx['firstnameko'] . '   </td> ';
+      echo '  <td> ' . $rowx['mnko'] . '   </td> ';
+      echo '  <td> ' . $formattedDate . '   </td> ';
+      echo '  <td> ' . $rowx['reasonofaction'] . '   </td> ';
 
       echo '<td> <form action = "" method = "POST">
-<input type = "hidden" name = "shadowEblack" value = "' . $rowx[0] . '">
-       <button type="submit" name = "Editbtnblacklist" class="btn btn-default">
-      <span class="glyphicon glyphicon-edit" ></span> Undo Blacklist
-    </button>
+        <input type = "hidden" name = "undoblacklistID" class="undoblacklistID" id="undoblacklistID" value = "' . $rowx['id'] . '">
+        <button type="submit" name = "undoblacklistbtn" class="btn btn-default undoblacklistbtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Undo Blacklist">
+       <i class="bi bi-arrow-counterclockwise"></i></button>
   
     ';
 
@@ -1868,79 +1776,367 @@ echo '
 
 
   ?>
+  <?php
+
+  if (isset($_POST['addappview'])) {
+    $short1 = $_POST['shortlisttitle1'];
+    $_SESSION["data"] = $short1;
+    $data = $_SESSION["data"];
+    $view = "Applicants Shortlisted on : (" . $data . ")";
+
+    echo '
+  <div class="cd-content-wrapper">
+    <div class="text-component text-center">
+      <div class = "container">
+      <!--- laman -->
+
+  <form method="post" action="export1.php">';
+    $_SESSION["dataexport1"] = $data;
+    echo '
+          <input type="submit" name="export" class="btn btn-success btnsall" value="Export" style="float:right;" />
+          </form>
+      <br><br>
+      <h2 class="fs-2"><font color="black"> ' . $view . ' </font> </h2>
+    <br><br>
+
+                  <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;" style="width:100%;">
+                          <thead>
+                            <tr>
+                              <th> ID </th>
+                              <th> Name </th>
+                              <th> SSS </th>
+                              <th> Pag-ibig </th>
+                              <th> Philhealth </th>
+                              <th> TIN </th>
+                              <th> Police </th>
+                              <th> Brgy </th>
+                              <th> NBI </th>
+                              <th> PSA </th>
+                              <th> Birthday </th>
+                              <th> Address </th>
+                              <th> Status </th>
+                            </tr>   
+                          </thead>
+
+                          <tbody>';
+
+    $queryx1 = "SELECT * FROM shortlist_master WHERE shortlistnameto = '$data'";
+    $resultx1 = mysqli_query($link, $queryx1);
+    while ($rowx1 = mysqli_fetch_assoc($resultx1)) {
+      // echo $rowx1[2]; 
+      $appno = $rowx1["appnumto"];
+      $queryx = "SELECT * FROM employees WHERE appno = '$appno'";
+      $resultx = mysqli_query($link, $queryx);
+      while ($rowx = mysqli_fetch_assoc($resultx)) {
+        $police = $rowx['policed'];
+        $barangay = $rowx['brgyd'];
+        $nbi = $rowx['nbid'];
+        $birthday = $rowx['birthday'];
+        $timestamp_police = strtotime($police);
+        $timestamp_barangay = strtotime($barangay);
+        $timestamp_nbi = strtotime($nbi);
+        $timestamp_birthday = strtotime($birthday);
+        $formattedDate_police = date("F d, Y", $timestamp_police);
+        $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
+        $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
+        $formattedDate_birthday = date("F d, Y", $timestamp_birthday);
+
+
+        echo ' <tr> ';
+
+        echo '  <td>  ' . $rowx['id'] . '   </td> ';
+        echo '  <td>  ' . $rowx['lastnameko'] . ", " . $rowx['firstnameko'] . " " . $rowx['mnko'] . '   </td> ';
+        echo '  <td> ' . $rowx['sssnum'] . '   </td> ';
+        echo '  <td> ' . $rowx['pagibignum'] . '   </td> ';
+        echo '  <td> ' . $rowx['phnum'] . '   </td> ';
+        echo '  <td> ' . $rowx['tinnum'] . '   </td> ';
+        echo '  <td> ' . $formattedDate_police . '   </td> ';
+        echo '  <td> ' . $formattedDate_barangay . '   </td> ';
+        echo '  <td> ' . $formattedDate_nbi . '   </td> ';
+        echo '  <td> ' . $rowx['psa'] . '   </td> ';
+        echo '  <td> ' . $formattedDate_birthday . '   </td> ';
+        echo '  <td> ' . $rowx['peraddress'] . '   </td>  ';
+        echo '  <td> ' . $rowx['actionpoint'] . '   </td>    ';
+        echo ' 
+                                </form>
+                              </td>
+                            </tr> ';
+      }
+    }
+    '
+                       </tbody>
+                    </table> 
+
+
+
+
+
+  </div>
+<!--- laman -->
+  </div>
+</div> <!-- .content-wrapper -->
+
+';
+  } ?>
+
+
+  <?php
+  if (isset($_POST['addapp'])) {
+    $short1 = $_POST['shortlisttitle'];
+    $_SESSION["data"] = $short1;
+    $data = $_SESSION["data"];
+    $view = "Add Applicant to Shortlist (" . $data . ")";
+
+    echo '
+  <div class="cd-content-wrapper">
+  <div class="text-component text-center">
+<div class = "container">
+<br><br>
+
+            <h2 class="fs-2"><font color="black"> ' . $view . ' </font> </h2>
+      <br><br>
+
+                  <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;" style="width:100%;">
+                              <thead>
+                              <tr>
+                              
+                              <th> Name. </th>
+                              <th> SSS </th>
+                              <th> Pag-ibig </th>
+                              <th> Philhealth </th>
+                              <th> TIN </th>
+                              <th> Police </th>
+                              <th> Brgy </th>
+                              <th> NBI </th>
+                              <th> PSA </th>
+                              <th> Status </th>
+                              <th> Action </th>
+
+                               </tr>   
+                              </thead>
+
+                              <tbody> 
+                  ';
+
+    $resultx = mysqli_query($link, "SELECT * FROM employees WHERE  actionpoint <> 'BLACKLISTED' AND actionpoint <> 'REJECTED' AND actionpoint <> 'DEPLOYED' AND actionpoint <> 'CANCELED'");
+    while ($rowx = mysqli_fetch_assoc($resultx)) {
+      $police = $rowx['policed'];
+      $barangay = $rowx['brgyd'];
+      $nbi = $rowx['nbid'];
+      $birthday = $rowx['birthday'];
+      $timestamp_police = strtotime($police);
+      $timestamp_barangay = strtotime($barangay);
+      $timestamp_nbi = strtotime($nbi);
+      $timestamp_birthday = strtotime($birthday);
+      $formattedDate_police = date("F d, Y", $timestamp_police);
+      $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
+      $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
+      $formattedDate_birthday = date("F d, Y", $timestamp_birthday);
+
+      echo ' <tr> ';
+
+      echo '  <td>  ' . $rowx['lastnameko'] . ", " . $rowx['firstnameko'] . " " . $rowx['mnko'] . '   </td> ';
+      echo '  <td> ' . $rowx['sssnum'] . '   </td> ';
+      echo '  <td> ' . $rowx['pagibignum'] . '   </td> ';
+      echo '  <td> ' . $rowx['phnum'] . '   </td> ';
+      echo '  <td> ' . $rowx['tinnum'] . '   </td> ';
+      echo '  <td> ' . $formattedDate_police . '   </td> ';
+      echo '  <td> ' . $formattedDate_barangay . '   </td> ';
+      echo '  <td> ' . $formattedDate_nbi . '   </td> ';
+      echo '  <td> ' . $rowx['psa'] . '   </td> ';
+      echo ' 
+                                           <td>  
+                                           <input type = "hidden" name = "shadowd1" class="shadowd1" id="shadowd1" value = "' . $rowx['appno'] . '">
+                                           <input type = "hidden" name = "shadowd2" value = "' . $data . '">
+                                           <input type = "hidden" name = "appname88" value = "' . $rowx['lastnameko'] . ', ' . $rowx['firstnameko'] . ' ' . $rowx['mnko'] . '">
+
+                                          <button type="button" name = "displaymo" class="btn btn-success displaymo" id="displaymo" style = "font-size:15;width:90px;">
+                                          <span class="glyphicon glyphicon-edit" >' . $rowx['actionpoint'] . '</span> 
+                                          </button>
+                                           
+                                            </td> ';
+
+
+      if ($rowx['actionpoint'] == "TERMINATED") {
+
+
+        echo '<td> 
+        <form action = "" method = "POST">
+
+          <input type = "hidden" name = "emp_number" class="emp_number" id="emp_number" value = "' . $rowx['appno'] . '">
+            <input type = "hidden" name = "appname88" class="appname88" id="appname88" value = "' . $rowx['lastnameko'] . ', ' . $rowx['firstnameko'] . ' ' . $rowx['mnko'] . '">';
+        $appno = $rowx['appno'];
+        $querycem = "SELECT * FROM shortlist_master where appnumto = '$appno'";
+        $resultcem = mysqli_query($link, $querycem);
+        $corow = mysqli_num_rows($resultcem);
+
+        echo '
+            <input type = "hidden" name = "shad" value = "' . $corow . '">
+              <button type="submit" name="unterminate_me" class="btn btn-info notification unterminate_me" style = "font-size:15;"  data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Unterminate this Applicant"><i class="bi bi-arrow-counterclockwise"></i><span class="badge">' . $corow . '</span></button>
+            </form>
+        </td>
+                                                  ';
+      } else {
+        echo '<td> <form action="" method = "POST">
+        <input type = "hidden" name = "appno_id" class="appno_id" id="appno_id" value = "' . $rowx['appno'] . '">
+        ';
+        $appno = $rowx['appno'];
+        $querycem = "SELECT * FROM shortlist_master where appnumto = '$appno'";
+        $resultcem = mysqli_query($link, $querycem);
+        $corow = mysqli_num_rows($resultcem);
+        echo '
+                <button type="submit" name="add_shortlist_btn" id="add_shortlist_btn" class="btn btn-info notification add_shortlist_btn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to shortlist">
+                <i class="bi bi-plus-lg"></i> <span class="badge">' . $corow . '</span>
+                </button>
+          </form>
+        </td>
+                                                  ';
+      }
+      echo '
+               
+                                          </tr> ';
+    }
+    '
+
+                       </tbody>
+                          </table> 
+
+
+</div>
+</div>
+</div>
+            ';
+  } ?>
+
+  <div class="modal fade" id="viewdetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
 
 
 
 
 
   <?php
+  if (isset($_POST['addappdel'])) {
+    $short1 = $_POST['shortlisttitle1del'];
+    $_SESSION["data"] = $short1;
+    $data = $_SESSION["data"];
+    $view = "Applicants Shortlisted on : (" . $data . ")";
+    $_SESSION["dataexport1"] = $data;
 
 
-  if (isset($_POST['Editbtnblacklist'])) {
 
-    $idshadow1 = $_POST['shadowEblack'];
+    echo '
+  <div class="cd-content-wrapper">
+  <div class="text-component text-center">
+<div class = "container">
+          <form action = "" method = "POST">
+          <button class="btn btn-success btnsall" Name ="Back" style="float:right;"><span>Back</span></button>
+           </form>
+            <br><br><br>
+            <h2 class="fs-2">' . $view . '  </h2>
+            <br><br>
+
+                <table id="example" class="table p-3 table-sm align-middle mb-0 p-3 border border-info border-start-0 border-end-0 rounded-end" style="width:100%;">
+                            <thead>
+                              <tr>
+                                <th> Name </th>
+                                <th> SSS </th>
+                                <th> Pag-ibig </th>
+                                <th> Philhealth </th>
+                                <th> TIN </th>
+                                <th> Police </th>
+                                <th> Brgy </th>
+                                <th> NBI </th>
+                                <th> PSA </th>
+                                <th> Action </th>
+                              </tr>   
+                            </thead>
+
+                            <tbody> 
+                ';
+
+    $resultx1 = mysqli_query($link, "SELECT * FROM shortlist_master WHERE shortlistnameto = '$data'");
+    while ($rowx1 = mysqli_fetch_row($resultx1)) {
+      // $kekelpogi= $rowx1[2];
+
+      $resultx = mysqli_query($link, "SELECT * FROM employees WHERE appno = '$rowx1[2]' ");
+      while ($rowx = mysqli_fetch_row($resultx)) {
+
+        echo ' <tr> ';
+
+        echo '  <td>  ' . $rowx[6] . ", " . $rowx[7] . " " . $rowx[8] . '   </td> ';
+        echo '  <td> ' . $rowx[24] . '   </td> ';
+        echo '  <td> ' . $rowx[25] . '   </td> ';
+        echo '  <td> ' . $rowx[26] . '   </td> ';
+        echo '  <td> ' . $rowx[27] . '   </td> ';
+        echo '  <td> ' . $rowx[28] . '   </td> ';
+        echo '  <td> ' . $rowx[29] . '   </td> ';
+        echo '  <td> ' . $rowx[30] . '   </td> ';
+        echo '  <td> ' . $rowx[31] . '   </td> ';
 
 
-    mysqli_query($link, "UPDATE employees
-          SET
-    
-        actionpoint='',
-        reasonofaction='',
-        dateofaction=''
+
+
+
+        echo '<td> 
+                         <form action = "" method = "POST">
+     
+                      <input type = "hidden" name = "shadowE1x" value = "' . $rowx[4] . '">
+                      <input type = "hidden" name = "shadowE1" value = "' . $rowx[4] . '">
+
+
+                ';
+        $resultcem = mysqli_query($link, "SELECT * FROM shortlist_master where appnumto = '$rowx[4]'");
+        $corow = mysqli_num_rows($resultcem);
+
+        echo '
           
-          WHERE
-          id = '$idshadow1'
-          ");
+                <input type = "hidden" name = "shad" value = "' . $corow . '">
+     
+                    <button type="submit" name = "remove"  class="btn btn-info notification">
+                      <span class="glyphicon glyphicon-edit">REMOVE</span> <span class="badge">' . $corow . '</span>
+                    </button>
 
-    $kekelpogi = "Blacklist reverted";
+                     
+
+                </form>
+                </td>
+
+
+
+
+
+                                        </tr> ';
+      }
+    }
+    '
+
+                     </tbody>
+                        </table> 
+
+
+</div>
+</div>
+</div>
+
+          ';
   }
   ?>
 
-
-  <!-- Modal for blacklisting-->
-  <div class="modal fade" id="blackbtns" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog ">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <?php
-          $idshadow1 = $_POST['shadowE'];
-          $resultbl = mysqli_query($link, "SELECT * FROM employees WHERE id = '$idshadow1'");
-          while ($rowbl = mysqli_fetch_array($resultbl)) {  ?>
-            <div class="how1">
-              <div class="many"><br>
-                <form action="" method="POST"><br>
-                  <div class="row mt-3">
-                    <div class="col-md-2">
-                    </div>
-
-                    <label class="form-label">Are you Sure you want to Blacklist: ' . $rowbl[6] . ' ' . $rowbl[7] . ' ' . $rowbl[8] . ' </label>
-                    <b r> <br>
-                      <center>
-                        <input type="text" name="blacklistreason" class="form-control" placeholder="Type reason for Blacklisting" style="height:45px;width:90%" autofocus>
-                        <br>
-
-                        <input type="hidden" name="shadowblacklist" class="form-control" value="' . $idshadow1 . '" placeholder="Type reason for Blacklisting" style="height:45px;width:90%">
-
-                        <input type="submit" name="blacklistyes" value="YES" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
-                        <input type="submit" name="blacklistno" value="NO" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
-                      </center>
-                  </div>
-                </form>
-              </div>
-            </div>';
-          <?php } ?>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
 
@@ -2052,6 +2248,313 @@ echo '
       });
 
     });
+
+
+
+    $(document).ready(function() {
+      $('.blackbtn').click(function(e) {
+        e.preventDefault();
+
+        var blacklistingID = $(this).closest("tr").find('.blackbtnID').val();
+
+        Swal.fire({
+          title: "Are you sure you want to blacklist this person?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, blacklist it!",
+          cancelButtonText: "No, cancel",
+          showCloseButton: true, // Add a close button
+
+          // Customize the content of the modal
+          html: '<input type="text" id="blacklistReason" placeholder="Enter reason for blacklisting" class="swal2-input">',
+
+          preConfirm: () => {
+            // Retrieve the entered reason from the input field
+            var reason = document.getElementById("blacklistReason").value;
+
+            if (!reason) {
+              Swal.showValidationMessage("Reason is required");
+            }
+
+            // Log the reason to the console for debugging
+            console.log("Reason for blacklisting: " + reason);
+
+            // Send the reason along with the AJAX request
+            return {
+              reason: reason
+            };
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var reason = result.value.reason; // Get the reason entered by the user
+            if (reason) {
+              // Send the reason along with the AJAX request
+              $.ajax({
+                type: "POST",
+                url: "action.php",
+                data: {
+                  "blacklist_button": 1,
+                  "blacklistID": blacklistingID,
+                  "reason": reason, // Include the reason
+                },
+                success: function(response) {
+                  Swal.fire({
+                    title: "Successfully Blacklisted!",
+                    icon: "success",
+                  }).then((result) => {
+                    location.reload();
+                  });
+                },
+                error: function(xhr, status, error) {
+                  console.log("AJAX Error: " + error);
+                }
+              });
+            }
+          }
+        });
+      });
+    });
+
+
+    // For deleting Applicants
+    $(document).ready(function() {
+      $('.deletebtn').click(function(e) {
+        e.preventDefault();
+
+        var deleteApplicantID = $(this).closest("tr").find('.deleteID').val();
+
+        Swal.fire({
+          title: "Are you sure you want to delete this person?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel",
+          showCloseButton: true, // Add a close button
+
+          // Customize the content of the modal
+          html: '<input type="text" id="deleteReason" placeholder="Enter reason for delete" class="swal2-input">',
+
+          preConfirm: () => {
+            // Retrieve the entered reason from the input field
+            var reason = document.getElementById("deleteReason").value;
+
+            if (!reason) {
+              Swal.showValidationMessage("Reason is required");
+            }
+            // Send the reason along with the AJAX request
+            return {
+              reason: reason
+            };
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var reason = result.value.reason; // Get the reason entered by the user
+            if (reason) {
+              // Send the reason along with the AJAX request
+              $.ajax({
+                type: "POST",
+                url: "action.php",
+                data: {
+                  "delete_applicant_button": 1,
+                  "delete_applicant_ID": deleteApplicantID,
+                  "reason": reason, // Include the reason
+                },
+                success: function(response) {
+                  Swal.fire({
+                    title: "Successfully Deleted!",
+                    icon: "success",
+                  }).then((result) => {
+                    location.reload();
+                  });
+                },
+                error: function(xhr, status, error) {
+                  console.log("AJAX Error: " + error);
+                }
+              });
+            }
+          }
+        });
+      });
+    });
+
+
+    // For Undo Blacklisted Applicants
+    $(document).ready(function() {
+      $('.undoblacklistbtn').click(function(e) {
+        e.preventDefault();
+
+        var undoblacklistID = $(this).closest("tr").find('.undoblacklistID').val();
+        Swal.fire({
+          title: "Are you sure you want to undo this blacklisted applicant?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, undo this!",
+          cancelButtonText: "No, cancel",
+        }).then((willDelete) => {
+          if (willDelete.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "action.php",
+              data: {
+                "undo_button_click": 1,
+                "undoblacklist_id": undoblacklistID,
+              },
+              success: function(response) {
+
+                Swal.fire({
+                  title: "Successfully Deleted!",
+                  icon: "success"
+                }).then((result) => {
+                  location.reload();
+                });
+
+              }
+            });
+          }
+        });
+      });
+    });
+
+    // For Adding Applicants to shortlist
+    $(document).ready(function() {
+      $('.add_shortlist_btn').click(function(e) {
+        e.preventDefault();
+
+        var appno_ids = $(this).closest("tr").find('.appno_id').val();
+        Swal.fire({
+          title: "Are you sure you want to add this?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, add it!",
+          cancelButtonText: "No, cancel",
+        }).then((willDelete) => {
+          if (willDelete.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "action.php",
+              data: {
+                "add_shortlist_click": 1,
+                "appno_id_click": appno_ids,
+              },
+              success: function(response) {
+                // Parse the response as JSON
+                var jsonResponse = JSON.parse(response);
+                if (jsonResponse.message === "Successfully added to the shortlist") {
+                  Swal.fire({
+                    title: "Successfully Added!",
+                    icon: "success"
+                  }).then((result) => {
+                    location.reload();
+                  });
+                } else {
+                  Swal.fire({
+                    title: "Error due to duplication",
+                    icon: "error"
+                  });
+                }
+              },
+              error: function() {
+                Swal.fire({
+                  title: "Error due to duplication",
+                  icon: "error"
+                });
+              }
+            });
+          }
+        });
+      });
+    });
+
+
+    // For Undo termination of Applicants
+    $(document).ready(function() {
+      $('.unterminate_me').click(function(e) {
+        e.preventDefault();
+
+        var unterminateID = $(this).closest("tr").find('.emp_number').val();
+
+        Swal.fire({
+          title: "Are you sure you want to unterminate this person?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, unterminate it!",
+          cancelButtonText: "No, cancel",
+          showCloseButton: true, // Add a close button
+
+          // Customize the content of the modal
+          html: '<input type="text" id="unterminateReason" placeholder="Enter reason for untermination" class="swal2-input">',
+
+          preConfirm: () => {
+            // Retrieve the entered reason from the input field
+            var reason = document.getElementById("unterminateReason").value;
+
+            if (!reason) {
+              Swal.showValidationMessage("Reason is required");
+            }
+            // Send the reason along with the AJAX request
+            return {
+              reason: reason
+            };
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var reason = result.value.reason; // Get the reason entered by the user
+            if (reason) {
+              // Send the reason along with the AJAX request
+              $.ajax({
+                type: "POST",
+                url: "action.php",
+                data: {
+                  "unterminate_applicant_button": 1,
+                  "unterminate_applicant_ID": unterminateID,
+                  "reason": reason, // Include the reason
+                },
+                success: function(response) {
+                  Swal.fire({
+                    title: "Successfully Unterminated!",
+                    icon: "success",
+                  }).then((result) => {
+                    location.reload();
+                  });
+                },
+                error: function(xhr, status, error) {
+                  console.log("AJAX Error: " + error);
+                }
+              });
+            }
+          }
+        });
+      });
+    });
+
+    // For Viewing details
+    $(document).ready(function() {
+      $('tbody').on('click', '.displaymo', function() {
+        var Id = $(this).prev('.shadowd1').val();
+        $('#viewdetails').modal('show');
+
+        // load the corresponding question(s) for the clicked row
+        $.ajax({
+          url: 'view_details.php',
+          type: 'post',
+          data: {
+            view_button: 1,
+            id: Id
+          },
+          success: function(response) {
+            $('#viewdetails .modal-body').html(response);
+          },
+          error: function() {
+            alert('Error.');
+          }
+        });
+      });
+    });
+
+
+    // Enabling Tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
   </script>
   <script>
     $(document).ready(function() {
@@ -2076,107 +2579,6 @@ echo '
 
   <!--//========================================-->
 
-  <!-- Modal HTML -->
-  <div id="myModalmrf" class="modal fade">
-    <!--<div class="howx">-->
-    <div class="modal-dialog  modal-xl">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <h5 class="modal-title">Report</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-
-        <div class="modal-body">
-          <center>
-            <h3 class="fs-2">Summary Report</h3>
-
-            <hr>
-            <table id="e99" class="table table-sm align-middle mb-0 border border-info border-start-0 border-end-0 rounded-end" style="width:100%">
-              <thead>
-                <tr>
-                  <th class="text-white"> FILLED BY </th>
-                  <th class="text-white"> LOCATION </th>
-                  <th class="text-white"> POSITION </th>
-                  <th class="text-white"> NEEDED </thh>
-                  <th class="text-white"> PROVIDED </th>
-                  <th class="text-white"> RECEIVED BY: </th>
-                </tr>
-              </thead>
-              <tbody>
-
-                <?php
-
-                $result = mysqli_query($link, "SELECT * FROM mrf");
-                while ($row = mysqli_fetch_row($result)) {
-                  $uid1 = $row[47];
-                  $totalneed = $row[12] + $row[13];
-                  $totalprovided = $row[43] + $row[44];
-
-
-                  // $result_uid = mysqli_query($link, "SELECT * FROM book1 where idnya='$uid1'");
-                  // while ($row_uid = mysqli_fetch_assoc($result_uid)) {
-                  $fullname = $row[41];
-
-                  if ($row[46] == "YES") {
-
-                    echo ' <tr> ';
-                    echo '  <td>  ' . $row[41] . '   </td> ';
-                    echo '  <td>  ' . $row[42] . '   </td> ';
-                    echo '  <td>  ' . $row[10] . '   </td> ';
-                    echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
-                    echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
-
-                    echo ' <td> <form action = "" method = "POST">
-                                                <input type = "hidden" name = "mrf_val" value = "' . $row[0] . '">
-                                                       <button type="submit" name = "r_mrf" class="btn btn-default"><span class="glyphicon glyphicon-edit" ></span> Provide Shortlist</button>
-                                                </form>
-                                            </td>
-                                   </tr> ';
-                  } else {
-                    echo ' <tr> ';
-                    echo '  <td>  ' . $fullname . '   </td> ';
-                    echo '  <td>  ' . $row[42] . '   </td> ';
-                    echo '  <td>  ' . $row[10] . '   </td> ';
-                    echo '  <td style=" text-align: center;">  ' . $totalneed . '   </td> ';
-                    echo '  <td style=" text-align: center;">  ' . $totalprovided . '   </td> ';
-                    echo '
-                                           <td> <form action = "" method = "POST">
-                                                <input type = "hidden" name = "mrf_val" value = "' . $row[0] . '">
-                                                       <button type="submit" name = "r_mrf" class="btn btn-default"><span class="glyphicon glyphicon-edit" ></span> Accept MRF</button>
-                                                </form>
-                                            </td>
-                                   </tr> ';
-                  }
-                }
-                //} 
-                ?>
-
-
-
-              </tbody>
-            </table>
-          </center>
-        </div>
-
-        <div class="modal-footer">
-          <form action="" method="POST">
-            <button class="btn btn-primary" Name="cancel"><span>OK</span></button>
-
-          </form>
-          <!--  <a href="https://www.facebook.com/sosy.tindera" class="fa fa-facebook"></a>
-                                              <input type="submit" Value =  "Next" class="btn btn-success" id="submit">
-                                              <button type="button" class="btn btn-primary">Save changes</button>
-                                    <input type="submit" value = "dd" name ="location_to" class="btn btn-primary"  >
-                                      -->
-          </form>
-        </div>
-
-      </div>
-    </div>
-    <!-- </div> -->
-  </div>
 
 
 
@@ -2249,16 +2651,15 @@ if (isset($kekelpogi1)) {
 
           <label class="form-label"> Project Title </label>
           <center>
-            <select class="form-select" name="shortlisttitle">
-              <option>Select shortlist Name:</option>
+            <select class="form-select" name="shortlisttitle" required>
+              <option value="">Select shortlist Name:</option>
               <?php
 
               $resultpro = mysqli_query($link, "SELECT * FROM shortlist_details WHERE activity ='ACTIVE' order by shortlistname ASC ");
               while ($rowpro = mysqli_fetch_array($resultpro)) {
 
                 echo '<option  value="' . $rowpro[1] . '">' . $rowpro[1] . '(' . $rowpro[2] . ') </option> 
-                                                   
-                                                                       ';
+                                                                                                         ';
               }
               ?>
 
@@ -2275,7 +2676,7 @@ if (isset($kekelpogi1)) {
       <div class="modal-footer">
 
         <input type="submit" name="addapp" value="Okay" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
-        <input type="submit" name="Cancelko" value="Close" data-bs-dismiss="modal" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
+        <input type="button" name="Cancelko" value="Close" data-bs-dismiss="modal" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
         </form>
 
       </div>
@@ -2290,7 +2691,7 @@ if (isset($kekelpogi1)) {
 
 <!-- Modal -->
 <div class="modal fade" id="myModaladdshortview" role="dialog">
-  <div class="modal-dialog"> <!--//sm,med, lg , xl-->
+  <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
@@ -2314,26 +2715,14 @@ if (isset($kekelpogi1)) {
             <select class="form-select" name="shortlisttitle1"> ;
               <option>Select shortlist Name:</option>
               <?php
-
               $resultpro = mysqli_query($link, "SELECT * FROM shortlist_details WHERE activity ='ACTIVE' order by shortlistname ASC ");
               while ($rowpro = mysqli_fetch_array($resultpro)) {
-
-                echo '<option  value="' . $rowpro[1] . '">' . $rowpro[1] . '(' . $rowpro[2] . ') </option> 
-                                                   
-                                                                       ';
+                echo '<option  value="' . $rowpro[1] . '">' . $rowpro[1] . '(' . $rowpro[2] . ') </option> ';
               }
               ?>
-
-
             </select>
           </center>
       </div>
-
-
-
-
-
-
       <div class="modal-footer">
 
         <input type="submit" name="addappview" value="Okay" class="btn btn-info btn-lg" style="font-size:15;width: 100px;height: 50px">
@@ -2347,6 +2736,36 @@ if (isset($kekelpogi1)) {
   </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

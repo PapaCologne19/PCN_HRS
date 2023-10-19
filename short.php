@@ -100,9 +100,6 @@ if (isset($_POST['Back1'])) {
       background-color: #D80032;
       color: white;
     }
-    input{
-      text-transform: lowercase;
-    }
   </style>
 </head>
 

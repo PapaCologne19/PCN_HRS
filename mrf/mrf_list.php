@@ -233,14 +233,13 @@ $datenow = date("m/d/Y");
 
 
             // Deleting MRF
-            // Deleting Rooms
             $(document).ready(function() {
                 $('.btndelete').click(function(e) {
                     e.preventDefault();
 
                     var deleteID = $(this).closest("tr").find('.delete_id').val();
                     Swal.fire({
-                        title: "Are you sure you want to delete this room?",
+                        title: "Are you sure you want to delete this MRF?",
                         icon: "warning",
                         showCancelButton: true,
                         confirmButtonText: "Yes, delete it!",
