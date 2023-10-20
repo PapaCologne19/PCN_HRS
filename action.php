@@ -50,7 +50,9 @@ if (isset($_POST['next'])) {
     $nbid1 = date_format($datenbi, "m/d/Y");
     $psa1 = mysqli_real_escape_string($link, preg_replace('/\s+/', ' ', (strtoupper($_POST['psa']))));
     $remarks1 = mysqli_real_escape_string($link, preg_replace('/\s+/', ' ', (strtoupper($_POST['remarks']))));
-    $resultempl = mysqli_query($link, "select * from employees WHERE lastnameko = '$lastnameko1' and firstnameko ='$firstnameko1' and mnko='$mnko1'");
+
+    $resultempl = mysqli_query($link, "SELECT * FROM employees WHERE lastnameko = '$lastnameko1' AND firstnameko = '$firstnameko1' AND mnko='$mnko1' AND birthday = '$birthday1'");
+    $row = $resultempl->fetch_assoc();
 
     if (mysqli_num_rows($resultempl) === 0) {
         $InsertApplicantQuery = "INSERT INTO employees
@@ -68,7 +70,7 @@ if (isset($_POST['next'])) {
             header("Location: recruitment.php");
         }
     } else {
-        $_SESSION['errorMessage'] = "Applicant is in Database!";
+        $_SESSION['errorMessage'] = "Applicant is already in Database! In: " . $row['actionpoint'];
         header("Location: recruitment.php");
     }
 }
@@ -230,6 +232,22 @@ if (isset($_POST['undo_button_click'])) {
     }
 }
 
+// For Undo Canceled Applicants
+if (isset($_POST['undo_canceled_button_click'])) {
+    $undo_canceled_id = $_POST['undocanceled_id'];
+    $undo_cancel = "UPDATE employees SET actionpoint = 'ACTIVE', reasonofaction = '', dateofaction = '' WHERE id = '$undo_canceled_id'";
+
+    $result_editcancel = mysqli_query($link, $undo_cancel);
+
+    if ($result_editcancel) {
+        $_SESSION['successMessage'] = "Successful";
+        header("Location: recruitment.php");
+    } else {
+        $_SESSION['errorMessage'] = "Error";
+        header("Location: recruitment.php");
+    }
+}
+
 // For creating shortlist title
 if (isset($_POST['createshortlist'])) {
     $dtnow = date("m/d/Y");
@@ -275,8 +293,6 @@ if (isset($_POST['createshortlist'])) {
 if (isset($_POST['add_shortlist_click'])) {
     $id1 = $_POST['appno_id_click'];
     $data = $_SESSION["data"];
-
-    // echo "Reached here";
 
     $querytac = "SELECT * FROM employees WHERE appno = '$id1'";
     $resultac = mysqli_query($link, $querytac);
@@ -353,12 +369,74 @@ if (isset($_POST['unterminate_applicant_button'])) {
     $unterminate_query = "UPDATE employees SET actionpoint = 'EWB', unter_reason = '$unter_reason1', reasonofaction = '$unter_reason1' WHERE appno = '$emp_number1'";
     $resultemp = mysqli_query($link, $unterminate_query);
 
-    if($resultemp){
+    if ($resultemp) {
         $_SESSION['succesMessage'] = "Untermination successful";
         header("Location: recruitment.php");
-    }
-    else{
+    } else {
         $_SESSION['errorMessage'] = "Untermination error!";
         header("Location: recruitment.php");
+    }
+}
+
+// For removing applicants to the shortlist table
+if (isset($_POST['remove_button_click'])) {
+    $id1 = $_POST['app_num'];
+    $corow1 = $_POST['shad'];
+    $data = $_SESSION["data"];
+
+    if ($corow1 != 1) {
+        $dtnow = date("m/d/Y");
+
+        $querychk1 = "SELECT * FROM shortlist_master WHERE shortlistnameto = '$data' AND appnumto = '$id1' ";
+        $resultchk1 = mysqli_query($link, $querychk1);
+        if (mysqli_num_rows($resultchk1) == 0) {
+            $response = array('message' => 'Cannot locate applicant!');
+            echo json_encode($response);
+            exit;
+        } else {
+            $query_delete = "DELETE FROM shortlist_master WHERE shortlistnameto = '$data' AND appnumto = '$id1'";
+            $result_delete = mysqli_query($link, $query_delete);
+
+            if ($result_delete) {
+                $response = array('message' => 'Successfully removed from the shortlist');
+                echo json_encode($response);
+                exit;
+            } else {
+                $response = array('message' => 'Delete Error!');
+                echo json_encode($response);
+                exit;
+            }
+        }
+    } else {
+        $query_update = "UPDATE employees SET actionpoint = 'ACTIVE' WHERE appno = '$id1'";
+        $result_update = mysqli_query($link, $query_update);
+
+        if ($result_update) {
+            $dtnow = date("m/d/Y");
+            $querychk1 = "SELECT * FROM shortlist_master WHERE shortlistnameto = '$data' AND appnumto = '$id1'";
+            $resultchk1 = mysqli_query($link, $querychk1);
+            if (mysqli_num_rows($resultchk1) == 0) {
+                $response = array('message' => 'Cannot locate applicant!');
+                echo json_encode($response);
+                exit;
+            } else {
+                $query_deleted = "DELETE FROM shortlist_master WHERE shortlistnameto = '$data' AND appnumto='$id1'";
+                $result_deleted = mysqli_query($link, $query_deleted);
+
+                if ($result_deleted) {
+                    $response = array('message' => 'Successfully removed from the shortlist');
+                    echo json_encode($response);
+                    exit;
+                } else {
+                    $response = array('message' => 'Error!');
+                    echo json_encode($response);
+                    exit;
+                }
+            }
+        } else {
+            $response = array('message' => 'Error!');
+            echo json_encode($response);
+            exit;
+        }
     }
 }

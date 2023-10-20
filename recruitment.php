@@ -13,16 +13,10 @@ $datenow = date("m/d/Y h:i:s A");
 $resultap = mysqli_query($link, "SELECT * FROM synch where id ='2'");
 while ($rowap = mysqli_fetch_array($resultap)) {
   if ($rowap[2] != $datenow1) {
-    //echo "synch it";
-
     $day1 = date("d") - 1;
     $month1 = date("m");
     $year1 = date("Y");
-
-
     $date_old = $year1 . "-" . $month1 . "-" . $day1;
-    //echo $date_old;
-
 
     //change employee status to EWB
     $resultemp1 = mysqli_query($link, "SELECT * FROM projects WHERE end_date <= '$date_old'");
@@ -32,16 +26,10 @@ while ($rowap = mysqli_fetch_array($resultap)) {
       $resultemp = mysqli_query($link, "UPDATE shortlist_details set activity='INACTIVE'  WHERE project = '$rowem1[1]'");
     }
 
-    mysqli_query($link, "UPDATE synch
-                             SET
-                          datenow1='$datenow1',
-                          katsing='Shortlist'
-                                        
-                          WHERE
-                          id = '2'
-                          ");
+    $query_sync = "UPDATE synch SET datenow1 = '$datenow1', katsing = 'Shortlist' WHERE id = '2'";
+    $result_sync = mysqli_query($link, $query_sync);
 
-    $kekelpogi = "Shortlist Database Synch Complete";
+    $_SESSION['successMessage'] = "Shortlist Database Synch Complete";
   } else {
     //echo "synch na do nothing";
 
@@ -409,6 +397,7 @@ echo '
                                                       <ul class="cd-side__sub-list">
                                                         <form action = "" method = "POST">
                                                         <li class="cd-side__btn"><a><BUTTON class="btn" name = "blacklistr" style="font-size:14; width:150px;height:50px">List of Blacklisted</button></a></li>     
+                                                        <li class="cd-side__btn"><a><BUTTON class="btn" name = "canceledbtn" style="font-size:14; width:150px;height:50px">List of Canceled</button></a></li>     
                                                         <li class="cd-side__btn"><a><BUTTON class="btn" name = "viewdatabase" style="font-size:14; width:150px;height:50px">View Database</button></a></li>     
                                                         <!--<li class="cd-side__sub-item"><a><BUTTON class="btn" name = "additionalr">Additional Repots</button></a></li>-->
                                                         </form>
@@ -493,7 +482,7 @@ echo '
 
   if (isset($_POST['summary'])) {
     echo '
-<div class="body5025p">
+<div class="containers">
 <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 14px;">
             <thead>
             <tr>
@@ -695,7 +684,7 @@ echo '
       <div class="cd-content-wrappers">
         <div class="text-component text-center">
           <h2 class="fs-2">Applicant Database</h2>
-          <table id="example" class="table p-3 table-striped table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 13px !important;">
+          <table id="example" class="table p-3 table-bordered align-middle mb-0 border border-dark border-start-0 border-end-0 rounded-end" style="border: 1px solid whitesmoke !important; width: 100%; font-size: 13px !important;">
             <thead>
               <tr>
                 <th>ID</th>
@@ -705,6 +694,7 @@ echo '
                 <th>Contact No.</th>
                 <th>Birthday </th>
                 <th>Address </th>
+                <th>Status </th>
                 <th>Action </th>
 
               </tr>
@@ -721,8 +711,12 @@ echo '
                 echo '  <td> ' . $rowx['emailadd'] . '   </td> ';
                 echo '  <td> ' . $rowx['cpnum'] . '   </td> ';
                 echo '  <td> ' . $rowx['birthday'] . '   </td> ';
-                echo '  <td> ' . $rowx['peraddress'] . '   </td> ';
-                echo '<td> 
+                echo '  <td> ' . $rowx['peraddress'] . '   </td> '; 
+                  if($rowx['actionpoint'] === "ACTIVE"){ ?>
+                  <td class="badge bg-success rounded-pill p-2 text-white"><?php echo $rowx['actionpoint'];?></td>
+                <?php } elseif($rowx['actionpoint'] === "") {?>
+                  <td><?php echo $rowx['actionpoint'];?></td>
+                <?php }echo '<td> 
                       <form action = "" method = "POST" class="contain">
                         <div class="columns">
                           <input type = "hidden" name = "shadowE" value = "' . $rowx['id'] . '">
@@ -1743,6 +1737,77 @@ echo '
   ';
   }
 
+  if (isset($_POST['canceledbtn'])) {
+    echo '
+                <div class="cd-content-wrapper">
+                  <div class="text-component text-center">
+<div class = "container">
+            <!--- laman -->
+             <form action = "" method = "POST" style="align=left">
+             <button type="submit" class="btn btn-default btnsall" Name ="Back" style="float:right;"><span>Close Report</span></button>
+             <br><br><br>
+</form>
+                    <h2 class="fs-2">List of Canceled</h2>
+         
+<table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;">
+            <thead>
+            <tr>
+            <th> ID</th>
+            <th> Applicant No </th>
+            <th> Lastname </th>
+            <th> Firstname </th>
+            <th> Middlename </th>
+            <th> Birthday </th>
+            <th> Reason </th>
+            <th> Action </th>
+             </tr>   
+            </thead>
+            <tbody> 
+';
+    $resultx = mysqli_query($link, "SELECT * FROM employees where actionpoint = 'CANCELED'");
+    while ($rowx = mysqli_fetch_assoc($resultx)) {
+      $inputDate = $rowx['birthday'];
+      $timestamp = strtotime($inputDate);
+      $formattedDate = date("F d, Y", $timestamp);
+
+      echo ' <tr> ';
+      echo '  <td>  ' . $rowx['id'] . '   </td> ';
+      echo '  <td>  ' . $rowx['appno'] . '   </td> ';
+      echo '  <td>  ' . $rowx['lastnameko'] . '   </td> ';
+      echo '  <td> ' . $rowx['firstnameko'] . '   </td> ';
+      echo '  <td> ' . $rowx['mnko'] . '   </td> ';
+      echo '  <td> ' . $formattedDate . '   </td> ';
+      echo '  <td> ' . $rowx['reasonofaction'] . '   </td> ';
+
+      echo '<td> <form action = "" method = "POST">
+        <input type = "hidden" name = "undocanceledID" class="undocanceledID" id="undocanceledID" value = "' . $rowx['id'] . '">
+        <button type="submit" name = "undocanceledbtn" class="btn btn-default undocanceledbtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Undo Canceled">
+       <i class="bi bi-arrow-counterclockwise"></i></button>
+  
+    ';
+
+
+      echo '</form></td>';
+
+
+
+
+      echo ' </tr> ';
+    }
+    echo '
+     </tbody>
+        </table> 
+  
+     
+                  </div>
+            <!--- laman -->
+                  </div>
+                </div> <!-- .content-wrapper -->
+  
+  ';
+  }
+
+
 
   if (isset($_POST['shorlistr'])) {
     echo '
@@ -1799,7 +1864,7 @@ echo '
       <h2 class="fs-2"><font color="black"> ' . $view . ' </font> </h2>
     <br><br>
 
-                  <table id="example" class="table table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;" style="width:100%;">
+                  <table id="example" class="table table-striped table-bordered table-sm align-middle mb-0 bg-white p-3 bg-opacity-10 border border-secondary border-start-0 border-end-0 rounded-end" style="width:100%; font-size: 13px !important;" style="width:100%;">
                           <thead>
                             <tr>
                               <th> ID </th>
@@ -2043,16 +2108,14 @@ echo '
   <div class="cd-content-wrapper">
   <div class="text-component text-center">
 <div class = "container">
-          <form action = "" method = "POST">
-          <button class="btn btn-success btnsall" Name ="Back" style="float:right;"><span>Back</span></button>
-           </form>
             <br><br><br>
             <h2 class="fs-2">' . $view . '  </h2>
             <br><br>
 
-                <table id="example" class="table p-3 table-sm align-middle mb-0 p-3 border border-info border-start-0 border-end-0 rounded-end" style="width:100%;">
+                <table id="example" class="table table-striped table-sm align-middle mb-0 p-3 border border-info border-start-0 border-end-0 rounded-end" style="width:100%;">
                             <thead>
                               <tr>
+                                <th> ID </th>
                                 <th> Name </th>
                                 <th> SSS </th>
                                 <th> Pag-ibig </th>
@@ -2070,70 +2133,56 @@ echo '
                 ';
 
     $resultx1 = mysqli_query($link, "SELECT * FROM shortlist_master WHERE shortlistnameto = '$data'");
-    while ($rowx1 = mysqli_fetch_row($resultx1)) {
-      // $kekelpogi= $rowx1[2];
+    while ($rowx1 = mysqli_fetch_assoc($resultx1)) {
+      $appnumto = $rowx1['appnumto'];
 
-      $resultx = mysqli_query($link, "SELECT * FROM employees WHERE appno = '$rowx1[2]' ");
-      while ($rowx = mysqli_fetch_row($resultx)) {
+      $resultx = mysqli_query($link, "SELECT * FROM employees WHERE appno = '$appnumto' ");
+      while ($rowx = mysqli_fetch_assoc($resultx)) {
+        $police = $rowx['policed'];
+        $barangay = $rowx['brgyd'];
+        $nbi = $rowx['nbid'];
+        $timestamp_police = strtotime($police);
+        $timestamp_barangay = strtotime($barangay);
+        $timestamp_nbi = strtotime($nbi);
+        $formattedDate_police = date("F d, Y", $timestamp_police);
+        $formattedDate_barangay = date("F d, Y", $timestamp_barangay);
+        $formattedDate_nbi = date("F d, Y", $timestamp_nbi);
 
         echo ' <tr> ';
-
-        echo '  <td>  ' . $rowx[6] . ", " . $rowx[7] . " " . $rowx[8] . '   </td> ';
-        echo '  <td> ' . $rowx[24] . '   </td> ';
-        echo '  <td> ' . $rowx[25] . '   </td> ';
-        echo '  <td> ' . $rowx[26] . '   </td> ';
-        echo '  <td> ' . $rowx[27] . '   </td> ';
-        echo '  <td> ' . $rowx[28] . '   </td> ';
-        echo '  <td> ' . $rowx[29] . '   </td> ';
-        echo '  <td> ' . $rowx[30] . '   </td> ';
-        echo '  <td> ' . $rowx[31] . '   </td> ';
-
-
-
-
-
+        echo '  <td>  ' . $rowx['id'] . '   </td> ';
+        echo '  <td>  ' . $rowx['lastnameko'] . ", " . $rowx['firstnameko'] . " " . $rowx['mnko'] . '   </td> ';
+        echo '  <td> ' . $rowx['sssnum'] . '   </td> ';
+        echo '  <td> ' . $rowx['pagibignum'] . '   </td> ';
+        echo '  <td> ' . $rowx['phnum'] . '   </td> ';
+        echo '  <td> ' . $rowx['tinnum'] . '   </td> ';
+        echo '  <td> ' . $formattedDate_police . '   </td> ';
+        echo '  <td> ' . $formattedDate_barangay . '   </td> ';
+        echo '  <td> ' . $formattedDate_nbi . '   </td> ';
+        echo '  <td> ' . $rowx['psa'] . '   </td> ';
         echo '<td> 
-                         <form action = "" method = "POST">
-     
-                      <input type = "hidden" name = "shadowE1x" value = "' . $rowx[4] . '">
-                      <input type = "hidden" name = "shadowE1" value = "' . $rowx[4] . '">
-
-
-                ';
-        $resultcem = mysqli_query($link, "SELECT * FROM shortlist_master where appnumto = '$rowx[4]'");
+                    <form action = "" method = "POST">
+                        <input type = "hidden" name = "shadowE1x" value = "' . $rowx['appno'] . '">
+                        <input type = "hidden" name = "shadowE1" class="shadowE1" id="shadowE1" value = "' . $rowx['appno'] . '">';
+        $appno = $rowx['appno'];
+        $resultcem = mysqli_query($link, "SELECT * FROM shortlist_master where appnumto = '$appno'");
         $corow = mysqli_num_rows($resultcem);
 
         echo '
-          
-                <input type = "hidden" name = "shad" value = "' . $corow . '">
-     
-                    <button type="submit" name = "remove"  class="btn btn-info notification">
-                      <span class="glyphicon glyphicon-edit">REMOVE</span> <span class="badge">' . $corow . '</span>
-                    </button>
-
-                     
-
-                </form>
+                    <input type = "hidden" name = "shad" class="shad" id="shad" value = "' . $corow . '">
+                      <button type = "submit" name = "remove"  class="btn btn-info notification remove" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove to shortlist">
+                      <i class="bi bi-trash"></i> <span class="badge">' . $corow . '</span>
+                      </button>
+                  </form>
                 </td>
-
-
-
-
-
-                                        </tr> ';
+            </tr> ';
       }
     }
     '
-
-                     </tbody>
-                        </table> 
-
-
+      </tbody>
+     </table> 
 </div>
 </div>
-</div>
-
-          ';
+</div>';
   }
   ?>
 
@@ -2377,7 +2426,6 @@ echo '
       });
     });
 
-
     // For Undo Blacklisted Applicants
     $(document).ready(function() {
       $('.undoblacklistbtn').click(function(e) {
@@ -2402,7 +2450,44 @@ echo '
               success: function(response) {
 
                 Swal.fire({
-                  title: "Successfully Deleted!",
+                  title: "Successfully Undo!",
+                  icon: "success"
+                }).then((result) => {
+                  location.reload();
+                });
+
+              }
+            });
+          }
+        });
+      });
+    });
+
+     // For Undo Canceled Applicants
+     $(document).ready(function() {
+      $('.undocanceledbtn').click(function(e) {
+        e.preventDefault();
+
+        var undocanceledID = $(this).closest("tr").find('.undocanceledID').val();
+        Swal.fire({
+          title: "Are you sure you want to undo this canceled applicant?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, undo this!",
+          cancelButtonText: "No, cancel",
+        }).then((willDelete) => {
+          if (willDelete.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "action.php",
+              data: {
+                "undo_canceled_button_click": 1,
+                "undocanceled_id": undocanceledID,
+              },
+              success: function(response) {
+
+                Swal.fire({
+                  title: "Successfully Undo!",
                   icon: "success"
                 }).then((result) => {
                   location.reload();
@@ -2550,6 +2635,61 @@ echo '
         });
       });
     });
+
+
+    // For removing the applicants from the shortlist table
+    $(document).ready(function() {
+      $('.remove').click(function(e) {
+        e.preventDefault();
+
+        var app_num = $(this).closest("tr").find('.shadowE1').val();
+        var shad = $(this).closest("tr").find('.shad').val();
+
+        Swal.fire({
+          title: "Are you sure you want to remove this from the shortlist?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, remove it!",
+          cancelButtonText: "No, cancel",
+        }).then((willDelete) => {
+          if (willDelete.isConfirmed) {
+            $.ajax({
+              type: "POST",
+              url: "action.php",
+              data: {
+                "remove_button_click": 1,
+                "app_num": app_num,
+                "shad": shad,
+              },
+              success: function(response) {
+                // Parse the response as JSON
+                var jsonResponse = JSON.parse(response);
+                if (jsonResponse.message === "Successfully removed from the shortlist") {
+                  Swal.fire({
+                    title: "Successfully Removed!",
+                    icon: "success"
+                  }).then((result) => {
+                    location.reload();
+                  });
+                } else {
+                  Swal.fire({
+                    title: jsonResponse.message, // Display the error message from the server
+                    icon: "error"
+                  });
+                }
+              },
+              error: function(xhr, status, error) {
+                Swal.fire({
+                  title: "Error: " + error, // Display a generic error message
+                  icon: "error"
+                });
+              }
+            });
+          }
+        });
+      });
+    });
+
 
 
     // Enabling Tooltips
@@ -2853,8 +2993,8 @@ if (isset($kekelpogi1)) {
 
           <label class="form-label"> Project Title </label>
           <center>
-            <select class="form-select" name="shortlisttitle1del" data-placeholder="" style="height:45px;width:60%"> ;
-              <option>Select shortlist Name:</option>
+            <select class="form-select" name="shortlisttitle1del" data-placeholder="" style="height:45px;width:60%" required> ;
+              <option value="">Select shortlist Name:</option>
               <?php
 
               $resultpro = mysqli_query($link, "SELECT * FROM shortlist_details WHERE activity ='ACTIVE' order by shortlistname ASC ");
